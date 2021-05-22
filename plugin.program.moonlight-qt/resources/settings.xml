@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<settings version="1">
+    <section id="plugin.program.moonlight-qt">
+        <category id="update" label="30002" help="30002">
+            <group id="1" label="30002">
+				<setting help="30003" id="update_action" label="30003" type="action">
+					<level>0</level>
+					<data>RunScript(plugin.program.moonlight-qt,UpdateMoonlight)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="action" type="button">
+						<close>true</close>
+					</control>
+				</setting>
+            </group>
+        </category>
+    </section>
+</settings>

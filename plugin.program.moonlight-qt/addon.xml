@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.moonlight-qt" name="Moonlight Pi 4" version="0.0.1" provider-name="veldenb">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="service.system.docker" version="9.80.11.133"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>game</provides>
+    </extension>
+    <extension point="xbmc.python.script" library="script.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Launcher for Moonlight game streaming on LibreELEC/Raspberry Pi 4 devices.</summary>
+        <description lang="en_GB">This addon launches moonlight-qt. It also has the ability to launch a specific game and update moonlight-qt.</description>
+        <language>en</language>
+        <platform>linux</platform>
+        <license>GPL-3.0-or-later</license>
+        <forum></forum>
+        <website>https://github.com/veldenb/moonlight-qt</website>
+        <email></email>
+        <source>https://github.com/veldenb/moonlight-qt</source>
+        <news>v0.0.1
+- initial version</news>
+        <disclaimer>Feel free to use this at your own risk, I'm not responsible if anything gets damaged.</disclaimer>
+        <assets>
+            <icon>resources/icon.png</icon>
+            <fanart>resources/fanart.jpg</fanart>
+            <screenshot>resources/screenshot-01.png</screenshot>
+        </assets>
+    </extension>
+</addon>

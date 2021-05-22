@@ -1,0 +1,26 @@
+# Kodi Media Center language file
+# Addon Name: Moonlight Raspberry Pi 4
+# Addon id: plugin.program.moonlight-qt
+# Addon Provider: veldenb
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: veldenb\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30001"
+msgid "Moonlight Raspberry Pi 4"
+msgstr "Moonlight Raspberry Pi 4"
+
+#
+#Settings
+#
+
+msgctxt "#30002"
+msgid "Update"
+msgstr "Update"
+
+msgctxt "#30003"
+msgid "Update Moonlight to latest version"
+msgstr "Update Moonlight to latest version"
+

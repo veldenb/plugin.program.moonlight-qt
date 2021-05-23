@@ -17,24 +17,23 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
 
 ## Instructions:
 ### 1. Install this plugin.
-```
-Kodi/Add-ons/Install from zip file
-Select plugin.program.moonlight-qt.zip
-```
+- Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/download/v0.0.1/plugin.program.moonlight-qt.zip) and store it on your Kodi device.
+- In Kodi go to Add-ons/Install from zip file
+- Select plugin.program.moonlight-qt.zip
+
    
 ### 2. Start Moonlight 
-```
 - Navigate to Games -> Moonlight Pi 4.
 - Start Moonlight from the games menu.
 - The plugin will ask you to install Moonlight, choose yes and wait a few minutes.
 - When the plugin has finished installing Moonlight it wil launch it
 - Moonlight should start and scan for PC's with Gamestream enabled
-```
+
 
 ### 3. Enable Nvidia Gamestream on your gaming PC
-```
+
 GeForce Experience/Settings/Shield/Gamestream (move slider to right)
-```
+
 ![Gamestream host pop-up](https://raw.githubusercontent.com/wiki/moonlight-stream/moonlight-docs/images/gfe-gamestream-enable-small.png)
 
 If your PC is not recognised you can try to turn it off and on again on your gaming PC.

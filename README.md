@@ -44,7 +44,7 @@ When the pairing is finished you can use Moonlight to adjust settings for stream
 
 ### 5. Launch games from Kodi
 Because Moonlight saves its configuration and image-cache to Kodi's storage you can now browse and start your games using the Games menu in Kodi by entering the "Moonlight Pi 4" menu item. 
-Remember that all games are displayed from cache so they are one updated when Moonlight connects to your gaming PC.
+Remember that all games are displayed from local cache so they are only updated when Moonlight connects to your gaming PC.
 
 <img src="resources/screenshot-01.png" width="600">
 

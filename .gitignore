@@ -1,4 +1,4 @@
 /.idea/
-/plugin.program.moonlight-qt/__pycache__
-/plugin.program.moonlight-qt/resources/lib/moonlight-home/
-/plugin.program.moonlight-qt/resources/lib/moonlight-qt/
+/__pycache__
+/resources/lib/moonlight-home/
+/resources/lib/moonlight-qt/

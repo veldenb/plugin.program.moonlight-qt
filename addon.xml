@@ -17,9 +17,9 @@
         <platform>linux</platform>
         <license>GPL-3.0-or-later</license>
         <forum></forum>
-        <website>https://github.com/veldenb/moonlight-qt</website>
+        <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
         <email></email>
-        <source>https://github.com/veldenb/moonlight-qt</source>
+        <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
         <news>v0.0.1
 - initial version</news>
         <disclaimer>Feel free to use this at your own risk.</disclaimer>

@@ -5,7 +5,7 @@
             <group id="1" label="30002">
                 <setting help="30003" id="update_action" label="30003" type="action">
                     <level>0</level>
-                    <data>RunScript(plugin.program.moonlight-qt,UpdateMoonlight)</data>
+                    <data>RunScript(special://home/addons/plugin.program.moonlight-qt/moonlight_update.py)</data>
                     <constraints>
                         <allowempty>true</allowempty>
                     </constraints>

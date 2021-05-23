@@ -7,9 +7,6 @@
     <extension point="xbmc.python.pluginsource" library="addon.py">
         <provides>game</provides>
     </extension>
-    <extension point="xbmc.python.script" library="script.py">
-        <provides>executable</provides>
-    </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Launcher for Moonlight game streaming on LibreELEC/Raspberry Pi 4 devices.</summary>
         <description lang="en_GB">This addon launches moonlight-qt. It also has the ability to launch a specific game and update moonlight-qt.</description>

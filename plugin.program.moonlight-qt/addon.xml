@@ -22,11 +22,13 @@
         <source>https://github.com/veldenb/moonlight-qt</source>
         <news>v0.0.1
 - initial version</news>
-        <disclaimer>Feel free to use this at your own risk, I'm not responsible if anything gets damaged.</disclaimer>
+        <disclaimer>Feel free to use this at your own risk.</disclaimer>
         <assets>
             <icon>resources/icon.png</icon>
             <fanart>resources/fanart.jpg</fanart>
             <screenshot>resources/screenshot-01.png</screenshot>
+            <screenshot>resources/screenshot-02.png</screenshot>
+            <screenshot>resources/screenshot-03.png</screenshot>
         </assets>
     </extension>
 </addon>

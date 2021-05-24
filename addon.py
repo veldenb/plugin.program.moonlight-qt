@@ -85,7 +85,6 @@ def show_hosts(handle, hosts):
             host = hosts[tag_id]
 
             url = build_url({'mode': 'host', 'host_id': tag_id})
-            # Possibly add customname?
             li = xbmcgui.ListItem(host.get('hostname'))
             xbmcplugin.addDirectoryItem(handle, url, li, isFolder=True)
 

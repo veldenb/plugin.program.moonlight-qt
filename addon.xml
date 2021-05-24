@@ -9,7 +9,9 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Launcher for Moonlight game streaming on LibreELEC/Raspberry Pi 4 devices.</summary>
-        <description lang="en_GB">This addon launches moonlight-qt. It also has the ability to launch a specific game and update moonlight-qt.</description>
+        <summary lang="nl_NL">Starter voor Moonlight game streaming voor LibreELEC/Raspberry Pi 4 apparaten.</summary>
+        <description lang="en_GB">This add-on launches Moonlight-qt. This add-on also has the ability to launch a specific game and update Moonlight-qt.</description>
+        <description lang="nl_NL">Deze uitbreiding start Moonlight-qt. Deze uitbreiding heeft ook de mogelijkheid om een specifiek spel op te starten en Moonlight-qt bij te werken.</description>
         <language>en</language>
         <platform>linux</platform>
         <license>GPL-3.0-or-later</license>
@@ -17,9 +19,13 @@
         <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
         <email></email>
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
-        <news>v0.0.1
+        <news>v0.0.2
+- Added language support for Dutch
+
+v0.0.1
 - initial version</news>
-        <disclaimer>Feel free to use this at your own risk.</disclaimer>
+        <disclaimer lang="en_GB">Feel free to use this at your own risk.</disclaimer>
+        <disclaimer lang="nl_NL">Voel je vrij om dit te gebruiken maar wel op eigen risico.</disclaimer>
         <assets>
             <icon>resources/icon.png</icon>
             <fanart>resources/fanart.jpg</fanart>

@@ -92,7 +92,7 @@ def show_hosts(handle, hosts):
 
 def show_moonlight(handle):
     url = build_url({'mode': 'launch'})
-    li = xbmcgui.ListItem('Moonlight')
+    li = xbmcgui.ListItem(addon.getLocalizedString(30001))
     icon = get_icon_path()
     fanart = get_fanart_path()
     li.setArt({
@@ -160,13 +160,17 @@ def show_gui(handle, mode, hosts, host_id, game_id):
             game_name = hosts[host_id]['apps'][game_id]['name']
 
             # Launch game
-            moonlight.launch(host_name, game_name)
+            moonlight.launch(addon, host_name, game_name)
         else:
             # Launch Moonlight
-            moonlight.launch()
+            moonlight.launch(addon)
+
+    elif mode == 'update':
+        # Update Moonlight
+        moonlight.update(addon)
 
     else:
-        xbmc.log('Unknown GUI command', xbmc.LOGERROR)
+        xbmc.log('Unknown GUI mode: {}'.format(mode), xbmc.LOGERROR)
 
 
 # Arguments
@@ -176,8 +180,9 @@ args = urllib.parse.parse_qs(sys.argv[2][1:])
 
 # Configure addon
 addon_id = 'plugin.program.moonlight-qt'
-xbmcplugin.setContent(addon_handle, 'games')
 addon = xbmcaddon.Addon(addon_id)
+if addon_handle != -1:
+    xbmcplugin.setContent(addon_handle, 'games')
 
 # Paths
 addon_path = addon.getAddonInfo('path')

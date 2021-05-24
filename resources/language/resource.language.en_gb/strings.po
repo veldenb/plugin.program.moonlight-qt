@@ -1,0 +1,78 @@
+# Kodi Media Center language file
+# Addon Name: Moonlight Raspberry Pi 4
+# Addon id: plugin.program.moonlight-qt
+# Addon Provider: veldenb
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: veldenb\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Moonlight Raspberry Pi 4"
+msgstr "Moonlight Raspberry Pi 4"
+
+msgctxt "#30001"
+msgid "Moonlight"
+msgstr "Moonlight"
+
+#
+# Settings
+#
+
+msgctxt "#30002"
+msgid "Update"
+msgstr "Update"
+
+msgctxt "#30003"
+msgid "Update Moonlight to latest version"
+msgstr "Update Moonlight to latest version"
+
+#
+# Installing and updating
+#
+
+
+msgctxt "#30100"
+msgid "Install Moonlight"
+msgstr "Install Moonlight"
+
+msgctxt "#30101"
+msgid "Do you want install the latest version of Moonlight? This wil take a few minutes."
+msgstr "Do you want install the latest version of Moonlight? This wil take a few minutes."
+
+msgctxt "#30102"
+msgid "Do you want update to the latest version of Moonlight? This wil take a few minutes."
+msgstr "Do you want update to the latest version of Moonlight? This wil take a few minutes."
+
+msgctxt "#30103"
+msgid "Updating Moonlight"
+msgstr "Updating Moonlight"
+
+msgctxt "#30104"
+msgid "Updating Moonlight using Docker, this will take a while..."
+msgstr "Updating Moonlight using Docker, this will take a while..."
+
+msgctxt "#30105"
+msgid "Update failed: %(error_msg)s"
+msgstr "Update failed: %(error_msg)s"
+
+#
+# Launching
+#
+
+msgctxt "#30200"
+msgid "Launching Moonlight"
+msgstr "Launching Moonlight"
+
+msgctxt "#30201"
+msgid "Moonlight not installed, aborting launch!"
+msgstr "Moonlight not installed, aborting launch!"
+
+msgctxt "#30202"
+msgid "Starting %(game)s..."
+msgstr "Starting %(game)s..."
+
+msgctxt "#30202"
+msgid "Launching failed!"
+msgstr "Launching failed!"

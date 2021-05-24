@@ -57,9 +57,14 @@ msgctxt "#30105"
 msgid "Update failed: %(error_msg)s"
 msgstr "Bijwerken niet gelukt: %(error_msg)s"
 
+msgctxt "#30106"
+msgid "Update finished!"
+msgstr "Bijwerken gelukt!"
+
 #
 # Launching
 #
+
 
 msgctxt "#30200"
 msgid "Launching Moonlight"
@@ -73,6 +78,6 @@ msgctxt "#30202"
 msgid "Starting %(game)s..."
 msgstr "%(game)s starten..."
 
-msgctxt "#30202"
+msgctxt "#30203"
 msgid "Launching failed!"
 msgstr "Starten is niet gelukt!"

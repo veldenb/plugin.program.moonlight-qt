@@ -5,17 +5,17 @@ import xbmc
 import xbmcgui
 
 
-def launch(hostname=None, game_name=None):
+def launch(addon, hostname=None, game_name=None):
     launch_command = 'systemd-run bash ' + get_resources_path() + 'bin/launch_moonlight-qt.sh'
 
     # check if moonlight is installed and offer to install
     if is_moonlight_installed() is False:
-        update_moonlight()
+        update(addon)
 
     # If moonlight is still not installed abort
     if is_moonlight_installed() is False:
         dialog = xbmcgui.Dialog()
-        dialog.ok('Launching Moonlight', 'Moonlight not installed, aborting launch!')
+        dialog.ok(addon.getLocalizedString(30200), addon.getLocalizedString(30201))
         return
 
     # Check is at least a host is set
@@ -27,15 +27,15 @@ def launch(hostname=None, game_name=None):
     command = launch_command + args
 
     # Log the command so debugging problems is easier
-    xbmc.log(msg='Launching moonlight-qt: ' + command, level=xbmc.LOGINFO)
+    xbmc.log('Launching moonlight-qt: ' + command, xbmc.LOGINFO)
 
     # Show a dialog
-    launch_label = 'Moonlight'
-    if game_name:
-        launch_label = game_name
+    if not game_name:
+        game_name = addon.getLocalizedString(30001)
+    launch_label = addon.getLocalizedString(30202) % {'game': game_name}
 
     p_dialog = xbmcgui.DialogProgress()
-    p_dialog.create('Launching Moonlight', 'Starting ' + launch_label + '...')
+    p_dialog.create(addon.getLocalizedString(30200), launch_label)
     p_dialog.update(50)
 
     # Wait for the dialog to pop up
@@ -51,27 +51,25 @@ def launch(hostname=None, game_name=None):
     # If moonlight did not start notify the user
     p_dialog.close()
     dialog = xbmcgui.Dialog()
-    dialog.ok('Launching Moonlight', 'Launching failed!')
+    dialog.ok(addon.getLocalizedString(30200), addon.getLocalizedString(30203))
 
 
-def update_moonlight():
-    install_label = 'install'
+def update(addon):
     if is_moonlight_installed():
-        install_label = 'update to'
+        install_label = addon.getLocalizedString(30102)
+    else:
+        install_label = addon.getLocalizedString(30101)
 
     c_dialog = xbmcgui.Dialog()
-    confirm_update = c_dialog.yesno(
-        'Install Moonlight',
-        'Do you want {} the latest version of Moonlight? This wil take a few minutes.'.format(install_label)
-    )
+    confirm_update = c_dialog.yesno(addon.getLocalizedString(30100), install_label)
 
     if confirm_update is False:
         return
 
     p_dialog = xbmcgui.DialogProgress()
-    p_dialog.create('Updating Moonlight', 'Updating Moonlight using Docker, this will take a while...')
+    p_dialog.create(addon.getLocalizedString(30103), addon.getLocalizedString(30104))
 
-    xbmc.log(msg='Updating moonlight-qt...', level=xbmc.LOGINFO)
+    xbmc.log('Updating moonlight-qt...', xbmc.LOGINFO)
 
     # This is an estimate of how many lines of output there should be to guess the progress
     line_max = 1556
@@ -93,12 +91,13 @@ def update_moonlight():
     # Close the progress bar
     p_dialog.close()
 
-    finish_label = 'failed: {}'.format(line.decode())
     if p.returncode == 0 and is_moonlight_installed():
-        finish_label = 'finished'
+        finish_label = addon.getLocalizedString(30006)
+    else:
+        finish_label = addon.getLocalizedString(30105) % {'error_msg': line.decode()}
 
     dialog = xbmcgui.Dialog()
-    dialog.ok('Updating Moonlight', 'Update {}'.format(finish_label))
+    dialog.ok(addon.getLocalizedString(30103), finish_label)
 
 
 def get_resources_path():

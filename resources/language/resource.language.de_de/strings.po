@@ -1,0 +1,79 @@
+# Kodi Media Center language file
+# Addon Name: Moonlight Raspberry Pi 4
+# Addon id: plugin.program.moonlight-qt
+# Addon Provider: veldenb
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: veldenb\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: pluginprogrammoonlight-qt\n"
+"X-Crowdin-Project-ID: 457400\n"
+"X-Crowdin-Language: de\n"
+"X-Crowdin-File: strings.po\n"
+"X-Crowdin-File-ID: 2\n"
+"Project-Id-Version: pluginprogrammoonlight-qt\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: German\n"
+"PO-Revision-Date: 2021-05-24 15:20\n"
+
+msgctxt "#30000"
+msgid "Moonlight Raspberry Pi 4"
+msgstr "Moonlight Raspberry Pi 4"
+
+msgctxt "#30001"
+msgid "Moonlight"
+msgstr "Moonlight"
+
+msgctxt "#30002"
+msgid "Update"
+msgstr "Aktualisieren"
+
+msgctxt "#30003"
+msgid "Update Moonlight to the latest version"
+msgstr "Moonlight auf die neueste Version aktualisieren"
+
+msgctxt "#30100"
+msgid "Install Moonlight"
+msgstr "Moonlight installieren"
+
+msgctxt "#30101"
+msgid "Do you want install the latest version of Moonlight? This will take a few minutes."
+msgstr "Möchtest du die neueste Version von Moonlight installieren? Dies wird einige Minuten dauern."
+
+msgctxt "#30102"
+msgid "Do you want update to the latest version of Moonlight? This will take a few minutes."
+msgstr "Möchtest du auf die neueste Version von Moonlight aktualisieren? Dies wird einige Minuten dauern."
+
+msgctxt "#30103"
+msgid "Updating Moonlight"
+msgstr "Aktualisiere Moonlight"
+
+msgctxt "#30104"
+msgid "Updating Moonlight using Docker, this will take a while..."
+msgstr "Moonlight mit Docker aktualisieren, dies wird eine Weile dauern..."
+
+msgctxt "#30105"
+msgid "Update failed: %(error_msg)s"
+msgstr "Fehler beim Aktualisieren: %(error_msg)s"
+
+msgctxt "#30106"
+msgid "Update finished!"
+msgstr "Aktualisierung abgeschlossen!"
+
+msgctxt "#30200"
+msgid "Launching Moonlight"
+msgstr "Moonlight wird gestartet"
+
+msgctxt "#30201"
+msgid "Moonlight not installed, aborting launch!"
+msgstr "Moonlight nicht installiert, startet abgebrochen!"
+
+msgctxt "#30202"
+msgid "Starting %(game)s..."
+msgstr "%(game)s wird gestartet..."
+
+msgctxt "#30203"
+msgid "Launch failed!"
+msgstr "Starten fehlgeschlagen!"
+

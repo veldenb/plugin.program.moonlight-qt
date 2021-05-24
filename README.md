@@ -73,5 +73,4 @@ All configuration and streaming problems are probably related to Moonlight self,
 Thanks to @clarkemw and @peetie2k from [clarkemw/moonlight-embedded-launcher](https://github.com/clarkemw/moonlight-embedded-launcher) for inspiration. 
 
 ## TODO:
-- Decent implementation of language files
 - Maybe other platforms/distributions

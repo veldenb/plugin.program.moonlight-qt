@@ -2,6 +2,8 @@
 
 set -e
 
+. /etc/profile
+
 cd "$(dirname "$0")"
 cd ..
 

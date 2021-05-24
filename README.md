@@ -17,7 +17,7 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
 
 ## Instructions:
 ### 1. Install this plugin.
-- Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/download/v0.0.1/plugin.program.moonlight-qt.zip) and store it on your Kodi device.
+- Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/download/v0.0.2/plugin.program.moonlight-qt.zip) and store it on your Kodi device.
 - In Kodi go to Add-ons/Install from zip file
 - Select plugin.program.moonlight-qt.zip
 

@@ -25,7 +25,7 @@ msgid "Update"
 msgstr "Bijwerken"
 
 msgctxt "#30003"
-msgid "Update Moonlight to latest version"
+msgid "Update Moonlight to the latest version"
 msgstr "Moonlight bijwerken naar de meest recente versie"
 
 #

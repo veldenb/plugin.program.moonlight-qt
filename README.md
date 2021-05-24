@@ -11,8 +11,8 @@ https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-
 At the time of writing the only platform that support's Moonlight on a Raspberry Pi 4 without a running X-server seems to be Moonlight-qt. Moonlight-embedded currently doesn't work on a Pi 4. 
 
 ## Prerequisites:
-- Raspberry Pi 4 device with LibreELEC (Matrix) 10.0 installed, connected to local network via ethernet (preferred) or wifi
-- Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or wifi
+- Raspberry Pi 4 device with LibreELEC (Matrix) 10.0 installed, connected to local network via ethernet (preferred) or Wi-Fi
+- Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or Wi-Fi
 - Enough temporary storage space on your LibreELEC device to install Moonlight-qt (about 500 MB is needed)
 
 ## Instructions:
@@ -24,9 +24,9 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
    
 ### 2. Start Moonlight 
 - Navigate to Games -> Moonlight Pi 4.
-- Start Moonlight from the games menu.
+- Start Moonlight from the Games menu.
 - The plugin will ask you to install Moonlight, choose yes and wait a few minutes.
-- When the plugin has finished installing Moonlight it wil launch it
+- When the plugin has finished installing, Moonlight wil launch it
 - Moonlight should start and scan for PC's with Gamestream enabled
 
 
@@ -39,17 +39,17 @@ GeForce Experience/Settings/Shield/Gamestream (move slider to right)
 If your PC is not recognised you can try to turn it off and on again on your gaming PC.
 
 ### 4. Pair your gaming PC
-Once your PC is recognised by Moonlight you will be asked to enter a 4-digit code into Gamestream to pair Moonlight with Gamestream.
+Once your PC is recognised by Moonlight, you will be asked to enter a 4-digit code into Gamestream to pair Moonlight with Gamestream.
 When the pairing is finished you can use Moonlight to adjust settings for streaming and launch games. Exit Moonlight and you will be returned to Kodi.
 
 ### 5. Launch games from Kodi
 Because Moonlight saves its configuration and image-cache to Kodi's storage you can now browse and start your games using the Games menu in Kodi by entering the "Moonlight Pi 4" menu item. 
-Remember that all games are displayed from local cache so they are only updated when Moonlight connects to your gaming PC.
+Remember that all games are displayed from local cache, so they are only updated when Moonlight connects to your gaming PC.
 
 <img src="resources/screenshot-01.png" width="600">
 
 ### 5. Updating
-When you want to update Moonlight you can use the update menu in the add-on settings and press "Update Moonlight to latest version".
+When you want to update Moonlight you can use the update menu in the add-on settings and press "Update Moonlight to the latest version".
 The plugin will update Moonlight and will notify you when it's finished.
 
 

@@ -6,25 +6,46 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 import xbmcplugin
+from xbmcvfs import translatePath
 
 
 def build_url(query):
     return base_url + '?' + urllib.parse.urlencode(query)
 
 
-def get_boxart_path(host, app):
-    sampleBoxart = moonlight_relative_cache_path + '/boxart/{}/{}.png'.format(
-        host.get('uuid'), app.get('id')
-    )
-    return addon_path + sampleBoxart
+def get_addon_path(sub_path):
+    return translatePath(addon.getAddonInfo('path') + sub_path)
 
 
-def get_fanart_path():
-    return addon_path + '/resources/fanart.jpg'
+def get_resource_path(sub_path):
+    return get_addon_path('/resources' + sub_path)
 
 
 def get_icon_path():
-    return addon_path + '/resources/icon.png'
+    return get_resource_path('/icon.png')
+
+
+def get_poster_path():
+    return get_resource_path('/poster.jpg')
+
+
+def get_fanart_path():
+    return get_resource_path('/fanart.jpg')
+
+
+def get_boxart_path(host, app):
+    sampleBoxart = '/lib/moonlight-home/.cache/Moonlight Game Streaming Project/Moonlight/boxart/{}/{}.png'.format(
+        host.get('uuid'), app.get('id')
+    )
+    return get_resource_path(sampleBoxart)
+
+
+def get_moonlight_config():
+    # Load config
+    moonlight_full_config_path = get_resource_path(
+        '/lib/moonlight-home/.config/Moonlight Game Streaming Project/Moonlight.conf'
+    )
+    return parse_moonlight_config(moonlight_full_config_path)
 
 
 def parse_moonlight_config(moonlight_config_file):
@@ -93,12 +114,10 @@ def show_moonlight(handle):
     url = build_url({'mode': 'launch'})
     li = xbmcgui.ListItem(addon.getLocalizedString(30001))
     icon = get_icon_path()
-    fanart = get_fanart_path()
     li.setArt({
         'thumb': icon,
-        'poster': icon,
-        'banner': fanart,
-        'fanart': fanart,
+        'poster': get_poster_path(),
+        'fanart': get_fanart_path(),
         'icon': icon
     })
     xbmcplugin.addDirectoryItem(handle, url, li)
@@ -112,20 +131,19 @@ def show_games(handle, hosts, host_id):
         if 'name' in app:
             url = build_url({'mode': 'launch', 'host_id': host_id, 'game_id': app_id})
             boxart = get_boxart_path(host, app)
-            fanart = get_fanart_path()
             li = xbmcgui.ListItem()
             li.setLabel(app.get('name'))
             li.setArt({
                 'thumb': boxart,
-                'poster': boxart,
-                'banner': boxart,
-                'fanart': fanart,
-                'icon': boxart
+                'poster': boxart
             })
             xbmcplugin.addDirectoryItem(handle, url, li)
 
 
-def show_gui(handle, mode, hosts, host_id, game_id):
+def show_gui(handle, mode, host_id, game_id):
+    # Get hosts from moonlight config
+    hosts = get_moonlight_config().get('hosts')
+
     if mode is None:
 
         if hosts:
@@ -178,23 +196,14 @@ addon_handle = int(sys.argv[1])
 args = urllib.parse.parse_qs(sys.argv[2][1:])
 
 # Configure addon
-addon_id = 'plugin.program.moonlight-qt'
-addon = xbmcaddon.Addon(addon_id)
+addon = xbmcaddon.Addon()
 if addon_handle != -1:
     xbmcplugin.setContent(addon_handle, 'games')
 
-# Paths
-addon_path = addon.getAddonInfo('path')
-moonlight_full_config_path = addon_path + '/resources/lib/moonlight-home/.config/Moonlight Game Streaming Project'
-moonlight_relative_cache_path = 'resources/lib/moonlight-home/.cache/Moonlight Game Streaming Project/Moonlight'
-
-# Load config
-moonlight_config = parse_moonlight_config(moonlight_full_config_path + '/Moonlight.conf')
-
 # Debug stuff
 # See https://kodi.wiki/view/Audio-video_add-on_tutorial
-# xbmc.log(msg=sys.argv.__str__(), level=xbmc.LOGINFO)
-# xbmc.log(msg=args.__str__(), level=xbmc.LOGINFO)
+# xbmc.log(sys.argv.__str__(), xbmc.LOGINFO)
+# xbmc.log(args.__str__(), xbmc.LOGINFO)
 # xbmc.log('CONFIG: ' + moonlight_config.__str__(), level=xbmc.LOGINFO)
 
 page_mode = args.get('mode', None)
@@ -209,11 +218,8 @@ page_game_id = args.get('game_id', None)
 if page_game_id is not None:
     page_game_id = page_game_id[0]
 
-# Get hosts from config
-config_hosts = moonlight_config.get('hosts')
-
 # Show GUI
-show_gui(addon_handle, page_mode, config_hosts, page_host_id, page_game_id)
+show_gui(addon_handle, page_mode, page_host_id, page_game_id)
 
 # Parsed config example
 # example_moonlight_config = {

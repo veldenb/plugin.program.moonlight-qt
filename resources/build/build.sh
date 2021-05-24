@@ -1,10 +1,12 @@
 #!/bin/bash
 
+set -e
+
 cd "$(dirname "$0")"
 
 if ! command -v docker &> /dev/null
 then
-    echo "Docker is not installed, please install Docker from the Kodi add-ons."
+    echo "Docker is not installed, please install the Kodi Docker add-on."
     exit 1
 fi
 

@@ -3,10 +3,11 @@ import os
 import pathlib
 import xbmc
 import xbmcgui
+from xbmcvfs import translatePath
 
 
 def launch(addon, hostname=None, game_name=None):
-    launch_command = 'systemd-run bash ' + get_resources_path() + 'bin/launch_moonlight-qt.sh'
+    launch_command = 'systemd-run bash ' + get_resource_path('bin/launch_moonlight-qt.sh')
 
     # check if moonlight is installed and offer to install
     if is_moonlight_installed() is False:
@@ -77,7 +78,7 @@ def update(addon):
     line_nr = 1
     line = ''
 
-    p = Popen('bash ' + get_resources_path() + 'build/build.sh', stdout=PIPE, stderr=STDOUT, shell=True)
+    p = Popen('bash ' + get_resource_path('build/build.sh'), stdout=PIPE, stderr=STDOUT, shell=True)
     for line in p.stdout:
         percent = int(round(line_nr / line_max * 100))
         p_dialog.update(percent)
@@ -85,8 +86,8 @@ def update(addon):
     p.wait()
 
     # Log update
-    xbmc.log('Updating moonlight-qt finished with {} lines of output and exit-code {}'.format(
-        line_nr.__str__(), p.returncode.__str__()
+    xbmc.log('Updating moonlight-qt finished with {} lines of output and exit-code {}: {}'.format(
+        line_nr.__str__(), p.returncode.__str__(), line.decode()
     ), xbmc.LOGINFO)
 
     # Close the progress bar
@@ -101,9 +102,9 @@ def update(addon):
     dialog.ok(addon.getLocalizedString(30103), finish_label)
 
 
-def get_resources_path():
-    return pathlib.Path(__file__).parent.absolute().__str__() + '/resources/'
+def get_resource_path(sub_path):
+    return translatePath(pathlib.Path(__file__).parent.absolute().__str__() + '/resources/' + sub_path)
 
 
 def is_moonlight_installed():
-    return os.path.isfile(get_resources_path() + 'lib/moonlight-qt/bin/moonlight-qt')
+    return os.path.isfile(get_resource_path('lib/moonlight-qt/bin/moonlight-qt'))

@@ -32,6 +32,7 @@ def launch(addon, hostname=None, game_name=None):
     # Show a dialog
     if not game_name:
         game_name = addon.getLocalizedString(30001)
+
     launch_label = addon.getLocalizedString(30202) % {'game': game_name}
 
     p_dialog = xbmcgui.DialogProgress()
@@ -92,7 +93,7 @@ def update(addon):
     p_dialog.close()
 
     if p.returncode == 0 and is_moonlight_installed():
-        finish_label = addon.getLocalizedString(30006)
+        finish_label = addon.getLocalizedString(30106)
     else:
         finish_label = addon.getLocalizedString(30105) % {'error_msg': line.decode()}
 

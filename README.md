@@ -46,17 +46,17 @@ When the pairing is finished you can use Moonlight to adjust settings for stream
 Because Moonlight saves its configuration and image-cache to Kodi's storage you can now browse and start your games using the Games menu in Kodi by entering the "Moonlight Pi 4" menu item. 
 Remember that all games are displayed from local cache, so they are only updated when Moonlight connects to your gaming PC.
 
-<img src="resources/screenshot-01.png" width="600">
+<img src="resources/screenshot-01.jpg" width="600">
 
 ### 5. Updating
 When you want to update Moonlight you can use the update menu in the add-on settings and press "Update Moonlight to the latest version".
 The plugin will update Moonlight and will notify you when it's finished.
 
 
-<img src="resources/screenshot-02.png" width="600">
+<img src="resources/screenshot-02.jpg" width="600">
 
 
-<img src="resources/screenshot-03.png" width="600">
+<img src="resources/screenshot-03.jpg" width="600">
 
 
 ## What magic is happening in the background when installing and updating?

@@ -187,7 +187,7 @@ def show_gui(handle, mode, host_id, game_id):
         moonlight.update(addon)
 
     else:
-        xbmc.log('Unknown GUI mode: {}'.format(mode), xbmc.LOGERROR)
+        xbmc.log('Unknown GUI mode: {}'.format(mode), xbmc.LOGDEBUG)
 
 
 # Arguments
@@ -202,9 +202,9 @@ if addon_handle != -1:
 
 # Debug stuff
 # See https://kodi.wiki/view/Audio-video_add-on_tutorial
-# xbmc.log(sys.argv.__str__(), xbmc.LOGINFO)
-# xbmc.log(args.__str__(), xbmc.LOGINFO)
-# xbmc.log('CONFIG: ' + moonlight_config.__str__(), level=xbmc.LOGINFO)
+# xbmc.log(sys.argv.__str__(), xbmc.LOGDEBUG)
+# xbmc.log(args.__str__(), xbmc.LOGDEBUG)
+# xbmc.log('CONFIG: ' + moonlight_config.__str__(), level=xbmc.LOGDEBUG)
 
 page_mode = args.get('mode', None)
 if page_mode is not None:

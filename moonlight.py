@@ -28,7 +28,7 @@ def launch(addon, hostname=None, game_name=None):
     command = launch_command + args
 
     # Log the command so debugging problems is easier
-    xbmc.log('Launching moonlight-qt: ' + command, xbmc.LOGINFO)
+    xbmc.log('Launching moonlight-qt: ' + command, xbmc.LOGDEBUG)
 
     # Show a dialog
     if not game_name:
@@ -71,7 +71,7 @@ def update(addon):
     p_dialog = xbmcgui.DialogProgress()
     p_dialog.create(addon.getLocalizedString(30103), addon.getLocalizedString(30104))
 
-    xbmc.log('Updating moonlight-qt...', xbmc.LOGINFO)
+    xbmc.log('Updating moonlight-qt...', xbmc.LOGDEBUG)
 
     # This is an estimate of how many lines of output there should be to guess the progress
     line_max = 1556
@@ -88,7 +88,7 @@ def update(addon):
     # Log update
     xbmc.log('Updating moonlight-qt finished with {} lines of output and exit-code {}: {}'.format(
         line_nr.__str__(), p.returncode.__str__(), line.decode()
-    ), xbmc.LOGINFO)
+    ), xbmc.LOGDEBUG)
 
     # Close the progress bar
     p_dialog.close()

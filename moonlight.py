@@ -7,7 +7,10 @@ from xbmcvfs import translatePath
 
 
 def launch(addon, hostname=None, game_name=None):
-    launch_command = 'systemd-run bash ' + get_resource_path('bin/launch_moonlight-qt.sh')
+    launch_command = 'systemd-run --setenv=ADDON_PROFILE_PATH="{}" bash {}'.format(
+        get_addon_data_path(),
+        get_resource_path('bin/launch_moonlight-qt.sh')
+    )
 
     # check if moonlight is installed and offer to install
     if is_moonlight_installed() is False:
@@ -78,7 +81,8 @@ def update(addon):
     line_nr = 1
     line = ''
 
-    p = Popen('bash ' + get_resource_path('build/build.sh'), stdout=PIPE, stderr=STDOUT, shell=True)
+    cmd = 'ADDON_PROFILE_PATH="{}" bash {}'.format(get_addon_data_path(), get_resource_path('build/build.sh'))
+    p = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=True)
     for line in p.stdout:
         percent = int(round(line_nr / line_max * 100))
         p_dialog.update(percent)
@@ -106,5 +110,9 @@ def get_resource_path(sub_path):
     return translatePath(pathlib.Path(__file__).parent.absolute().__str__() + '/resources/' + sub_path)
 
 
+def get_addon_data_path(sub_path=''):
+    return translatePath('special://profile/addon_data/plugin.program.moonlight-qt' + sub_path)
+
+
 def is_moonlight_installed():
-    return os.path.isfile(get_resource_path('lib/moonlight-qt/bin/moonlight-qt'))
+    return os.path.isfile(get_addon_data_path('/moonlight-qt/bin/moonlight-qt'))

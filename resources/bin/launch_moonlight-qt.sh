@@ -3,16 +3,18 @@
 # Only for debugging
 # set -e
 #export QT_DEBUG_PLUGINS=1
-#export QT_QPA_EGLFS_DEBUG=1
 
 . /etc/profile
 
 cd "$(dirname "$0")"
-cd ..
 
-RESOURCE_PATH="$(pwd)"
-HOME="$RESOURCE_PATH/lib/moonlight-home"
-MOONLIGHT_PATH="$RESOURCE_PATH/lib/moonlight-qt"
+if [ -z "$ADDON_PROFILE_PATH" ]; then
+  # If no path is given then we do a well estimated guess
+  ADDON_PROFILE_PATH="$(pwd)/../../../../userdata/addon_data/plugin.program.moonlight-qt/"
+fi
+
+HOME="$ADDON_PROFILE_PATH/moonlight-home"
+MOONLIGHT_PATH="$ADDON_PROFILE_PATH/moonlight-qt"
 LIB_PATH="$MOONLIGHT_PATH/lib"
 
 # Setup environment
@@ -37,8 +39,8 @@ cd "$MOONLIGHT_PATH/bin"
 # Stop kodi
 systemctl stop kodi
 
-# Start moonlight-qt
-./moonlight-qt "$@"
+# Start moonlight-qt and log to log file
+./moonlight-qt "$@" > "$ADDON_PROFILE_PATH/moonlight-qt.log"
 
 # Start kodi
 systemctl start kodi

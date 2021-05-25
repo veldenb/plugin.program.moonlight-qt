@@ -17,6 +17,10 @@ def get_addon_path(sub_path):
     return translatePath(addon.getAddonInfo('path') + sub_path)
 
 
+def get_addon_data_path(sub_path=''):
+    return translatePath('special://profile/addon_data/plugin.program.moonlight-qt' + sub_path)
+
+
 def get_resource_path(sub_path):
     return get_addon_path('/resources' + sub_path)
 
@@ -34,16 +38,16 @@ def get_fanart_path():
 
 
 def get_boxart_path(host, app):
-    sampleBoxart = '/lib/moonlight-home/.cache/Moonlight Game Streaming Project/Moonlight/boxart/{}/{}.png'.format(
+    sampleBoxart = '/moonlight-home/.cache/Moonlight Game Streaming Project/Moonlight/boxart/{}/{}.png'.format(
         host.get('uuid'), app.get('id')
     )
-    return get_resource_path(sampleBoxart)
+    return get_addon_data_path(sampleBoxart)
 
 
 def get_moonlight_config():
     # Load config
-    moonlight_full_config_path = get_resource_path(
-        '/lib/moonlight-home/.config/Moonlight Game Streaming Project/Moonlight.conf'
+    moonlight_full_config_path = get_addon_data_path(
+        '/moonlight-home/.config/Moonlight Game Streaming Project/Moonlight.conf'
     )
     return parse_moonlight_config(moonlight_full_config_path)
 

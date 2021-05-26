@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-# set -x
 
 cd "$(dirname "$0")"
 
@@ -25,6 +24,9 @@ cp -v /usr/lib/arm-linux-gnueabihf/libopus.so* .
 cp -v /usr/lib/arm-linux-gnueabihf/libpcre2-16.so* .
 cp -v /usr/lib/arm-linux-gnueabihf/libpng16.so* .
 cp -v /usr/lib/arm-linux-gnueabihf/libwayland-client.so* .
+# Optional
+cp -v /usr/lib/arm-linux-gnueabihf/libopus.so* .
+
 
 cd ..
 mkdir bin

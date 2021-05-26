@@ -40,7 +40,7 @@ cd "$MOONLIGHT_PATH/bin"
 systemctl stop kodi
 
 # Start moonlight-qt and log to log file
-./moonlight-qt "$@" > "$ADDON_PROFILE_PATH/moonlight-qt.log"
+./moonlight-qt "$@" | tee "$ADDON_PROFILE_PATH/moonlight-qt.log"
 
 # Start kodi
 systemctl start kodi

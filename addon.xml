@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.moonlight-qt" name="Moonlight Pi 4" version="0.0.4" provider-name="veldenb">
+<addon id="plugin.program.moonlight-qt" name="Moonlight Pi 4" version="0.0.5" provider-name="veldenb">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="service.system.docker" version="9.80.11.133"/>
@@ -21,7 +21,11 @@
         <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
         <email></email>
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
-        <news>v0.0.4
+        <news>v0.0.5
+- Shrink package size
+- Make sure settings are kept across updates
+
+v0.0.4
 - fix XDG_RUNTIME_DIR warning
 
 v0.0.3

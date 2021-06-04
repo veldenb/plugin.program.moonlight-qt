@@ -18,7 +18,8 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
 ## Instructions:
 ### 1. Install this plugin.
 - Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/latest/download/plugin.program.moonlight-qt.zip) and store it on your Kodi device.
-- In Kodi go to Add-ons/Install from zip file
+- In Kodi install Docker from the LibreELEC repository: Add-ons / Install from repository / LibreELEC Add-ons / Services / Docker 
+- Go to Add-ons / Install from zip file
 - Select plugin.program.moonlight-qt.zip
 
    

@@ -15,11 +15,12 @@ for file in /etc/os-release /usr/lib/os-release; do
   fi
 done
 
-PLATFORM="$LIBREELEC_PROJECT"
+# Parse project var and convert to lower case
+PLATFORM="$(echo "$LIBREELEC_PROJECT" | tr '[:upper:]' '[:lower:]')"
 
 if [ -f "../etc/${PLATFORM}.sh" ]; then
-  echo -n "$PLATFORM"
+  echo "Platform $PLATFORM detected..."
 else
   echo "ERROR: Unknown platform: $PLATFORM" 1>&2
-  exit 1
+  return 2
 fi

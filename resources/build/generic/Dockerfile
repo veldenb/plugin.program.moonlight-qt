@@ -29,9 +29,8 @@ RUN VERSION=$(git ls-remote --tags https://github.com/moonlight-stream/moonlight
  && wget "https://github.com/AppImage/AppImageKit/releases/download/13/runtime-x86_64" \
    -O /tmp/runtime
 
-# Copy the needed libraries
+# Script to copy the needed libraries
 COPY create_standalone_moonlight_qt.sh /tmp/
 RUN chmod a+x /tmp/create_standalone_moonlight_qt.sh
-RUN /tmp/create_standalone_moonlight_qt.sh
 
-ENTRYPOINT [ "bash" ]
+ENTRYPOINT [ "/tmp/create_standalone_moonlight_qt.sh" ]

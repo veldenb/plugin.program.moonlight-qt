@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Make sure al needed files end up in /tmp/moonlight-qt/
+
 set -e
 
 cd /tmp
@@ -33,3 +35,6 @@ mksquashfs squashfs-root moonlight.squashfs -root-owned -noappend
 cat runtime > Moonlight.AppImage
 cat moonlight.squashfs >> Moonlight.AppImage
 chmod +x Moonlight.AppImage
+
+mkdir -p /tmp/moonlight-qt/bin/
+mv /tmp/Moonlight.AppImage /tmp/moonlight-qt/bin/moonlight-qt

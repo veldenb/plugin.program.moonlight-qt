@@ -1,3 +1,4 @@
+import json
 from subprocess import Popen, PIPE, STDOUT
 import os
 import pathlib
@@ -22,10 +23,29 @@ def launch(addon, hostname=None, game_name=None):
         dialog.ok(addon.getLocalizedString(30200), addon.getLocalizedString(30201))
         return
 
+    script_args = []
+    moonlight_args = []
+
+    # Resolve audio output device
+    try:
+        service, device_name = get_kodi_setting('audiooutput.audiodevice').split(':', 1)
+        if service != 'ALSA':
+            raise RuntimeError(f'Audio service {service} not supported')
+        else:
+            if device_name != '@': # Default audio device
+                script_args.extend(['-a', f'"{device_name}"'])
+    except Exception as err:
+        xbmc.log(f'Failed to resolve audio output device, audio within Moonlight might not work: {err}', xbmc.LOGWARNING)
+
     # Check is at least a host is set
-    args = ''
     if hostname and game_name:
-        args = ' stream "{}" "{}"'.format(hostname, game_name)
+        moonlight_args.extend(['stream', f'"{hostname}"', f'"{game_name}"'])
+
+    args = script_args
+    if moonlight_args:
+        args.append('--')
+        args.extend(moonlight_args)
+    args = ' ' + ' '.join(args)
 
     # Prepare the command
     command = launch_command + args
@@ -116,3 +136,13 @@ def get_addon_data_path(sub_path=''):
 
 def is_moonlight_installed():
     return os.path.isfile(get_addon_data_path('/moonlight-qt/bin/moonlight-qt'))
+
+def get_kodi_setting(setting):
+    request = {
+        'jsonrpc': '2.0',
+        'method': 'Settings.GetSettingValue',
+        'params': {'setting': setting},
+        'id': 1
+    }
+    response = json.loads(xbmc.executeJSONRPC(json.dumps(request)))
+    return response['result']['value']

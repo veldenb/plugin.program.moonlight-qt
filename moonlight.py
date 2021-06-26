@@ -37,7 +37,7 @@ def launch(addon, hostname=None, game_name=None):
     except Exception as err:
         xbmc.log(f'Failed to resolve audio output device, audio within Moonlight might not work: {err}', xbmc.LOGWARNING)
 
-    # Check is at least a host is set
+    # Check if at least a host is set
     if hostname and game_name:
         moonlight_args.extend(['stream', f'"{hostname}"', f'"{game_name}"'])
 

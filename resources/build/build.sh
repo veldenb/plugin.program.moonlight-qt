@@ -4,18 +4,23 @@ set -e
 
 cd "$(dirname "$0")"
 
-BUILD_PATH="$(pwd)"
+source ../bin/get-platform.sh
 
 if [ -z "$ADDON_PROFILE_PATH" ]; then
   # If no path is given then we do a well estimated guess
-  ADDON_PROFILE_PATH="$(pwd)/../../../../userdata/addon_data/plugin.program.moonlight-qt/"
+  ADDON_PROFILE_PATH="$(realpath $(pwd)/../../../../userdata/addon_data/plugin.program.moonlight-qt)"
 fi
+
+TMP_PATH="$ADDON_PROFILE_PATH/tmp"
 
 if ! command -v docker &> /dev/null
 then
     echo "Docker is not installed, please install the Kodi Docker add-on."
     exit 1
 fi
+
+# Change to the platform specific path
+cd "$PLATFORM"
 
 # Make sure no previous image exists
 docker rmi --force moonlight-qt &> /dev/null || true
@@ -28,26 +33,26 @@ mkdir -p "$ADDON_PROFILE_PATH"
 cd "$ADDON_PROFILE_PATH"
 
 # Create an empty temporary folder
-rm -rf tmp
-mkdir tmp
+rm -rf "$TMP_PATH"
+mkdir "$TMP_PATH"
 
 # Make sure no previous container exists
 docker rm --force moonlight-qt &> /dev/null || true
 
-# Extract files from container
+# Create a new container
 docker create --name moonlight-qt moonlight-qt
-docker cp moonlight-qt:/home/moonlight-qt tmp
+
+# Extract the moonlight-qt files
+docker run --volume "$TMP_PATH":/tmp/moonlight-qt moonlight-qt
 
 # Clean up
 docker rm moonlight-qt
 docker container prune --force
 docker rmi moonlight-qt
-docker rmi navikey/raspbian-buster
-docker image prune --force
+docker system prune --all --force
 
 # Move the moonlight-qt build to the lib-folder
 rm -rf moonlight-qt
-mv tmp/moonlight-qt .
-rmdir tmp
+mv tmp moonlight-qt
 
 exit 0

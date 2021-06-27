@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.moonlight-qt" name="Moonlight Pi 4" version="0.1.0" provider-name="veldenb">
+<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.0" provider-name="veldenb">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="service.system.docker" version="9.80.11.133"/>
@@ -8,9 +8,9 @@
         <provides>game</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Launcher for Moonlight game streaming on LibreELEC/Raspberry Pi 4 devices.</summary>
-        <summary lang="nl_NL">Starter voor Moonlight game streaming voor LibreELEC/Raspberry Pi 4 apparaten.</summary>
-        <summary lang="de_DE">Starter für Moonlight-Spiel-Streaming für LibreELEC / Raspberry Pi 4-Geräte.</summary>
+        <summary lang="en_GB">Launcher for Moonlight game streaming on LibreELEC Raspberry Pi 4 and Generic x86_64 devices.</summary>
+        <summary lang="nl_NL">Starter voor Moonlight game streaming voor LibreELEC Raspberry Pi 4 en generieke x86_64 apparaten.</summary>
+        <summary lang="de_DE">Starter für Moonlight-Spiel-Streaming für LibreELEC Raspberry Pi 4 und generischen x86_64-Geräten.</summary>
         <description lang="en_GB">This add-on launches Moonlight-qt. This add-on also has the ability to launch a specific game and update Moonlight-qt.</description>
         <description lang="nl_NL">Deze uitbreiding start Moonlight-qt. Deze uitbreiding heeft ook de mogelijkheid om een specifiek spel op te starten en Moonlight-qt bij te werken.</description>
         <description lang="de_DE">Diese Erweiterung startet Moonlight-qt. Diese Erweiterung bietet auch die Möglichkeit, ein bestimmtes Spiel zu starten und Moonlight-qt zu aktualisieren.</description>

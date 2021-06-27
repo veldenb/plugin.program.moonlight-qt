@@ -97,7 +97,7 @@ def update(addon):
     xbmc.log('Updating moonlight-qt...', xbmc.LOGDEBUG)
 
     # This is an estimate of how many lines of output there should be to guess the progress
-    line_max = 1556
+    line_max = 2210
     line_nr = 1
     line = ''
 

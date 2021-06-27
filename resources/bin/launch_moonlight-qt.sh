@@ -7,4 +7,4 @@ if [ -z "$ADDON_PROFILE_PATH" ]; then
   export ADDON_PROFILE_PATH="$(realpath $(pwd)/../../../../userdata/addon_data/plugin.program.moonlight-qt/)"
 fi
 
-./bootstrap_moonlight-qt.sh "$@" 2>&1 | tee "$ADDON_PROFILE_PATH/moonlight-qt.log"
+bash bootstrap_moonlight-qt.sh "$@" 2>&1 | tee "$ADDON_PROFILE_PATH/moonlight-qt.log"

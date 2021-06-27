@@ -78,9 +78,9 @@ fi
 # Stop kodi
 systemctl stop kodi
 
+# Start kodi when this script exits
+trap "systemctl start kodi" EXIT
+
 # Start moonlight-qt and log to log file
 echo "--- Starting Moonlight ---"
 ./moonlight-qt "$@"
-
-# Start kodi
-systemctl start kodi

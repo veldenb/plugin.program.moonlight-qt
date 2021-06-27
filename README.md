@@ -15,7 +15,7 @@ https://github.com/moonlight-stream/moonlight-qt
 At the time of writing the only platform that support's Moonlight on a Raspberry Pi 4 without a running X-server seems to be Moonlight-qt. 
 
 ## Prerequisites:
-- Raspberry Pi 4 or a Generic x86_64 device with LibreELEC (Matrix) 10.0 installed, connected to local network via ethernet (preferred) or Wi-Fi
+- [Raspberry Pi 4](https://libreelec.tv/raspberry-pi-4/) or a [Generic x86_64 device](https://libreelec.tv/downloads_new/generic-pc/) with LibreELEC (Matrix) 10.0 installed, connected to local network via ethernet (preferred) or Wi-Fi
 - Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or Wi-Fi
 - Enough temporary storage space on your LibreELEC device to install Moonlight (about 500 MB is needed)
 

@@ -70,9 +70,36 @@ cd "$MOONLIGHT_PATH/bin"
 CONF_FILE="${HOME}/.config/alsa/asoundrc"
 mkdir -p "$(dirname "$CONF_FILE")"
 rm -f "$CONF_FILE"
+
 if [ ! -z "$ALSA_PCM_NAME" ]; then
   echo "Custom audio device: '$ALSA_PCM_NAME'"
-  echo "pcm.!default \"$ALSA_PCM_NAME\"" >> "$CONF_FILE"
+
+  # Create a template file for ALSA
+  cat <<EOT >> "$CONF_FILE"
+pcm.!default "%device%"
+
+# The audio channels need to be re-mapped for Windows on Pi's, I'm not sure this is an ALSA/Moonlight or Pi issue at the moment.
+# Please file a bug-report if this mapping differs for you.
+pcm.!surround51 {
+  type route
+  slave.pcm "%device%"
+  ttable {
+    0.0= 1
+    1.1= 1
+    2.4= 1
+    3.5= 1
+    4.3= 1
+    5.2= 1
+  }
+}
+
+# The mapping for 7.1 is currently unknown (no hardware to test this)
+pcm.!surround71 "%device%"
+EOT
+
+  # Replace the placeholder with the device name
+  sed -i "s/%device%/$ALSA_PCM_NAME/g" "$CONF_FILE"
+
 fi
 
 # Stop kodi

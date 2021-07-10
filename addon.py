@@ -131,17 +131,18 @@ def show_games(handle, hosts, host_id):
     # Show games for host
     host = hosts[host_id]
 
-    for app_id, app in host['apps'].items():
-        if 'name' in app:
-            url = build_url({'mode': 'launch', 'host_id': host_id, 'game_id': app_id})
-            boxart = get_boxart_path(host, app)
-            li = xbmcgui.ListItem()
-            li.setLabel(app.get('name'))
-            li.setArt({
-                'thumb': boxart,
-                'poster': boxart
-            })
-            xbmcplugin.addDirectoryItem(handle, url, li)
+    if 'apps' in host:
+        for app_id, app in host['apps'].items():
+            if 'name' in app:
+                url = build_url({'mode': 'launch', 'host_id': host_id, 'game_id': app_id})
+                boxart = get_boxart_path(host, app)
+                li = xbmcgui.ListItem()
+                li.setLabel(app.get('name'))
+                li.setArt({
+                    'thumb': boxart,
+                    'poster': boxart
+                })
+                xbmcplugin.addDirectoryItem(handle, url, li)
 
 
 def show_gui(handle, mode, host_id, game_id):

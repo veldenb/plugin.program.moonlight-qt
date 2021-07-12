@@ -17,10 +17,6 @@ msgstr ""
 "Language-Team: Dutch\n"
 "PO-Revision-Date: 2021-05-24 14:48\n"
 
-msgctxt "#30000"
-msgid "Moonlight"
-msgstr "Moonlight"
-
 msgctxt "#30001"
 msgid "Moonlight"
 msgstr "Moonlight"

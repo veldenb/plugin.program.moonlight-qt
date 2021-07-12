@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.1" provider-name="veldenb">
+<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.2" provider-name="veldenb">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="service.system.docker" version="9.80.11.133"/>
@@ -23,7 +23,10 @@
         <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
         <email></email>
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
-        <news>v0.1.1
+        <news>v0.1.2
+- Add French translation (Thanks to Jorys-Paulin)
+
+v0.1.1
 - Fix error when game list is empty
 - Fix 5.1 surround sound when choosing a custom audio device in Kodi
 

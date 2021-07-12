@@ -11,9 +11,11 @@
         <summary lang="en_GB">Launcher for Moonlight game streaming on LibreELEC Raspberry Pi 4 and Generic x86_64 devices.</summary>
         <summary lang="nl_NL">Starter voor Moonlight game streaming voor LibreELEC Raspberry Pi 4 en generieke x86_64 apparaten.</summary>
         <summary lang="de_DE">Starter für Moonlight-Spiel-Streaming für LibreELEC Raspberry Pi 4 und generischen x86_64-Geräten.</summary>
+        <summary lang="fr_FR">Lanceur pour Moonlight pour les appareils LibreELEC Raspberry Pi 4 et appareils génériques en x86_64.</summary>
         <description lang="en_GB">This add-on launches Moonlight-qt. This add-on also has the ability to launch a specific game and update Moonlight-qt.</description>
         <description lang="nl_NL">Deze uitbreiding start Moonlight-qt. Deze uitbreiding heeft ook de mogelijkheid om een specifiek spel op te starten en Moonlight-qt bij te werken.</description>
         <description lang="de_DE">Diese Erweiterung startet Moonlight-qt. Diese Erweiterung bietet auch die Möglichkeit, ein bestimmtes Spiel zu starten und Moonlight-qt zu aktualisieren.</description>
+        <description lang="fr_FR">Cet add-on lance Moonlight-qt. Cet add-on permet aussi de lancer un jeu directement et de mettre à jour Moonlight.</description>
         <language>en</language>
         <platform>linux</platform>
         <license>GPL-3.0-or-later</license>
@@ -52,6 +54,7 @@ v0.0.1
         <disclaimer lang="en_GB">Feel free to use this at your own risk.</disclaimer>
         <disclaimer lang="nl_NL">Voel je vrij om dit te gebruiken maar wel op eigen risico.</disclaimer>
         <disclaimer lang="de_DE">Sie können dies auf eigenes Risiko verwenden.</disclaimer>
+        <disclaimer lang="fr_FR">Utilisez cet add-on à vos risques et périls.</disclaimer>
         <assets>
             <icon>resources/icon.png</icon>
             <fanart>resources/fanart.jpg</fanart>

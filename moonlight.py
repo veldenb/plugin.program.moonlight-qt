@@ -8,11 +8,6 @@ from xbmcvfs import translatePath
 
 
 def launch(addon, hostname=None, game_name=None):
-    launch_command = 'systemd-run --setenv=ADDON_PROFILE_PATH="{}" bash {}'.format(
-        get_addon_data_path(),
-        get_resource_path('bin/launch_moonlight-qt.sh')
-    )
-
     # check if moonlight is installed and offer to install
     if is_moonlight_installed() is False:
         update(addon)
@@ -23,32 +18,40 @@ def launch(addon, hostname=None, game_name=None):
         dialog.ok(addon.getLocalizedString(30200), addon.getLocalizedString(30201))
         return
 
-    script_args = []
+    # Initialise environment vars
+    env_vars = [f'--setenv=ADDON_PROFILE_PATH="{get_addon_data_path()}"']
     moonlight_args = []
 
     # Resolve audio output device
     try:
         service, device_name = get_kodi_setting('audiooutput.audiodevice').split(':', 1)
-        if service != 'ALSA':
-            raise RuntimeError(f'Audio service {service} not supported')
+        if service == 'ALSA':
+            # Disable PulseAudio output by using a Moonlight environment variable
+            env_vars.append('--setenv=PULSE_SERVER="none"')
+
+            # When a specific audio device is used pass it through using an environment variable
+            if device_name != '@':
+                env_vars.append(f'--setenv=ALSA_PCM_NAME="{device_name}"')
+        elif service == 'PULSE':
+            # Tell pulse to use a specific device configured in Kodi
+            env_vars.append(f'--setenv=PULSE_SINK="{device_name}"')
         else:
-            if device_name != '@': # Default audio device
-                script_args.extend(['-a', f'"{device_name}"'])
+            # Raise a warning when ALSA and PULSE are not detected
+            raise RuntimeError(f'Audio service {service} not supported')
     except Exception as err:
         xbmc.log(f'Failed to resolve audio output device, audio within Moonlight might not work: {err}', xbmc.LOGWARNING)
+
+    launch_command = 'systemd-run {} bash {}'.format(
+        ' '.join(env_vars),
+        get_resource_path('bin/launch_moonlight-qt.sh')
+    )
 
     # Check if at least a host is set
     if hostname and game_name:
         moonlight_args.extend(['stream', f'"{hostname}"', f'"{game_name}"'])
 
-    args = script_args
-    if moonlight_args:
-        args.append('--')
-        args.extend(moonlight_args)
-    args = ' ' + ' '.join(args)
-
     # Prepare the command
-    command = launch_command + args
+    command = f'{launch_command} ' + ' '.join(moonlight_args)
 
     # Log the command so debugging problems is easier
     xbmc.log('Launching moonlight-qt: ' + command, xbmc.LOGDEBUG)
@@ -136,6 +139,7 @@ def get_addon_data_path(sub_path=''):
 
 def is_moonlight_installed():
     return os.path.isfile(get_addon_data_path('/moonlight-qt/bin/moonlight-qt'))
+
 
 def get_kodi_setting(setting):
     request = {

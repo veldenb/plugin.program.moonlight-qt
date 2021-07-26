@@ -1,60 +1,28 @@
 #!/bin/bash
 
 # Only for debugging
-#export QT_DEBUG_PLUGINS=1
+# export QT_DEBUG_PLUGINS=1
+
+# To use a specific PulseAudio device:
+# export PULSE_SINK="alsa_output.pci-0000_0a_00.1.analog-stereo"
+
+# To disable PulseAudio:
+# export PULSE_SERVER="none"
+
+# To use a specific ALSA audio device (after disabling pulse):
+# export ALSA_PCM_NAME="hdmi:CARD=PCH,DEV=0"
 
 set -e
-
-usage() {
-  echo "Usage: $0 [OPTION]... -- [MOONLIGHT_ARG]..."
-  echo "Configure and run Moonlight."
-  echo
-  echo "Options:"
-  echo "  -a NAME    use given NAME as default ALSA audio output device"
-  echo "  -h         display this help and exit"
-  echo
-  echo "Examples:"
-  echo "  $0 -a hw:0,0"
-  echo "    Start Moonlight using default audio output device"
-  echo "  $0 -a hdmi:CARD=PCH,DEV=0 -- stream 192.168.1.2 Desktop"
-  echo "    Start streaming Desktop through Moonlight using HDMI audio output"
-}
 
 . /etc/profile
 
 cd "$(dirname "$0")"
-
-while getopts ":a:h" opt; do
-  case $opt in
-    a)
-      ALSA_PCM_NAME="$OPTARG"
-      ;;
-    h)
-      usage
-      exit 0
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-    :)
-      echo "Option -$OPTARG requires an argument." >&2
-      exit 1
-      ;;
-  esac
-done
-
-shift $(($OPTIND -1))
-MOONLIGHT_ARGS="$@"
 
 HOME="$ADDON_PROFILE_PATH/moonlight-home"
 MOONLIGHT_PATH="$ADDON_PROFILE_PATH/moonlight-qt"
 
 # Setup environment
 export XDG_RUNTIME_DIR=/var/run/
-
-# Do not use pulseaudio because LibreELEC only uses it for output to Bluetooth speakers
-export PULSE_SERVER=none
 
 # Load platform specific configuration
 source ./get-platform.sh
@@ -71,15 +39,16 @@ CONF_FILE="${HOME}/.config/alsa/asoundrc"
 mkdir -p "$(dirname "$CONF_FILE")"
 rm -f "$CONF_FILE"
 
-if [ ! -z "$ALSA_PCM_NAME" ]; then
-  echo "Custom audio device: '$ALSA_PCM_NAME'"
+if [ "$PULSE_SERVER" == "none" ] && [ -n "$ALSA_PCM_NAME" ]; then
+  echo "Custom ALSA audio device: '$ALSA_PCM_NAME'"
 
   # Create a template file for ALSA
   cat <<EOT >> "$CONF_FILE"
 pcm.!default "%device%"
 
-# The audio channels need to be re-mapped for Windows on Pi's, I'm not sure this is an ALSA/Moonlight or Pi issue at the moment.
-# Please file a bug-report if this mapping differs for you.
+# The audio channels need to be re-mapped for Moonlight, this seems to be a Kodi issue.
+# Please file a bug-report if this mapping differs for you, the easiest way to check the channels is to test them using
+# speaker setup from Windows while streaming.
 pcm.!surround51 {
   type route
   slave.pcm "%device%"
@@ -99,7 +68,6 @@ EOT
 
   # Replace the placeholder with the device name
   sed -i "s/%device%/$ALSA_PCM_NAME/g" "$CONF_FILE"
-
 fi
 
 # Stop kodi

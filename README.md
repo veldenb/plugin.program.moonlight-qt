@@ -19,6 +19,14 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
 - Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or Wi-Fi
 - Enough temporary storage space on your LibreELEC device to install Moonlight (about 500 MB is needed)
 
+---
+**NOTE**
+
+The current LibreELEC RPi4 Matrix RC1 release causes severe [glitches](https://github.com/veldenb/plugin.program.moonlight-qt/issues/9) in Moonlight, for now use [LibreELEC RPi4 Matrix 9.95.5](https://releases.libreelec.tv/LibreELEC-RPi4.arm-9.95.5.img.gz).
+You can put this file in `/storage/.update/` and reboot your Pi 4 to install it.
+
+---
+
 ## Instructions:
 ### 1. Install this plugin.
 - Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/latest/download/plugin.program.moonlight-qt.zip) and store it on your Kodi device.

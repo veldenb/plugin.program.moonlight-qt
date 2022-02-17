@@ -49,7 +49,7 @@ docker run --volume "$TMP_PATH":/tmp/moonlight-qt moonlight-qt
 docker rm moonlight-qt
 docker container prune --force
 docker rmi moonlight-qt
-docker system prune --all --force
+docker image prune --force
 
 # Move the moonlight-qt build to the lib-folder
 rm -rf moonlight-qt

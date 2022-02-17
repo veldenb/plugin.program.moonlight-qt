@@ -4,16 +4,9 @@
 
 set -e
 
-cd /tmp
+cd "$(dirname "$0")"
 
-# Running AppImage inside docker fails if we don't remove some magic bits first,
-# see: https://github.com/AppImage/AppImageKit/issues/828
-dd if=/dev/zero bs=1 count=3 seek=8 conv=notrunc of=Moonlight-downloaded.AppImage
-
-chmod +x Moonlight-downloaded.AppImage
-
-# Extract AppImage's contents to /tmp/squashfs-root
-./Moonlight-downloaded.AppImage --appimage-extract
+mkdir -p /tmp/moonlight-qt/lib/
 
 # Include dependencies not present in LibreELEC
 DEPENDENCIES="
@@ -23,18 +16,16 @@ DEPENDENCIES="
   libXau.so*
   libxcb.so*
   libXdmcp.so*
+  libmd.so*
+  libXi.so*
 "
 
 for DEP in $DEPENDENCIES; do
-  cp /usr/lib/x86_64-linux-gnu/$DEP squashfs-root/usr/lib/
-  patchelf --set-rpath '$ORIGIN' squashfs-root/usr/lib/$DEP
+  cp --verbose --no-dereference --recursive /usr/lib/x86_64-linux-gnu/$DEP /tmp/moonlight-qt/lib/
 done
 
-# Recreate Moonlight's AppImage
-mksquashfs squashfs-root moonlight.squashfs -root-owned -noappend
-cat runtime > Moonlight.AppImage
-cat moonlight.squashfs >> Moonlight.AppImage
-chmod +x Moonlight.AppImage
+cp --verbose --no-dereference /lib/x86_64-linux-gnu/libcom_err.so* /tmp/moonlight-qt/lib/
+cp --verbose --no-dereference /lib/x86_64-linux-gnu/libkeyutils.so* /tmp/moonlight-qt/lib/
 
 mkdir -p /tmp/moonlight-qt/bin/
-mv /tmp/Moonlight.AppImage /tmp/moonlight-qt/bin/moonlight-qt
+cp -v Moonlight-downloaded.AppImage  /tmp/moonlight-qt/bin/moonlight-qt

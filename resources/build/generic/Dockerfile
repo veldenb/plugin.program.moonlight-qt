@@ -1,23 +1,17 @@
-# Dockerized version for the x86_64 of moonlight-qt (https://github.com/moonlight-stream/moonlight-qt)
-#
-# Run syntax:
-#	docker build --tag moonlight-qt .
-#
 
-# Debian Buster has Qt version new enough to fill Moonlight's build
-# requirements, Buster is also one of LibreELEC's supported versions
-FROM debian:buster-slim
+# Use latest compatible Debian version
+FROM debian:bullseye-slim
 
+# Install required packages and download Moonligh-qt AppImage version
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git \
-    libsm-dev \
-    patchelf \
-    squashfs-tools \
     wget \
- && rm -rf /var/lib/apt/lists/*
-
-RUN VERSION=$(git ls-remote --tags https://github.com/moonlight-stream/moonlight-qt.git \
+    libsm6 \
+    libxi6 \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && VERSION=$(git ls-remote --tags https://github.com/moonlight-stream/moonlight-qt.git \
    | cut -f2 \
    | sed 's|refs/tags/v||' \
    | grep -E '^[0-9.]+' \
@@ -26,10 +20,10 @@ RUN VERSION=$(git ls-remote --tags https://github.com/moonlight-stream/moonlight
  ) \
  && wget "https://github.com/moonlight-stream/moonlight-qt/releases/download/v${VERSION}/Moonlight-${VERSION}-x86_64.AppImage" \
    -O /tmp/Moonlight-downloaded.AppImage \
- && wget "https://github.com/AppImage/AppImageKit/releases/download/13/runtime-x86_64" \
-   -O /tmp/runtime
+ && chmod a+x /tmp/Moonlight-downloaded.AppImage
 
-# Script to copy the needed libraries
+
+# Script to extract the needed libraries
 COPY create_standalone_moonlight_qt.sh /tmp/
 RUN chmod a+x /tmp/create_standalone_moonlight_qt.sh
 

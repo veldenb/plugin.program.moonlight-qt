@@ -1,2 +1,4 @@
-# Fixes SDL error: Could not initialize OpenGL / GLES library
-export SDL_VIDEO_GL_DRIVER=/usr/lib/libGL.so
+LIB_PATH="$MOONLIGHT_PATH/lib"
+
+# Setup library locations
+export LD_LIBRARY_PATH=/usr/lib/:$LIB_PATH:$LD_LIBRARY_PATH

@@ -41,4 +41,3 @@ done
 
 mkdir /tmp/moonlight-qt/bin/
 cp -v /usr/bin/moonlight-qt /tmp/moonlight-qt/bin/
-

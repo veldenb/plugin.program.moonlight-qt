@@ -26,9 +26,19 @@ MOONLIGHT_PATH="$ADDON_PROFILE_PATH/moonlight-qt"
 # Setup environment
 export XDG_RUNTIME_DIR=/var/run/
 
+# Setup library locations
+LIB_PATH="$MOONLIGHT_PATH/lib"
+export LD_LIBRARY_PATH=/usr/lib/:$LIB_PATH:$LD_LIBRARY_PATH
+
+# Setup QT library locations if present
+if [[ -d "$LIB_PATH/qt5" ]]; then
+  export QML_IMPORT_PATH=$LIB_PATH/qt5/qml/
+  export QML2_IMPORT_PATH=$LIB_PATH/qt5/qml/
+  export QT_QPA_PLATFORM_PLUGIN_PATH=$LIB_PATH/qt5/plugins/
+fi
+
 # Load platform specific configuration
 source ./get-platform.sh
-source "../etc/$PLATFORM.sh"
 
 # Make sure home path exists
 mkdir -p "$HOME"
@@ -72,7 +82,7 @@ EOT
   sed -i "s/%device%/$ALSA_PCM_NAME/g" "$CONF_FILE"
 fi
 
-# Check for hooks
+# Check for distro specific hooks
 if [[ -d "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO" ]]; then
   # Stop kodi using hook
   source "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO/stop.sh"

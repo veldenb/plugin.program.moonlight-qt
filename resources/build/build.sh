@@ -6,9 +6,14 @@ cd "$(dirname "$0")"
 
 source ../bin/get-platform.sh
 
+# Uncomment to build moonlight from source. This is very experimental, cross your fingers and wait for a long time...
+# ALTERNATIVE_BUILD="_git"
+# Only for Pi experimental 64-bit build, LibreELEC is currently 32-bit:
+# ALTERNATIVE_BUILD="64_git"
+
 if [ -z "$ADDON_PROFILE_PATH" ]; then
   # If no path is given then we do a well estimated guess
-  ADDON_PROFILE_PATH="$(pwd)/../../../../userdata/addon_data/plugin.program.moonlight-qt"
+  ADDON_PROFILE_PATH="$(realpath ~/.kodi/userdata/addon_data/plugin.program.moonlight-qt/)"
 fi
 
 TMP_PATH="$ADDON_PROFILE_PATH/tmp"
@@ -20,13 +25,13 @@ then
 fi
 
 # Change to the platform specific path
-cd "$PLATFORM"
+cd "${PLATFORM}${ALTERNATIVE_BUILD}"
 
 # Make sure no previous image exists
 docker rmi --force moonlight-qt &> /dev/null || true
 
 # Install moonlight-qt in a container, the whole process will claim about 500MB drive space
-docker build --tag moonlight-qt .
+docker build --compress --tag moonlight-qt .
 
 # Switch to the add-on profile path
 mkdir -p "$ADDON_PROFILE_PATH"

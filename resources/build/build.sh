@@ -8,7 +8,7 @@ source ../bin/get-platform.sh
 
 if [ -z "$ADDON_PROFILE_PATH" ]; then
   # If no path is given then we do a well estimated guess
-  ADDON_PROFILE_PATH="$(realpath $(pwd)/../../../../userdata/addon_data/plugin.program.moonlight-qt)"
+  ADDON_PROFILE_PATH="$(pwd)/../../../../userdata/addon_data/plugin.program.moonlight-qt"
 fi
 
 TMP_PATH="$ADDON_PROFILE_PATH/tmp"

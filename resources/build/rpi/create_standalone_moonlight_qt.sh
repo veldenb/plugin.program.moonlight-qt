@@ -41,3 +41,5 @@ done
 
 mkdir /tmp/moonlight-qt/bin/
 cp -v /usr/bin/moonlight-qt /tmp/moonlight-qt/bin/
+
+chown -R --reference=/tmp/moonlight-qt /tmp/moonlight-qt/

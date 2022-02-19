@@ -29,3 +29,5 @@ cp --verbose --no-dereference /lib/x86_64-linux-gnu/libkeyutils.so* /tmp/moonlig
 
 mkdir -p /tmp/moonlight-qt/bin/
 cp -v Moonlight-downloaded.AppImage  /tmp/moonlight-qt/bin/moonlight-qt
+
+chown -R --reference=/tmp/moonlight-qt /tmp/moonlight-qt/

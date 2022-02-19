@@ -18,23 +18,30 @@ def launch(addon, hostname=None, game_name=None):
         dialog.ok(addon.getLocalizedString(30200), addon.getLocalizedString(30201))
         return
 
-    # Initialise environment vars
-    env_vars = [f'--setenv=ADDON_PROFILE_PATH="{get_addon_data_path()}"']
+    # Initialise argument vars
+    systemd_args = []
     moonlight_args = []
+
+    # Check if systemd-run can be used in user-mode
+    if os.environ.get('DBUS_SESSION_BUS_ADDRESS') is not None or os.environ.get('XDG_RUNTIME_DIR') is not None:
+        systemd_args.append('--user')
+
+    # Append addon path
+    systemd_args.append(f'--setenv=ADDON_PROFILE_PATH="{get_addon_data_path()}"')
 
     # Resolve audio output device
     try:
         service, device_name = get_kodi_setting('audiooutput.audiodevice').split(':', 1)
         if service == 'ALSA':
             # Disable PulseAudio output by using a Moonlight environment variable
-            env_vars.append('--setenv=PULSE_SERVER="none"')
+            systemd_args.append('--setenv=PULSE_SERVER="none"')
 
             # When a specific audio device is used pass it through using an environment variable
             if device_name != '@':
-                env_vars.append(f'--setenv=ALSA_PCM_NAME="{device_name}"')
+                systemd_args.append(f'--setenv=ALSA_PCM_NAME="{device_name}"')
         elif service == 'PULSE':
             # Tell pulse to use a specific device configured in Kodi
-            env_vars.append(f'--setenv=PULSE_SINK="{device_name}"')
+            systemd_args.append(f'--setenv=PULSE_SINK="{device_name}"')
         else:
             # Raise a warning when ALSA and PULSE are not detected
             raise RuntimeError(f'Audio service {service} not supported')
@@ -42,7 +49,7 @@ def launch(addon, hostname=None, game_name=None):
         xbmc.log(f'Failed to resolve audio output device, audio within Moonlight might not work: {err}', xbmc.LOGWARNING)
 
     launch_command = 'systemd-run {} bash {}'.format(
-        ' '.join(env_vars),
+        ' '.join(systemd_args),
         get_resource_path('bin/launch_moonlight-qt.sh')
     )
 
@@ -75,11 +82,12 @@ def launch(addon, hostname=None, game_name=None):
     # If the command was successful wait for moonlight to shutdown kodi
     if exitcode == 0:
         xbmc.sleep(1000)
-
-    # If moonlight did not start notify the user
-    p_dialog.close()
-    dialog = xbmcgui.Dialog()
-    dialog.ok(addon.getLocalizedString(30200), addon.getLocalizedString(30203))
+    else:
+        # If moonlight did not start notify the user
+        xbmc.log('Launching moonlight-qt failed: ' + command, xbmc.LOGERROR)
+        p_dialog.close()
+        dialog = xbmcgui.Dialog()
+        dialog.ok(addon.getLocalizedString(30200), addon.getLocalizedString(30203))
 
 
 def update(addon):

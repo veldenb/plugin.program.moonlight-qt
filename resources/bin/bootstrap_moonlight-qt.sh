@@ -18,6 +18,8 @@ set -e
 
 cd "$(dirname "$0")"
 
+# Paths
+ADDON_BIN_PATH=$(realpath ".")
 HOME="$ADDON_PROFILE_PATH/moonlight-home"
 MOONLIGHT_PATH="$ADDON_PROFILE_PATH/moonlight-qt"
 
@@ -70,11 +72,14 @@ EOT
   sed -i "s/%device%/$ALSA_PCM_NAME/g" "$CONF_FILE"
 fi
 
-# Stop kodi
-systemctl stop kodi
+# Check for hooks
+if [[ -d "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO" ]]; then
+  # Stop kodi using hook
+  source "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO/stop.sh"
 
-# Start kodi when this script exits
-trap "systemctl start kodi" EXIT
+  # Start kodi when this script exits using trap in hook
+  source "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO/start.sh"
+fi
 
 # Start moonlight-qt and log to log file
 echo "--- Starting Moonlight ---"

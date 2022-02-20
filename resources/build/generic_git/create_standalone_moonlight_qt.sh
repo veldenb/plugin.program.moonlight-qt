@@ -11,6 +11,7 @@ mkdir -p /tmp/moonlight-qt/lib/
 apt update
 DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
   libmd0 \
+  libxcb-cursor0 \
   qml-module-qtquick-controls2 \
   qml-module-qtquick-layouts \
   qml-module-qtquick-window2 \
@@ -26,8 +27,10 @@ DEPENDENCIES="
   libSM.so*
   libX11.so*
   libXau.so*
+  libXcursor.so*
   libXdmcp.so*
   libXext.so*
+  libXfixes.so*
   libXi.so*
   libXrender.so*
   libXv.so*
@@ -35,15 +38,19 @@ DEPENDENCIES="
   libbsd.so*
   libdouble-conversion.so*
   libffi.so*
+  libgudev-1.0.so*
   libicudata.so*
   libicui18n.so*
   libicuuc.so*
+  libinput.so*
+  libjpeg.so*
   libmd.so*
   libmtdev.so*
   libopus.so*
   libpcre2-16.so*
   libpng16.so*
   libva-wayland.so*
+  libwacom.so*
   libwayland-client.so*
   libxcb*
   libxkbcommon-x11.so*

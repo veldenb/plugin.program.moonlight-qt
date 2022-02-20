@@ -8,16 +8,28 @@ cd "$(dirname "$0")"
 
 mkdir -p /tmp/moonlight-qt/lib/
 
+apt update
+DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
+  libmd0 \
+  qml-module-qtquick-controls2 \
+  qml-module-qtquick-layouts \
+  qml-module-qtquick-window2 \
+  qml-module-qtquick2
+
 # Include dependencies not present in LibreELEC
 DEPENDENCIES="
   libGL.so*
   libGLX.so*
   libGLdispatch.so*
+  libICE.so*
   libQt5*
+  libSM.so*
   libX11.so*
   libXau.so*
   libXdmcp.so*
   libXext.so*
+  libXi.so*
+  libXrender.so*
   libXv.so*
   libatomic.so*
   libbsd.so*
@@ -26,12 +38,15 @@ DEPENDENCIES="
   libicudata.so*
   libicui18n.so*
   libicuuc.so*
+  libmd.so*
   libmtdev.so*
   libopus.so*
   libpcre2-16.so*
   libpng16.so*
   libwayland-client.so*
-  libxcb.so*
+  libxcb*
+  libxkbcommon-x11.so*
+  libxkbcommon.so*
   qt5
 "
 

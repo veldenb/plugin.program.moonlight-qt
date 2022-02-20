@@ -55,7 +55,7 @@ for DEP in $DEPENDENCIES; do
   cp --verbose --no-dereference --recursive /usr/lib/*-linux-gnu/$DEP /tmp/moonlight-qt/lib/
 done
 
-mkdir -p /tmp/moonlight-qt/bin/
+mkdir /tmp/moonlight-qt/bin/
 cp -v /opt/build/moonlight-qt-*/debian/moonlight-qt/usr/bin/moonlight-qt /tmp/moonlight-qt/bin/
 
 chown -R --reference=/tmp/moonlight-qt /tmp/moonlight-qt/

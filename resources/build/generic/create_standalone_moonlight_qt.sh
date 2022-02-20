@@ -6,18 +6,31 @@ set -e
 
 cd "$(dirname "$0")"
 
+apt update
+DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y \
+  libxcb-cursor0 \
+  libxcursor1 \
+  libgudev-1.0-0 \
+  libinput10
+
 mkdir -p /tmp/moonlight-qt/lib/
 
 # Include dependencies not present in LibreELEC
 DEPENDENCIES="
-  libbsd.so*
   libICE.so*
   libSM.so*
   libXau.so*
-  libxcb.so*
+  libXcursor.so*
   libXdmcp.so*
-  libmd.so*
+  libXfixes.so*
   libXi.so*
+  libXrender.so*
+  libbsd.so*
+  libgudev-1.0.so*
+  libinput.so*
+  libmd.so*
+  libwacom.so*
+  libxcb.so*
 "
 
 for DEP in $DEPENDENCIES; do

@@ -18,6 +18,9 @@ set -e
 
 cd "$(dirname "$0")"
 
+# Get platform and distro
+source ./get-platform.sh
+
 # Paths
 ADDON_BIN_PATH=$(realpath ".")
 HOME="$ADDON_PROFILE_PATH/moonlight-home"
@@ -31,14 +34,20 @@ LIB_PATH="$MOONLIGHT_PATH/lib"
 export LD_LIBRARY_PATH=/usr/lib/:$LIB_PATH:$LD_LIBRARY_PATH
 
 # Setup QT library locations if present
-if [[ -d "$LIB_PATH/qt5" ]]; then
+if [ -d "$LIB_PATH/qt5" ]; then
+  echo "Using QT library from $LIB_PATH/qt5..."
   export QML_IMPORT_PATH=$LIB_PATH/qt5/qml/
   export QML2_IMPORT_PATH=$LIB_PATH/qt5/qml/
   export QT_QPA_PLATFORM_PLUGIN_PATH=$LIB_PATH/qt5/plugins/
 fi
 
-# Load platform specific configuration
-source ./get-platform.sh
+# Hack to scale interface on 4K display's. QT_SCALE_FACTOR higher than 1.28 corrupts the layout.
+if [ -z "$DISPLAY" ]; then
+  echo Applying QT custom scaling factor...
+  export QT_SCALE_FACTOR=1.28
+  export QT_QPA_EGLFS_PHYSICAL_WIDTH=750
+  export QT_QPA_EGLFS_PHYSICAL_HEIGHT=422
+fi
 
 # Make sure home path exists
 mkdir -p "$HOME"
@@ -83,7 +92,8 @@ EOT
 fi
 
 # Check for distro specific hooks
-if [[ -d "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO" ]]; then
+if [ -d "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO" ]; then
+  echo "Using Kodi hooks for $PLATFORM_DISTRO..."
   # Stop kodi using hook
   source "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO/stop.sh"
 

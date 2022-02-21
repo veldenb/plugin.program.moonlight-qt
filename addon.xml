@@ -25,6 +25,8 @@
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
         <news>v0.1.4
 - Fix Generic x86_64 segmentation fault
+- Added scaling for EGL QT interface
+- Added custom builds for testing code directly from moonlight-qt git repository
 
 v0.1.3
 - Detect PulseAudio and configure it for Moonlight

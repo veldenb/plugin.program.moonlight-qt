@@ -18,12 +18,17 @@ done
 # Parse project var and convert to lower case
 PLATFORM="$(echo "$LIBREELEC_PROJECT" | tr '[:upper:]' '[:lower:]')"
 
+# If platform is empty try uname
+if [ "$PLATFORM" == "" ]; then
+  PLATFORM=$(uname -m)
+fi
+
 # Figure out distro (libreelec, ubuntu)
 PLATFORM_DISTRO="$ID"
 
-if [ -f "../etc/${PLATFORM}.sh" ]; then
-  echo "Platform $PLATFORM detected..."
+if [ -d "../build/$PLATFORM" ]; then
+  echo "Platform '$PLATFORM' detected..."
 else
-  echo "Notice: '$PLATFORM' is not a known LibreELEC platform, using generic..." 1>&2
-  PLATFORM=generic
+  echo "Platform '$PLATFORM' detected, using generic..."
+  PLATFORM="generic"
 fi

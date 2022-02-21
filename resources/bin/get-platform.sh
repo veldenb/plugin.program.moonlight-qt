@@ -27,8 +27,8 @@ fi
 PLATFORM_DISTRO="$ID"
 
 if [ -d "../build/$PLATFORM" ]; then
-  echo "Platform '$PLATFORM' detected..."
+  echo "Platform '$PLATFORM' running '$PLATFORM_DISTRO' detected..."
 else
-  echo "Platform '$PLATFORM' detected, using generic..."
+  echo "Platform '$PLATFORM' running '$PLATFORM_DISTRO' detected, using platform generic..."
   PLATFORM="generic"
 fi

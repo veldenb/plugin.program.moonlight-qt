@@ -26,6 +26,7 @@ DEPENDENCIES="
   libicudata.so*
   libicui18n.so*
   libicuuc.so*
+  libjpeg.so*
   libmtdev.so*
   libopus.so*
   libpcre2-16.so*

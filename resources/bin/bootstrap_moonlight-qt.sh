@@ -41,12 +41,15 @@ if [ -d "$LIB_PATH/qt5" ]; then
   export QT_QPA_PLATFORM_PLUGIN_PATH=$LIB_PATH/qt5/plugins/
 fi
 
-# Hack to scale interface on 4K display's. QT_SCALE_FACTOR higher than 1.28 corrupts the layout.
+# Hack to scale interface on EGLFS. QT_SCALE_FACTOR higher than 1.28 corrupts the layout.
 if [ -z "$DISPLAY" ]; then
   echo Applying QT custom scaling factor...
   export QT_SCALE_FACTOR=1.28
   export QT_QPA_EGLFS_PHYSICAL_WIDTH=750
   export QT_QPA_EGLFS_PHYSICAL_HEIGHT=422
+  # Hide mouse cursor because fonts disappear if the cursor is not disabled:
+  # https://github.com/moonlight-stream/moonlight-qt/issues/233
+  export QT_QPA_EGLFS_HIDECURSOR=1
 fi
 
 # Make sure home path exists

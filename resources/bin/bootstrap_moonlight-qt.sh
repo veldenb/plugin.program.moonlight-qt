@@ -33,23 +33,45 @@ export XDG_RUNTIME_DIR=/var/run/
 LIB_PATH="$MOONLIGHT_PATH/lib"
 export LD_LIBRARY_PATH=/usr/lib/:$LIB_PATH:$LD_LIBRARY_PATH
 
-# Setup QT library locations if present
+# Setup Qt library locations if present
 if [ -d "$LIB_PATH/qt5" ]; then
-  echo "Using QT library from $LIB_PATH/qt5..."
+  echo "Using Qt library from $LIB_PATH/qt5..."
   export QML_IMPORT_PATH=$LIB_PATH/qt5/qml/
   export QML2_IMPORT_PATH=$LIB_PATH/qt5/qml/
   export QT_QPA_PLATFORM_PLUGIN_PATH=$LIB_PATH/qt5/plugins/
 fi
 
-# Hack to scale interface on EGLFS. QT_SCALE_FACTOR higher than 1.28 corrupts the layout.
+# Hack to scale interface on EGLFS, QT_SCALE_FACTOR higher than 1.28 corrupts the layout.
 if [ -z "$DISPLAY" ]; then
-  echo Applying QT custom scaling factor...
-  export QT_SCALE_FACTOR=1.28
-  export QT_QPA_EGLFS_PHYSICAL_WIDTH=750
-  export QT_QPA_EGLFS_PHYSICAL_HEIGHT=422
+  echo "Running without window manager..."
+
+  # Default mode based on 1080p
+  export QT_SCALE_FACTOR=0.93
+
+  if [ -r "/sys/class/graphics/fb0/virtual_size" ]; then
+    RESOLUTION=$(cat /sys/class/graphics/fb0/virtual_size)
+    echo "Detected resolution $RESOLUTION..."
+  fi
+
+  # Choose a scale factor based on resolution - this scales the layout
+  if [ "$RESOLUTION" = "2560,1440" ]; then
+    export QT_SCALE_FACTOR=1.21
+  fi
+
+  if [ "$RESOLUTION" = "3840,2160" ]; then
+    export QT_SCALE_FACTOR=1.28
+  fi
+  echo "Using Qt scale factor $QT_SCALE_FACTOR..."
+
+  # Use a size comparable to a 32" TV - this setting makes the fonts conveniently large on a TV
+  export QT_QPA_EGLFS_PHYSICAL_WIDTH=704
+  export QT_QPA_EGLFS_PHYSICAL_HEIGHT=406
+
   # Hide mouse cursor because fonts disappear if the cursor is not disabled:
   # https://github.com/moonlight-stream/moonlight-qt/issues/233
   export QT_QPA_EGLFS_HIDECURSOR=1
+else
+  echo "Running with window manager..."
 fi
 
 # Make sure home path exists

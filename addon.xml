@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.4" provider-name="veldenb">
+<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.5" provider-name="veldenb">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="service.system.docker" version="9.80.11.133"/>
@@ -19,13 +19,14 @@
         <language>en</language>
         <platform>linux</platform>
         <license>GPL-3.0-or-later</license>
-        <forum></forum>
         <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
-        <email></email>
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
-        <news>v0.1.4
+        <news>v0.1.5
+- Tweak Qt interface scaling on Pi (EGL)
+
+v0.1.4
 - Fix Generic x86_64 segmentation fault
-- Added scaling for EGL QT interface
+- Added scaling for EGL Qt interface
 - Added custom builds for testing code directly from moonlight-qt git repository
 
 v0.1.3

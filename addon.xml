@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.5" provider-name="veldenb">
+<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.6" provider-name="veldenb">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
-        <import addon="service.system.docker" version="9.80.11.133"/>
+        <import addon="service.system.docker" optional="true" version="9.80.11.133"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
         <provides>game</provides>
@@ -21,7 +21,11 @@
         <license>GPL-3.0-or-later</license>
         <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
-        <news>v0.1.5
+        <news>
+v0.1.6
+- Make installing and updating work on generic x86 linux distro's
+
+v0.1.5
 - Tweak Qt interface scaling on Pi (EGL)
 
 v0.1.4

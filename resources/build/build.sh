@@ -11,7 +11,7 @@ if [ "$PLATFORM_DISTRO" != "libreelec" ]
 then
   ALTERNATIVE_BUILD="_local_libs"
 fi
-ALTERNATIVE_BUILD=""
+
 # Uncomment to build moonlight from source. This is very experimental, cross your fingers and wait for a long time...
 # ALTERNATIVE_BUILD="_git"
 # Only for Pi experimental 64-bit build, LibreELEC is currently 32-bit:

@@ -5,21 +5,17 @@ FROM debian:bullseye-slim
 # Install required packages and download Moonligh-qt AppImage version
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    git \
-    wget \
+    libgudev-1.0-0 \
+    libinput10 \
     libsm6 \
+    libxcb-cursor0 \
+    libxcursor1 \
     libxi6 \
+    wget \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
- && VERSION=$(git ls-remote --tags https://github.com/moonlight-stream/moonlight-qt.git \
-   | cut -f2 \
-   | sed 's|refs/tags/v||' \
-   | grep -E '^[0-9.]+' \
-   | sort -r --version-sort \
-   | head -n1 \
- ) \
- && wget "https://github.com/moonlight-stream/moonlight-qt/releases/download/v${VERSION}/Moonlight-${VERSION}-x86_64.AppImage" \
-   -O /tmp/Moonlight-downloaded.AppImage \
+ && DOWNLOAD_URL=$(wget --quiet --header "Accept: application/vnd.github.v3+json" --output-document - https://api.github.com/repos/moonlight-stream/moonlight-qt/releases/latest | grep -o '"browser_download_url": "[^"]*' | grep -o '[^"]*$' | grep ".AppImage") \
+ && wget "$DOWNLOAD_URL" -O /tmp/Moonlight-downloaded.AppImage \
  && chmod a+x /tmp/Moonlight-downloaded.AppImage
 
 

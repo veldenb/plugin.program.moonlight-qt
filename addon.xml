@@ -23,7 +23,7 @@
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
         <news>
 v0.1.6
-- Make installing and updating work on generic x86 linux distro's
+- Make installing and updating work on generic x86_64 Linux distro's
 
 v0.1.5
 - Tweak Qt interface scaling on Pi (EGL)

@@ -125,6 +125,9 @@ def update(addon):
         line_nr.__str__(), p.returncode.__str__(), line.decode()
     ), xbmc.LOGDEBUG)
 
+    # Make sure it ends at 100%
+    p_dialog.update(100)
+
     # Close the progress bar
     p_dialog.close()
 

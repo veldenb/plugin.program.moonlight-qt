@@ -55,8 +55,8 @@ msgid "Updating Moonlight"
 msgstr "Moonlight bijwerken"
 
 msgctxt "#30104"
-msgid "Updating Moonlight using Docker, this will take a while..."
-msgstr "Moonlight bijwerken met Docker, dit gaat even duren..."
+msgid "Updating Moonlight, this will take a while..."
+msgstr "Moonlight bijwerken, dit gaat even duren..."
 
 msgctxt "#30105"
 msgid "Update failed: %(error_msg)s"

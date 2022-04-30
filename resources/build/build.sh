@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# TODO re-think folder setup using ID_LIKE for example:
+# debian_armv7l (raspbian, osmc etc)
+# debian_x86_64 (debian, ubuntu etc)
+# libreelec_generic (libreelec x86)
+# libreelec_rpi (libreelec rpi)
+
 set -e
 
 cd "$(dirname "$0")"
@@ -7,7 +13,7 @@ cd "$(dirname "$0")"
 source ../bin/get-platform.sh
 
 # If the distro is not LibreELEC assume local libraries are available and Docker is not needed
-if [ "$PLATFORM_DISTRO" != "libreelec" ]
+if [ "$PLATFORM" = "generic" ] && [ "$PLATFORM_DISTRO" != "libreelec" ]
 then
   ALTERNATIVE_BUILD="_local_libs"
 fi

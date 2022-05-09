@@ -14,7 +14,7 @@
 
 set -e
 
-. /etc/profile
+#. /etc/profile
 
 cd "$(dirname "$0")"
 

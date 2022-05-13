@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.7" provider-name="veldenb">
+<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.6" provider-name="veldenb">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="service.system.docker" optional="true" version="9.80.11.133"/>
@@ -22,12 +22,10 @@
         <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
         <news>
-v0.1.7
-- Only load system profile on LibreELEC
-- Add (guessed) mapping for 7.1 speaker setup
-
 v0.1.6
 - Make installing and updating work on generic x86_64 Linux distro's
+- Only load system profile on LibreELEC
+- Add (guessed) mapping for 7.1 speaker setup
 
 v0.1.5
 - Tweak Qt interface scaling on Pi (EGL)

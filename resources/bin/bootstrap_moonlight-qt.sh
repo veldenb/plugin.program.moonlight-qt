@@ -112,8 +112,21 @@ pcm.!surround51 {
   }
 }
 
-# The mapping for 7.1 is currently unknown (no hardware to test this)
-pcm.!surround71 "%device%"
+# The mapping for 7.1 is currently guessed (no hardware to test this)
+pcm.!surround71 {
+  type route
+  slave.pcm "%device%"
+  ttable {
+    0.0= 1
+    1.1= 1
+    2.4= 1
+    3.5= 1
+    4.3= 1
+    5.2= 1
+    6.6= 1
+    7.7= 1
+  }
+}
 EOT
 
   # Replace the placeholder with the device name

@@ -14,12 +14,16 @@
 
 set -e
 
-. /etc/profile
-
 cd "$(dirname "$0")"
 
 # Get platform and distro
 source ./get-platform.sh
+
+# Load profile on LibreELEC
+if [ "$PLATFORM_DISTRO" == "libreelec" ]; then
+  echo Loading profile...
+  source /etc/profile
+fi
 
 # Paths
 ADDON_BIN_PATH=$(realpath ".")

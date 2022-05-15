@@ -12,6 +12,10 @@
 # To use a specific ALSA audio device (after disabling pulse):
 # export ALSA_PCM_NAME="hdmi:CARD=PCH,DEV=0"
 
+#export FORCE_MODE="1280x720"
+#export FORCE_MODE="1920x1080"
+#export FORCE_MODE="2560x1440"
+
 set -e
 
 cd "$(dirname "$0")"
@@ -45,21 +49,53 @@ if [ -d "$LIB_PATH/qt5" ]; then
   export QT_QPA_PLATFORM_PLUGIN_PATH=$LIB_PATH/qt5/plugins/
 fi
 
+# Force display mode if needed
+if [ -n "$FORCE_MODE" ]; then
+  echo "Forcing mode $FORCE_MODE..."
+  export QT_QPA_EGLFS_KMS_CONFIG="$ADDON_PROFILE_PATH/screensize.json"
+
+  cat <<EOT > "$QT_QPA_EGLFS_KMS_CONFIG"
+{
+  "device": "/dev/dri/card0",
+  "outputs": [
+    {
+      "name": "HDMI1",
+      "mode": "%mode%"
+    },
+    {
+      "name": "HDMI2",
+      "mode": "%mode%"
+    }
+  ]
+}
+EOT
+
+  # Replace the placeholder with the device name
+  sed -i "s/%mode%/$FORCE_MODE/g" "$QT_QPA_EGLFS_KMS_CONFIG"
+
+fi
+
 # Hack to scale interface on EGLFS, QT_SCALE_FACTOR higher than 1.28 corrupts the layout.
 if [ -z "$DISPLAY" ]; then
   echo "Running without window manager..."
 
   # Default mode based on 1080p
-  export QT_SCALE_FACTOR=0.93
+  export QT_SCALE_FACTOR=0.77
 
-  if [ -r "/sys/class/graphics/fb0/virtual_size" ]; then
+  if [ -n "$FORCE_MODE" ]; then
+    RESOLUTION="${FORCE_MODE/x/,}"
+  elif [ -r "/sys/class/graphics/fb0/virtual_size" ]; then
     RESOLUTION=$(cat /sys/class/graphics/fb0/virtual_size)
     echo "Detected resolution $RESOLUTION..."
   fi
 
   # Choose a scale factor based on resolution - this scales the layout
+  if [ "$RESOLUTION" = "1280,720" ]; then
+    export QT_SCALE_FACTOR=0.51
+  fi
+
   if [ "$RESOLUTION" = "2560,1440" ]; then
-    export QT_SCALE_FACTOR=1.21
+    export QT_SCALE_FACTOR=1.03
   fi
 
   if [ "$RESOLUTION" = "3840,2160" ]; then
@@ -67,9 +103,10 @@ if [ -z "$DISPLAY" ]; then
   fi
   echo "Using Qt scale factor $QT_SCALE_FACTOR..."
 
-  # Use a size comparable to a 32" TV - this setting makes the fonts conveniently large on a TV
-  export QT_QPA_EGLFS_PHYSICAL_WIDTH=704
-  export QT_QPA_EGLFS_PHYSICAL_HEIGHT=406
+  # This setting makes the fonts conveniently large on a TV, the lower the size the bigger the fonts.
+  # Use the scale factor to dynamically scale the fonts compared to the UI scaling.
+  export QT_QPA_EGLFS_PHYSICAL_WIDTH=$( awk "BEGIN { print int($QT_SCALE_FACTOR*437)}" )
+  export QT_QPA_EGLFS_PHYSICAL_HEIGHT=$( awk "BEGIN { print int($QT_SCALE_FACTOR*250)}" )
 
   # Hide mouse cursor because fonts disappear if the cursor is not disabled:
   # https://github.com/moonlight-stream/moonlight-qt/issues/233

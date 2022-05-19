@@ -21,6 +21,11 @@ msgctxt "#30001"
 msgid "Moonlight"
 msgstr "Moonlight"
 
+#
+# Settings
+#
+
+
 msgctxt "#30002"
 msgid "Update"
 msgstr "Aktualisieren"
@@ -28,6 +33,31 @@ msgstr "Aktualisieren"
 msgctxt "#30003"
 msgid "Update Moonlight to the latest version"
 msgstr "Moonlight auf die neueste Version aktualisieren"
+
+msgctxt "#30004"
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgctxt "#30005"
+msgid "Display"
+msgstr "Bildschirm"
+
+msgctxt "#30006"
+msgid "EGL resolution"
+msgstr "EGL-Auflösung"
+
+msgctxt "#30007"
+msgid "Force a resolution on EGL systems like the Raspberry Pi. In some situations lowering the resolution gives better performance."
+msgstr "Erzwingen Sie eine Auflösung auf EGL-Systemen wie dem Raspberry Pi. In einigen Situationen führt eine Verringerung der Auflösung zu einer besseren Leistung."
+
+msgctxt "#30008"
+msgid "Default"
+msgstr "Voreinstellung"
+
+#
+# Installing and updating
+#
+
 
 msgctxt "#30100"
 msgid "Install Moonlight"
@@ -56,6 +86,11 @@ msgstr "Fehler beim Aktualisieren: %(error_msg)s"
 msgctxt "#30106"
 msgid "Update finished!"
 msgstr "Aktualisierung abgeschlossen!"
+
+#
+# Launching
+#
+
 
 msgctxt "#30200"
 msgid "Launching Moonlight"

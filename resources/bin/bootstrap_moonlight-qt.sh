@@ -12,9 +12,10 @@
 # To use a specific ALSA audio device (after disabling pulse):
 # export ALSA_PCM_NAME="hdmi:CARD=PCH,DEV=0"
 
-#export FORCE_MODE="1280x720"
-#export FORCE_MODE="1920x1080"
-#export FORCE_MODE="2560x1440"
+# Force a EGL mode, can also be configured from settings menu addon
+# export FORCE_EGL_MODE="1280x720"
+# export FORCE_EGL_MODE="1920x1080"
+# export FORCE_EGL_MODE="2560x1440"
 
 set -e
 
@@ -50,9 +51,9 @@ if [ -d "$LIB_PATH/qt5" ]; then
 fi
 
 # Force display mode if needed
-if [ -n "$FORCE_MODE" ]; then
-  echo "Forcing mode $FORCE_MODE..."
-  export QT_QPA_EGLFS_KMS_CONFIG="$ADDON_PROFILE_PATH/screensize.json"
+if [ -n "$FORCE_EGL_MODE" ]; then
+  echo "Forcing mode $FORCE_EGL_MODE..."
+  export QT_QPA_EGLFS_KMS_CONFIG="$ADDON_PROFILE_PATH/qt_qpa_eglfs_kms_config.json"
 
   cat <<EOT > "$QT_QPA_EGLFS_KMS_CONFIG"
 {
@@ -71,7 +72,7 @@ if [ -n "$FORCE_MODE" ]; then
 EOT
 
   # Replace the placeholder with the device name
-  sed -i "s/%mode%/$FORCE_MODE/g" "$QT_QPA_EGLFS_KMS_CONFIG"
+  sed -i "s/%mode%/$FORCE_EGL_MODE/g" "$QT_QPA_EGLFS_KMS_CONFIG"
 
 fi
 
@@ -82,8 +83,8 @@ if [ -z "$DISPLAY" ]; then
   # Default mode based on 1080p
   export QT_SCALE_FACTOR=0.77
 
-  if [ -n "$FORCE_MODE" ]; then
-    RESOLUTION="${FORCE_MODE/x/,}"
+  if [ -n "$FORCE_EGL_MODE" ]; then
+    RESOLUTION="${FORCE_EGL_MODE/x/,}"
   elif [ -r "/sys/class/graphics/fb0/virtual_size" ]; then
     RESOLUTION=$(cat /sys/class/graphics/fb0/virtual_size)
     echo "Detected resolution $RESOLUTION..."

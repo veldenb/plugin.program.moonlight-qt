@@ -25,6 +25,7 @@ msgstr "Moonlight"
 # Settings
 #
 
+
 msgctxt "#30002"
 msgid "Update"
 msgstr "Mise à jour"
@@ -32,6 +33,26 @@ msgstr "Mise à jour"
 msgctxt "#30003"
 msgid "Update Moonlight to the latest version"
 msgstr "Mettre à jour Moonlight vers la dernière version"
+
+msgctxt "#30004"
+msgid "Settings"
+msgstr "Réglages"
+
+msgctxt "#30005"
+msgid "Display"
+msgstr "Affichage"
+
+msgctxt "#30006"
+msgid "EGL resolution"
+msgstr "Résolution EGL"
+
+msgctxt "#30007"
+msgid "Force a resolution on EGL systems like the Raspberry Pi. In some situations lowering the resolution gives better performance."
+msgstr "Forcez une résolution sur les systèmes EGL comme le Raspberry Pi. Dans certaines situations, une résolution inférieure donne de meilleures performances."
+
+msgctxt "#30008"
+msgid "Default"
+msgstr "Standaard"
 
 #
 # Installing and updating

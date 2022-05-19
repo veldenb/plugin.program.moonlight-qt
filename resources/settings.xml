@@ -15,6 +15,26 @@
                 </setting>
             </group>
         </category>
+        <category id="settings" label="30004">
+            <group id="settings_display" label="30005">
+                <setting id="settings_display.egl_resolution" type="list[string]" label="30006" help="30007">
+                    <level>0</level>
+                    <default>default</default>
+                    <constraints>
+                        <options>
+                            <option label="30008">default</option>
+                            <option label="30009">1280x720</option>
+                            <option label="30010">1920x1080</option>
+                            <option label="30011">2560x1440</option>
+                            <option label="30012">3840x2160</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string">
+                        <multiselect>false</multiselect>
+                    </control>
+                </setting>
+            </group>
+        </category>
     </section>
 </settings>
 <!--

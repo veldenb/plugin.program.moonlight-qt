@@ -26,6 +26,11 @@ def launch(addon, hostname=None, game_name=None):
     if os.environ.get('DBUS_SESSION_BUS_ADDRESS') is not None or os.environ.get('XDG_RUNTIME_DIR') is not None:
         systemd_args.append('--user')
 
+    # Check for a forced EGL display mode
+    force_mode = addon.getSetting('settings_display.egl_resolution')
+    if force_mode != "default":
+        systemd_args.append(f'--setenv=FORCE_EGL_MODE="{force_mode}"')
+
     # Append addon path
     systemd_args.append(f'--setenv=ADDON_PROFILE_PATH="{get_addon_data_path()}"')
 

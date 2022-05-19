@@ -23,6 +23,7 @@
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
         <news>
 v0.1.6
+- Add support for setting resolution on EGL systems
 - Make installing and updating work on generic x86_64 Linux distro's
 - Only load system profile on LibreELEC
 - Add (guessed) mapping for 7.1 speaker setup

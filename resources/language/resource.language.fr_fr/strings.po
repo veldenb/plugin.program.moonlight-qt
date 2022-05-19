@@ -52,7 +52,7 @@ msgstr "Forcez une résolution sur les systèmes EGL comme le Raspberry Pi. Dans
 
 msgctxt "#30008"
 msgid "Default"
-msgstr "Standaard"
+msgstr "Défaut"
 
 #
 # Installing and updating

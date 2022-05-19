@@ -1,5 +1,5 @@
-# LibreELEC (Matrix) 10.0 Moonlight launcher for the Raspberry Pi 4 and Generic x86_64 systems
-A launcher and updater for running Moonlight on LibreELEC Raspberry Pi 4 systems and Generic x86_64 systems.
+# Kodi 19 Moonlight launcher for the Raspberry Pi 4 and Generic x86_64 systems
+A launcher and updater for running Moonlight on LibreELEC Raspberry Pi 4 systems and Generic x86_64 systems running LibreELEC or Ubuntu.
 
 ## Background:
 This Kodi addon-on was developed to enable Moonlight game streaming on LibreELEC systems.
@@ -15,15 +15,16 @@ https://github.com/moonlight-stream/moonlight-qt
 At the time of writing the only platform that support's Moonlight on a Raspberry Pi 4 without a running X-server seems to be Moonlight-qt. 
 
 ## Prerequisites:
-- [Raspberry Pi 4](https://libreelec.tv/raspberry-pi-4/) or a [Generic x86_64 device](https://libreelec.tv/downloads_new/generic-pc/) with LibreELEC (Matrix) 10.0 installed, connected to local network via ethernet (preferred) or Wi-Fi
+- [Raspberry Pi 4](https://libreelec.tv/raspberry-pi-4/), a [Generic x86_64 device](https://libreelec.tv/downloads_new/generic-pc/) with LibreELEC (Matrix) 10.0 or Ubuntu (x86_64) installed, connected to local network via ethernet (preferred) or Wi-Fi
+- Other Linux distributions may also work but are not tested.
 - Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or Wi-Fi
 - Enough temporary storage space on your LibreELEC device to install Moonlight (about 500 MB is needed)
 
 ## Instructions:
 ### 1. Install this plugin.
 - Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/latest/download/plugin.program.moonlight-qt.zip) and store it on your Kodi device.
-- In Kodi install Docker from the LibreELEC repository: Add-ons / Install from repository / LibreELEC Add-ons / Services / Docker 
-- Reboot LibreELEC to ensure Docker works
+- In Kodi install Docker from the LibreELEC repository: Add-ons / Install from repository / LibreELEC Add-ons / Services / Docker _**(skip this on Ubuntu)**_
+- Reboot LibreELEC to ensure Docker works _**(skip this on Ubuntu)**_
 - Go to Add-ons / Install from zip file
 - Select plugin.program.moonlight-qt.zip
 
@@ -76,7 +77,7 @@ The plugin can use the copied files to launch Moonlight from Kodi without the ex
 Somewhat the same as the Pi 4 build but based on an AppImage Moonlight build. Extra libraries are injected into the AppImage.
 
 ## Help, it doesn't work
-You can always open an issue if Moonlight doesn't launch/update on a Raspberry Pi 4 or the game menu doesn't work.
+You can always open an issue if Moonlight doesn't launch/update or the game menu doesn't work.
 All configuration and streaming problems are probably related to Moonlight self, you can report that on their own GitHub page: https://github.com/moonlight-stream/moonlight-qt/issues   
 
 ## Thanks

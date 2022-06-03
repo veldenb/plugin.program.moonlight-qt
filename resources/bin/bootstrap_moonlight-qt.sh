@@ -39,6 +39,8 @@ MOONLIGHT_PATH="$ADDON_PROFILE_PATH/moonlight-qt"
 export XDG_RUNTIME_DIR=/var/run/
 
 # Setup library locations
+# If libraries are missing the following command on a working instance (i.e. Raspbian) can help finding the necessary libs after finding moonlight-qt's PID:
+# ls -al /proc/{$MOONLIGHT-PID}/map_files/ | tr -s ' ' | grep '>' | cut -d '>' -f 2 | sort | uniq
 LIB_PATH="$MOONLIGHT_PATH/lib"
 export LD_LIBRARY_PATH=/usr/lib/:$LIB_PATH:$LD_LIBRARY_PATH
 

@@ -19,6 +19,9 @@ WORKDIR /moonlight-packaging
 # Add --arch=armv7 so no 64-bit code is compiled
 RUN sed -i 's/.\/configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS/.\/configure --arch=armv7 $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS/g' scripts/build-deps.sh
 
+# Fix automake error
+RUN sed -i 's/cd \/opt\/SDL_ttf/cd \/opt\/SDL_ttf; autoreconf/g' scripts/build-deps.sh
+
 # Copied from Dockerfile.amd64.buster and slightly changed by changing COPY to RUN mv
 ### start ###
 ENV TARGET=rpi

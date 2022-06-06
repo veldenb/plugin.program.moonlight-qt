@@ -14,6 +14,10 @@ RUN mkdir -p /opt/scripts && \
     git submodule update --init --recursive && \
     mv debian /opt/
 
+# Workaround and SDL issue to prevent segfaulting: https://github.com/moonlight-stream/moonlight-qt/issues/645 and
+# https://github.com/libsdl-org/SDL/pull/5296/commits/e02b454e7b6a18a0993a997ba19f1b83ee8cc2f6
+RUN cd /moonlight-packaging/SDL2/ && git checkout tags/release-2.0.20 -b 2.0.20
+
 WORKDIR /moonlight-packaging
 
 # Add --arch=armv7 so no 64-bit code is compiled

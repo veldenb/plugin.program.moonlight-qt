@@ -53,7 +53,7 @@ def get_moonlight_config():
 
 
 def parse_moonlight_config(moonlight_config_file):
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
     config.read(moonlight_config_file)
 
     parsedOptions = {}

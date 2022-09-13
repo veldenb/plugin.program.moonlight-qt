@@ -66,7 +66,7 @@ def launch(addon, hostname=None, game_name=None):
     command = f'{launch_command} ' + ' '.join(moonlight_args)
 
     # Log the command so debugging problems is easier
-    xbmc.log('Launching moonlight-qt: ' + command, xbmc.LOGDEBUG)
+    xbmc.log('Launching moonlight-qt: ' + command, xbmc.LOGINFO)
 
     # Show a dialog
     if not game_name:

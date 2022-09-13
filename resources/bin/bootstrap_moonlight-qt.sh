@@ -138,10 +138,15 @@ mkdir -p "$(dirname "$CONF_FILE")"
 rm -f "$CONF_FILE"
 
 if [ "$PULSE_SERVER" == "none" ] && [ -n "$ALSA_PCM_NAME" ]; then
-  echo "Custom ALSA audio device: '$ALSA_PCM_NAME'"
+  echo "Using ALSA for audio output..."
+  export SDL_AUDIODRIVER="alsa"
 
-  # Create a template file for ALSA
-  cat <<EOT >> "$CONF_FILE"
+  # If a specific device is chosen create a config file including surround mapping
+  # FIXME: Split setting default device and surround mapping and check if mapping is LibreELEC only
+  if [ "$ALSA_PCM_NAME" != "default" ]; then
+    echo "Custom ALSA audio device: '$ALSA_PCM_NAME'"
+    # Create a template file for ALSA
+    cat <<EOT >> "$CONF_FILE"
 pcm.!default "%device%"
 
 # The audio channels need to be re-mapped for Moonlight, this seems to be a Kodi issue.
@@ -177,8 +182,9 @@ pcm.!surround71 {
 }
 EOT
 
-  # Replace the placeholder with the device name
-  sed -i "s/%device%/$ALSA_PCM_NAME/g" "$CONF_FILE"
+    # Replace the placeholder with the device name
+    sed -i "s/%device%/$ALSA_PCM_NAME/g" "$CONF_FILE"
+  fi
 fi
 
 # Check for distro specific hooks

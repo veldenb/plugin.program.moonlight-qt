@@ -2,6 +2,8 @@
 
 # Only for debugging
 # export QT_DEBUG_PLUGINS=1
+# set -e
+# set -x
 
 # To use a specific PulseAudio device:
 # export PULSE_SINK="alsa_output.pci-0000_0a_00.1.analog-stereo"
@@ -17,39 +19,45 @@
 # export FORCE_EGL_MODE="1920x1080"
 # export FORCE_EGL_MODE="2560x1440"
 
-set -e
-
 cd "$(dirname "$0")"
 
 # Get platform and distro
 source ./get-platform.sh
 
+# Backup paths
+HOME_BACKUP="$HOME"
+LD_LIBRARY_PATH_BACKUP="$LD_LIBRARY_PATH"
+
 # Load profile on LibreELEC
 if [ "$PLATFORM_DISTRO" == "libreelec" ]; then
-  echo Loading profile...
+  # Setup environment
+  echo "Loading LibreELEC profile for setting up environment..."
   source /etc/profile
+  export XDG_RUNTIME_DIR=/var/run/
 fi
 
 # Paths
 ADDON_BIN_PATH=$(realpath ".")
-HOME="$ADDON_PROFILE_PATH/moonlight-home"
 MOONLIGHT_PATH="$ADDON_PROFILE_PATH/moonlight-qt"
 
-# Setup environment
-export XDG_RUNTIME_DIR=/var/run/
+# Alter HOME var to contain all settings in the addon profile path
+export HOME="$ADDON_PROFILE_PATH/moonlight-home"
 
 # Setup library locations
 # If libraries are missing the following command on a working instance (i.e. Raspbian) can help finding the necessary libs after finding moonlight-qt's PID:
 # ls -al /proc/{$MOONLIGHT-PID}/map_files/ | tr -s ' ' | grep '>' | cut -d '>' -f 2 | sort | uniq
-LIB_PATH="$MOONLIGHT_PATH/lib"
-export LD_LIBRARY_PATH=/usr/lib/:$LIB_PATH:$LD_LIBRARY_PATH
+if [ -d "$MOONLIGHT_PATH/lib" ]; then
+  LIB_PATH="$MOONLIGHT_PATH/lib"
+  echo "Using custom libraries from $LIB_PATH..."
+  export LD_LIBRARY_PATH=/usr/lib/:$LIB_PATH:$LD_LIBRARY_PATH
 
-# Setup Qt library locations if present
-if [ -d "$LIB_PATH/qt5" ]; then
-  echo "Using Qt library from $LIB_PATH/qt5..."
-  export QML_IMPORT_PATH=$LIB_PATH/qt5/qml/
-  export QML2_IMPORT_PATH=$LIB_PATH/qt5/qml/
-  export QT_QPA_PLATFORM_PLUGIN_PATH=$LIB_PATH/qt5/plugins/
+  # Setup Qt library locations if present
+  if [ -d "$LIB_PATH/qt5" ]; then
+    echo "Using Qt library from $LIB_PATH/qt5..."
+    export QML_IMPORT_PATH=$LIB_PATH/qt5/qml/
+    export QML2_IMPORT_PATH=$LIB_PATH/qt5/qml/
+    export QT_QPA_PLATFORM_PLUGIN_PATH=$LIB_PATH/qt5/plugins/
+  fi
 fi
 
 # Force display mode if needed
@@ -186,3 +194,10 @@ fi
 # Start moonlight-qt and log to log file
 echo "--- Starting Moonlight ---"
 ./moonlight-qt "$@"
+
+# For debugging, put .debug files in bin-folder for backtraces
+# gdb --directory="$MOONLIGHT_PATH/bin/" ./moonlight-qt
+
+# Restore paths
+export HOME="$HOME_BACKUP"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH_BACKUP"

@@ -34,6 +34,11 @@ if [ "$PLATFORM_DISTRO" == "libreelec" ]; then
   echo "Loading LibreELEC profile for setting up environment..."
   source /etc/profile
   export XDG_RUNTIME_DIR=/var/run/
+  # LibreELEC ARM builds are build without OpenGL, hint OpenGLES 2 to SDL to prevent crashing when moonlight tries to
+  # use software rendering. See also https://github.com/moonlight-stream/moonlight-qt/issues/868
+  if [ "$PLATFORM" == "rpi" ]; then
+    export SDL_RENDER_DRIVER="opengles2"
+  fi
 fi
 
 # Paths

@@ -23,18 +23,19 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
 ## Instructions:
 ### 1. Install this plugin.
 - Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/latest/) and store it on your Kodi device.
-- In Kodi install Docker from the LibreELEC repository: Add-ons / Install from repository / LibreELEC Add-ons / Services / Docker _**(skip this on Ubuntu)**_
-- Reboot LibreELEC to ensure Docker works _**(skip this on Ubuntu)**_
+- In Kodi install Docker from the LibreELEC repository: Add-ons / Install from repository / LibreELEC Add-ons / Services / Docker _**(skip this on Ubuntu and Raspberry Pi OS)**_
+- Reboot LibreELEC to ensure Docker works _**(skip this on Ubuntu and Raspberry Pi OS)**_
 - Go to Add-ons / Install from zip file
 - Select plugin.program.moonlight-qt.zip
 
    
 ### 2. Start Moonlight 
-- Navigate to Games -> Moonlight.
-- Start Moonlight from the Games menu.
-- The plugin will ask you to install Moonlight, choose yes and wait a few minutes.
+- Navigate to Games -> Moonlight
+- Start Moonlight from the Games menu
+- The plugin will ask you to install Moonlight, choose yes and wait a few minutes
 - When the plugin has finished installing, Moonlight wil launch it
 - Moonlight should start and scan for PC's with Gamestream enabled
+- Make sure you have a gamepad or keyboard/mouse connected to control Moonlight-qt, remote controls don't work in Moonlight-qt
 
 
 ### 3. Enable Nvidia Gamestream on your gaming PC
@@ -43,7 +44,7 @@ GeForce Experience/Settings/Shield/Gamestream (move slider to right)
 
 ![Gamestream host pop-up](https://raw.githubusercontent.com/wiki/moonlight-stream/moonlight-docs/images/gfe-gamestream-enable-small.png)
 
-If your PC is not recognised you can try to turn it off and on again on your gaming PC.
+If your PC is not recognised you can try to turn it off and on again on your gaming PC. You can also add your PC using the IP-address by pressing the + icon in the upper right corner.
 
 ### 4. Pair your gaming PC
 Once your PC is recognised by Moonlight, you will be asked to enter a 4-digit code into Gamestream to pair Moonlight with Gamestream.

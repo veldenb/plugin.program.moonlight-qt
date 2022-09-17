@@ -72,7 +72,6 @@ if [ -n "$FORCE_EGL_MODE" ]; then
 
   cat <<EOT > "$QT_QPA_EGLFS_KMS_CONFIG"
 {
-  "device": "/dev/dri/card0",
   "outputs": [
     {
       "name": "HDMI1",

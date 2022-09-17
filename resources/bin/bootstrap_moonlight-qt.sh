@@ -85,7 +85,7 @@ if [ -n "$FORCE_EGL_MODE" ]; then
 }
 EOT
 
-  # Replace the placeholder with the device name
+  # Replace the placeholder with the device mode
   sed -i "s/%mode%/$FORCE_EGL_MODE/g" "$QT_QPA_EGLFS_KMS_CONFIG"
 
 fi

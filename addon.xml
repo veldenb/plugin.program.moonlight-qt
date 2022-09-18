@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.1.7" provider-name="veldenb">
+<addon id="plugin.program.moonlight-qt" name="Moonlight" version="0.2.0" provider-name="veldenb">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="service.system.docker" optional="true" version="9.80.11.133"/>
@@ -22,6 +22,12 @@
         <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
         <source>https://github.com/veldenb/plugin.program.moonlight-qt</source>
         <news>
+v0.2.0
+- Fix setting 5.1 and 7.1 audio mapping on default audio device
+- Fix layout on 1080p
+- Fix forcing display mode on Raspberry Pi OS
+- Add limited Raspberry Pi 3 support
+
 v0.1.7
 - Fix error in loading moonlight-config in some situations
 - Added experimental support for Kodi on Raspberry Pi OS

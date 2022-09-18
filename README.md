@@ -89,7 +89,17 @@ This support is still experimental. The plugin installs Moonlight-qt with APT di
 ### Generic x86_64
 Somewhat the same as the Pi 4 build but based on an AppImage Moonlight build. Extra libraries are injected into the AppImage.
 
-## Help, it doesn't work
+## Known problems
+### Sound in Kodi but no sound in moonlight-qt
+Try to explicitly select a non-default audio device in Kodi's audio configuration. Kodi's and moonlight-qt's default audio device may differ.
+
+### Surround 5.1/7.1 channels use the wrong speakers
+This is a known problem, feel free to open an issue if this problem occurs.
+
+### Using HDR my display turns black
+This is a known issue in moonlight-qt, HDR support is still experimental and may be unstable.
+
+### Help, it still doesn't work
 You can always open an issue if Moonlight doesn't launch/update or the game menu doesn't work.
 All configuration and streaming problems are probably related to Moonlight self, you can report that on their own GitHub page: https://github.com/moonlight-stream/moonlight-qt/issues   
 

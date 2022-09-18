@@ -21,7 +21,7 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
 - Enough temporary storage space on your LibreELEC device to install Moonlight (about 500 MB is needed)
 
 ### Raspberry Pi 3
-Raspberry Pi 3 works (limited support) but needs changes to LibreELEC's config:
+Raspberry Pi 3 works (limited support up to 720p) but needs changes to LibreELEC's config:
 - Login into your Pi 3 using SSH
 - Make config writable: `mount -o remount,rw /flash/`
 - In /flash/distroconfig.txt replace `dtoverlay=vc4-kms-v3d` with `dtoverlay=vc4-fkms-v3d` to enable fake KMS mode instead of full KMS

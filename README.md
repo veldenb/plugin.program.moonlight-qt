@@ -20,6 +20,15 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
 - Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or Wi-Fi
 - Enough temporary storage space on your LibreELEC device to install Moonlight (about 500 MB is needed)
 
+### Raspberry Pi 3
+Raspberry Pi 3 works (limited support) but needs changes to LibreELEC's config:
+- Login into your Pi 3 using SSH
+- Make config writable: `mount -o remount,rw /flash/`
+- In /flash/distroconfig.txt replace `dtoverlay=vc4-kms-v3d` with `dtoverlay=vc4-fkms-v3d` to enable fake KMS mode instead of full KMS
+- In /flash/config.txt add `dtparam=audio=on` te enable audio in fake KMS mode
+- Make config read only: `mount -o remount,ro /flash/`
+- Reboot the Pi 3
+
 ## Instructions:
 ### 1. Install this plugin.
 - Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/latest/) and store it on your Kodi device.

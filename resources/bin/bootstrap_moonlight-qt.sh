@@ -95,7 +95,7 @@ if [ -z "$DISPLAY" ]; then
   echo "Running without window manager..."
 
   # Default mode based on 1080p
-  export QT_SCALE_FACTOR=0.77
+  export QT_SCALE_FACTOR=0.64
 
   if [ -n "$FORCE_EGL_MODE" ]; then
     RESOLUTION="${FORCE_EGL_MODE/x/,}"

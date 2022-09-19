@@ -25,8 +25,8 @@ Raspberry Pi 3 works (limited support up to 720p) but needs changes to LibreELEC
 - Login into your Pi 3 using SSH
 - Make config writable: `mount -o remount,rw /flash/`
 - In /flash/distroconfig.txt replace `dtoverlay=vc4-kms-v3d` with `dtoverlay=vc4-fkms-v3d` to enable fake KMS mode instead of full KMS
-- In /flash/config.txt add `dtparam=audio=on` te enable audio in fake KMS mode
-- Make config read only: `mount -o remount,ro /flash/`
+- In /flash/config.txt add `dtparam=audio=on` to enable audio in fake KMS mode
+- Make config read only again: `mount -o remount,ro /flash/`
 - Reboot the Pi 3
 
 ## Instructions:

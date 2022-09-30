@@ -27,6 +27,7 @@ v0.2.0
 - Fix layout on 1080p
 - Fix forcing display mode on Raspberry Pi OS
 - Add limited Raspberry Pi 3 support
+- Fix missing libgl1
 
 v0.1.7
 - Fix error in loading moonlight-config in some situations

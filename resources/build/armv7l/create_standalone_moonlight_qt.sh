@@ -17,7 +17,7 @@ then
 fi
 
 sudo apt update
-sudo apt install -y moonlight-qt
+sudo apt install -y moonlight-qt libgl1
 
 # Create symlink
 mkdir -p "$(dirname "$TARGET_PATH")"

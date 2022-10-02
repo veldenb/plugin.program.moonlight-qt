@@ -11,9 +11,6 @@
 # To disable PulseAudio:
 # export PULSE_SERVER="none"
 
-# To use a specific ALSA audio device (after disabling pulse):
-# export ALSA_PCM_NAME="hdmi:CARD=PCH,DEV=0"
-
 # Force a EGL mode, can also be configured from settings menu addon
 # export FORCE_EGL_MODE="1280x720"
 # export FORCE_EGL_MODE="1920x1080"
@@ -135,63 +132,6 @@ mkdir -p "$HOME"
 
 # Enter the Moonlight bin path
 cd "$MOONLIGHT_PATH/bin"
-
-# Configure audio output device
-CONF_FILE="${HOME}/.config/alsa/asoundrc"
-mkdir -p "$(dirname "$CONF_FILE")"
-rm -f "$CONF_FILE"
-
-if [ "$PULSE_SERVER" == "none" ] && [ -n "$ALSA_PCM_NAME" ]; then
-  echo "Using ALSA for audio output..."
-  export SDL_AUDIODRIVER="alsa"
-
-  # If a specific device is chosen create a config file including surround mapping
-  if [ "$ALSA_PCM_NAME" != "default" ]; then
-    echo "Custom ALSA audio device: '$ALSA_PCM_NAME'"
-    echo 'pcm.!default "%device%"' > "$CONF_FILE"
-  fi
-
-  # Create a template file for ALSA
-  # FIXME: Check if mapping is LibreELEC only, maybe configurable by config.
-  cat <<EOT >> "$CONF_FILE"
-pcm.!default "%device%"
-
-# The audio channels need to be re-mapped for Moonlight, this seems to be a Kodi issue.
-# Please file a bug-report if this mapping differs for you, the easiest way to check the channels is to test them using
-# speaker setup from Windows while streaming.
-pcm.!surround51 {
-  type route
-  slave.pcm "%device%"
-  ttable {
-    0.0= 1
-    1.1= 1
-    2.4= 1
-    3.5= 1
-    4.3= 1
-    5.2= 1
-  }
-}
-
-# The mapping for 7.1 is currently guessed (no hardware to test this)
-pcm.!surround71 {
-  type route
-  slave.pcm "%device%"
-  ttable {
-    0.0= 1
-    1.1= 1
-    2.4= 1
-    3.5= 1
-    4.3= 1
-    5.2= 1
-    6.6= 1
-    7.7= 1
-  }
-}
-EOT
-
-  # Replace the placeholder with the device name
-  sed -i "s/%device%/$ALSA_PCM_NAME/g" "$CONF_FILE"
-fi
 
 # Check for distro specific hooks
 if [ -d "$ADDON_BIN_PATH/kodi_hooks/$PLATFORM_DISTRO" ]; then

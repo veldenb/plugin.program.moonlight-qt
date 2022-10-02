@@ -27,7 +27,7 @@ def launch(addon, hostname=None, game_name=None):
         systemd_args.append('--user')
 
     # Check for a forced EGL display mode
-    force_mode = addon.getSetting('settings_display.egl_resolution')
+    force_mode = addon.getSetting('display_egl_resolution')
     if force_mode != "default":
         systemd_args.append(f'--setenv=FORCE_EGL_MODE="{force_mode}"')
 
@@ -36,14 +36,12 @@ def launch(addon, hostname=None, game_name=None):
 
     # Resolve audio output device
     try:
-        service, device_name = get_kodi_setting('audiooutput.audiodevice').split(':', 1)
+        service, device_name = get_kodi_audio_device()
         if service == 'ALSA':
             # Disable PulseAudio output by using a Moonlight environment variable
             systemd_args.append('--setenv=PULSE_SERVER="none"')
-
-            # When a specific audio device is used pass it through using an environment variable
-            if device_name != '@':
-                systemd_args.append(f'--setenv=ALSA_PCM_NAME="{device_name}"')
+            systemd_args.append('--setenv=SDL_AUDIODRIVER="alsa"')
+            speaker_setup_write_alsa_config(addon)
         elif service == 'PULSE':
             # Tell pulse to use a specific device configured in Kodi
             systemd_args.append(f'--setenv=PULSE_SINK="{device_name}"')
@@ -51,7 +49,9 @@ def launch(addon, hostname=None, game_name=None):
             # Raise a warning when ALSA and PULSE are not detected
             raise RuntimeError(f'Audio service {service} not supported')
     except Exception as err:
-        xbmc.log(f'Failed to resolve audio output device, audio within Moonlight might not work: {err}', xbmc.LOGWARNING)
+        xbmc.log(
+            f'Failed to resolve audio output device, audio within Moonlight might not work: {err}', xbmc.LOGWARNING
+        )
 
     launch_command = 'systemd-run {} bash {}'.format(
         ' '.join(systemd_args),
@@ -145,12 +145,123 @@ def update(addon):
     dialog.ok(addon.getLocalizedString(30103), finish_label)
 
 
+def speaker_test(addon, speakers):
+    dialog = xbmcgui.Dialog()
+    service, device_name = get_kodi_audio_device()
+
+    if service == 'ALSA':
+        p_dialog = xbmcgui.DialogProgress()
+        p_dialog.create('Speaker test', 'Initializing...')
+
+        # Make sure Kodi does not keep the device occupied
+        streamsilence_user_setting = get_kodi_setting('audiooutput.streamsilence')
+        set_kodi_setting('audiooutput.streamsilence', 0)
+
+        # Write new config file
+        speaker_setup_write_alsa_config(addon)
+
+        # Get Path for moonlight home
+        home_path = get_moonlight_home_path()
+
+        # Get device name foor surround sound
+        non_lfe_speakers = speakers - 1
+        device_name = 'surround{}1'.format(non_lfe_speakers)
+
+        for speaker in range(speakers):
+            # Display dialog text
+            speaker_channel = addon.getSettingInt('alsa_surround_{}1_{}'.format(non_lfe_speakers, speaker))
+
+            # Prepare dialog info
+            dialog_percent = int(round((speaker + 1) / speakers * 100))
+            dialog_text = 'Testing {} speaker on channel {}...' \
+                .format(addon.getLocalizedString(30030 + speaker), speaker_channel)
+
+            # Prepare command
+            cmd = 'HOME="{}" speaker-test --nloops 1 --device {} --channels {} --speaker {}' \
+                .format(home_path, device_name, speakers, speaker + 1)
+
+            # For same reason the device is not always available, try until the command succeeds
+            exit_code = 1
+            while exit_code != 0:
+                # Stop if user aborts test dialog
+                if p_dialog.iscanceled():
+                    break
+
+                # Update dialog info
+                p_dialog.update(dialog_percent, dialog_text)
+
+                # Play test sound
+                xbmc.log(cmd, xbmc.LOGINFO)
+                exit_code = os.system(cmd)
+
+                # If the command failed, tell the user and wait for a short time before retrying
+                if exit_code != 0:
+                    xbmc.log('Failed executing "{}"'.format(cmd), xbmc.LOGWARNING)
+
+                    p_dialog.update(
+                        dialog_percent,
+                        'Waiting for {}.1 Surround audio device to become available...'.format(non_lfe_speakers)
+                    )
+
+                    xbmc.sleep(500)
+
+            # Stop if user aborts test dialog
+            if p_dialog.iscanceled():
+                break
+
+        # Restore user setting
+        set_kodi_setting('audiooutput.streamsilence', streamsilence_user_setting)
+
+        # Close the progress bar
+        p_dialog.close()
+
+    else:
+        dialog.ok('Speaker test', 'Audio service is {}, not ALSA.\n\nTest aborted.'.format(service))
+
+    addon.openSettings()
+
+
+def speaker_setup_write_alsa_config(addon):
+    asoundrc_template_path = get_resource_path('template/asoundrc')
+    asoundrc_path = "{}/.config/alsa/asoundrc".format(get_moonlight_home_path())
+
+    service, device_name = get_kodi_audio_device()
+    template = pathlib.Path(asoundrc_template_path).read_text()
+
+    # Only set default device if a non-default device is configured
+    if device_name == 'default':
+        template = template.replace('%default_device%', '')
+    else:
+        template = template.replace('%default_device%', 'pcm.!default "{}"'.format(device_name))
+
+    # Set the device
+    template = template.replace('%device%', device_name)
+
+    for speakers in [6, 8]:
+        for speaker in range(speakers):
+            # Get setting id and channel
+            setting_id = 'alsa_surround_{}1_{}'.format(speakers - 1, speaker)
+            template_var = '%{}%'.format(setting_id)
+            channel = addon.getSetting(setting_id)
+
+            # Replace template var
+            template = template.replace(template_var, channel)
+
+    # Write new config to asoundrc file
+    pathlib.Path(asoundrc_path).write_text(template)
+    xbmc.log('New ALSA config file written to {}'.format(asoundrc_path), xbmc.LOGINFO)
+
+
 def get_resource_path(sub_path):
     return translatePath(pathlib.Path(__file__).parent.absolute().__str__() + '/resources/' + sub_path)
 
 
 def get_addon_data_path(sub_path=''):
     return translatePath('special://profile/addon_data/plugin.program.moonlight-qt' + sub_path)
+
+
+def get_moonlight_home_path():
+    return "{}/moonlight-home".format(get_addon_data_path())
 
 
 def is_moonlight_installed():
@@ -166,3 +277,17 @@ def get_kodi_setting(setting):
     }
     response = json.loads(xbmc.executeJSONRPC(json.dumps(request)))
     return response['result']['value']
+
+
+def set_kodi_setting(setting, value):
+    request = {
+        'jsonrpc': '2.0',
+        'method': 'Settings.SetSettingValue',
+        'params': {'setting': setting, 'value': value},
+        'id': 1
+    }
+    json.loads(xbmc.executeJSONRPC(json.dumps(request)))
+
+
+def get_kodi_audio_device():
+    return get_kodi_setting('audiooutput.audiodevice').split(':', 1)

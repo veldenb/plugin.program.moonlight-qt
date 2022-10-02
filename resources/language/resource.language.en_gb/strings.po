@@ -70,6 +70,58 @@ msgctxt "#30012"
 msgid "3840x2160p"
 msgstr "3840x2160p"
 
+msgctxt "#30020"
+msgid "ALSA"
+msgstr "ALSA"
+
+msgctxt "#30021"
+msgid "5.1 Surround ALSA channel mapping"
+msgstr "5.1 Surround ALSA channel mapping"
+
+msgctxt "#30022"
+msgid "7.1 Surround ALSA channel mapping"
+msgstr "7.1 Surround ALSA channel mapping"
+
+msgctxt "#30023"
+msgid "Speaker test"
+msgstr "Speaker test"
+
+msgctxt "#30024"
+msgid "Choose an audio channel that matches the speaker"
+msgstr "Choose an audio channel that matches the speaker"
+
+msgctxt "#30030"
+msgid "Front Left"
+msgstr "Front Left"
+
+msgctxt "#30031"
+msgid "Front Right"
+msgstr "Front Right"
+
+msgctxt "#30032"
+msgid "Rear Left"
+msgstr "Rear Left"
+
+msgctxt "#30033"
+msgid "Rear Right"
+msgstr "Rear Right"
+
+msgctxt "#30034"
+msgid "Center"
+msgstr "Center"
+
+msgctxt "#30035"
+msgid "LFE (Subwoofer)"
+msgstr "LFE (Subwoofer)"
+
+msgctxt "#30036"
+msgid "Side Left"
+msgstr "Side Left"
+
+msgctxt "#30037"
+msgid "Side Right"
+msgstr "Side Right"
+
 #
 # Installing and updating
 #

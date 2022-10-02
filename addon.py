@@ -191,6 +191,14 @@ def show_gui(handle, mode, host_id, game_id):
         # Update Moonlight
         moonlight.update(addon)
 
+    elif mode == 'speaker_test_51':
+        # Test surround 5.1 speakers
+        moonlight.speaker_test(addon, 6)
+
+    elif mode == 'speaker_test_71':
+        # Test surround 7.1 speakers
+        moonlight.speaker_test(addon, 8)
+
     else:
         xbmc.log('Unknown GUI mode: {}'.format(mode), xbmc.LOGDEBUG)
 

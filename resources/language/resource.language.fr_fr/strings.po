@@ -54,6 +54,54 @@ msgctxt "#30008"
 msgid "Default"
 msgstr "Défaut"
 
+msgctxt "#30021"
+msgid "5.1 Surround ALSA channel mapping"
+msgstr "Mappage des canaux 5.1 Surround ALSA"
+
+msgctxt "#30022"
+msgid "7.1 Surround ALSA channel mapping"
+msgstr "Mappage des canaux 7.1 Surround ALSA"
+
+msgctxt "#30023"
+msgid "Speaker test"
+msgstr "Test du haut-parleur"
+
+msgctxt "#30024"
+msgid "Choose an audio channel that matches the speaker"
+msgstr "Choisissez un canal audio qui appartient au haut-parleur"
+
+msgctxt "#30030"
+msgid "Front Left"
+msgstr "Avant gauche"
+
+msgctxt "#30031"
+msgid "Front Right"
+msgstr "Avant droit"
+
+msgctxt "#30032"
+msgid "Rear Left"
+msgstr "Arrière gauche"
+
+msgctxt "#30033"
+msgid "Rear Right"
+msgstr "Arrière droit"
+
+msgctxt "#30034"
+msgid "Center"
+msgstr "Centre"
+
+msgctxt "#30035"
+msgid "LFE (Subwoofer)"
+msgstr "LFE (caisson de basses)"
+
+msgctxt "#30036"
+msgid "Side Left"
+msgstr "Côté gauche"
+
+msgctxt "#30037"
+msgid "Side Right"
+msgstr "Côté droit"
+
 #
 # Installing and updating
 #

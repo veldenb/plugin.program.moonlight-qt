@@ -54,6 +54,54 @@ msgctxt "#30008"
 msgid "Default"
 msgstr "Standaard"
 
+msgctxt "#30021"
+msgid "5.1 Surround ALSA channel mapping"
+msgstr "5.1 Surround ALSA-kanaaltoewijzing"
+
+msgctxt "#30022"
+msgid "7.1 Surround ALSA channel mapping"
+msgstr "7.1 Surround ALSA-kanaaltoewijzing"
+
+msgctxt "#30023"
+msgid "Speaker test"
+msgstr "Luidsprekertest"
+
+msgctxt "#30024"
+msgid "Choose an audio channel that matches the speaker"
+msgstr "Kies een audiokanaal dat bij de luidspreker hoort"
+
+msgctxt "#30030"
+msgid "Front Left"
+msgstr "Linksvoor"
+
+msgctxt "#30031"
+msgid "Front Right"
+msgstr "Rechtsvoor"
+
+msgctxt "#30032"
+msgid "Rear Left"
+msgstr "Linksachter"
+
+msgctxt "#30033"
+msgid "Rear Right"
+msgstr "Rechtsachter"
+
+msgctxt "#30034"
+msgid "Center"
+msgstr "Midden"
+
+msgctxt "#30035"
+msgid "LFE (Subwoofer)"
+msgstr "LFE (Subwoofer)"
+
+msgctxt "#30036"
+msgid "Side Left"
+msgstr "Links zijkant"
+
+msgctxt "#30037"
+msgid "Side Right"
+msgstr "Rechts zijkant"
+
 #
 # Installing and updating
 #

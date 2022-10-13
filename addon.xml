@@ -16,7 +16,7 @@
         <description lang="nl_NL">Deze uitbreiding start Moonlight-qt. Deze uitbreiding heeft ook de mogelijkheid om een specifiek spel op te starten en Moonlight-qt bij te werken.</description>
         <description lang="de_DE">Diese Erweiterung startet Moonlight-qt. Diese Erweiterung bietet auch die Möglichkeit, ein bestimmtes Spiel zu starten und Moonlight-qt zu aktualisieren.</description>
         <description lang="fr_FR">Cet add-on lance Moonlight-qt. Cet add-on permet aussi de lancer un jeu directement et de mettre à jour Moonlight.</description>
-        <language>en</language>
+        <language>en nl de fr</language>
         <platform>linux</platform>
         <license>GPL-3.0-or-later</license>
         <website>https://github.com/veldenb/plugin.program.moonlight-qt</website>
@@ -28,62 +28,8 @@ v0.2.0
 - Fix forcing display mode on Raspberry Pi OS
 - Add limited Raspberry Pi 3 support
 - Fix missing libgl1
-
-v0.1.7
-- Fix error in loading moonlight-config in some situations
-- Added experimental support for Kodi on Raspberry Pi OS
-- Fix issue with ALSA not loading the default device
-- Fix a crash on recent moonlight-qt versions
-
-v0.1.6
-- Add support for setting resolution on EGL systems
-- Make installing and updating work on generic x86_64 Linux distro's
-- Only load system profile on LibreELEC
-- Add (guessed) mapping for 7.1 speaker setup
-
-v0.1.5
-- Tweak Qt interface scaling on Pi (EGL)
-
-v0.1.4
-- Fix Generic x86_64 segmentation fault
-- Added scaling for EGL Qt interface
-- Added custom builds for testing code directly from moonlight-qt git repository
-
-v0.1.3
-- Detect PulseAudio and configure it for Moonlight
-- Cleanup language files
-
-v0.1.2
-- Add French translation (Thanks to Jorys-Paulin)
-
-v0.1.1
-- Fix error when game list is empty
-- Fix 5.1 surround sound when choosing a custom audio device in Kodi
-
-v0.1.0
-- Add Generic x86_64 support (Thanks to Janne Hakonen!)
-- Audio device chosen in Kodi also selected in Moonlight (Thanks to Janne Hakonen!)
-- Improved logging
-
-v0.0.6
-- Add extra libraries needed in some cases
-- Waste less space by copying symlinks as symlinks
-
-v0.0.5
-- Shrink package size
-- Make sure settings are kept across updates
-
-v0.0.4
-- fix XDG_RUNTIME_DIR warning
-
-v0.0.3
-- Extra artwork
-
-v0.0.2
-- Added language support for Dutch and German language.
-
-v0.0.1
-- initial version.</news>
+- Allow setting 5.1 and 7.1 mappings for ALSA audio channels in settings menu
+        </news>
         <disclaimer lang="en_GB">Feel free to use this at your own risk.</disclaimer>
         <disclaimer lang="nl_NL">Voel je vrij om dit te gebruiken maar wel op eigen risico.</disclaimer>
         <disclaimer lang="de_DE">Sie können dies auf eigenes Risiko verwenden.</disclaimer>

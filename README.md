@@ -90,11 +90,11 @@ This support is still experimental. The plugin installs Moonlight-qt with APT di
 Somewhat the same as the Pi 4 build but based on an AppImage Moonlight build. Extra libraries are injected into the AppImage.
 
 ## Known problems
-### Sound in Kodi but no sound in moonlight-qt
-Try to explicitly select a non-default audio device in Kodi's audio configuration. Kodi's and moonlight-qt's default audio device may differ.
+### Sound in Kodi but no sound in Moonlight-qt
+Try to select a non-default audio device in Kodi's audio configuration. Kodi's and moonlight-qt's default audio device may differ and if a specific audio device is selected in Kodi the plugin instructs Moonlight-qt to use the device chosen in Kodi.
 
 ### Surround 5.1/7.1 channels use the wrong speakers
-This is a known problem, feel free to open an issue if this problem occurs.
+Try to change the ALSA channel mapping in the plugin settings menu.
 
 ### Using HDR my display turns black
 This is a known issue in moonlight-qt, HDR support is still experimental and may be unstable.

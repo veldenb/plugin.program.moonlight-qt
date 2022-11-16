@@ -223,7 +223,8 @@ def speaker_test(addon, speakers):
 
 def speaker_setup_write_alsa_config(addon):
     asoundrc_template_path = get_resource_path('template/asoundrc')
-    asoundrc_path = "{}/.config/alsa/asoundrc".format(get_moonlight_home_path())
+    asoundrc_dir = "{}/.config/alsa".format(get_moonlight_home_path())
+    asoundrc_path = "{}/asoundrc".format(asoundrc_dir)
 
     service, device_name = get_kodi_audio_device()
     template = pathlib.Path(asoundrc_template_path).read_text()
@@ -246,6 +247,10 @@ def speaker_setup_write_alsa_config(addon):
 
             # Replace template var
             template = template.replace(template_var, channel)
+
+    # Ensure dir exists
+    if not os.path.exists(asoundrc_dir):
+        os.mkdir(asoundrc_dir)
 
     # Write new config to asoundrc file
     pathlib.Path(asoundrc_path).write_text(template)

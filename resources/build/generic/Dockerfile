@@ -5,12 +5,14 @@ FROM debian:bullseye-slim
 # Install required packages and download Moonligh-qt AppImage version
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    libfuse2 \
     libgudev-1.0-0 \
     libinput10 \
     libsm6 \
     libxcb-cursor0 \
     libxcursor1 \
     libxi6 \
+    qml-module-qtquick2 \
     wget \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \

@@ -10,20 +10,45 @@ mkdir -p /tmp/moonlight-qt/lib/
 
 # Include dependencies not present in LibreELEC
 DEPENDENCIES="
+  libGL.so*
+  libGLX.so*
+  libGLdispatch.so*
   libICE.so*
+  libQt5*
   libSM.so*
+  libX11.so*
   libXau.so*
   libXcursor.so*
   libXdmcp.so*
+  libXext.so*
   libXfixes.so*
   libXi.so*
   libXrender.so*
   libbsd.so*
+  libcrypto.so*
+  libdouble-conversion.so*
+  libffi.so*
   libgudev-1.0.so*
+  libicudata.so*
+  libicui18n.so*
+  libicuuc.so*
   libinput.so*
+  libjpeg.so*
   libmd.so*
+  libmtdev.so*
+  libpcre2-16.so*
+  libpng16.so*
+  libssl.so*
   libwacom.so*
+  libwayland-client.so*
   libxcb.so*
+  libgssapi_krb5.so*
+  libk5crypto.so*
+  libkrb5.so*
+  libkrb5support.so*
+  libmd4c.so*
+  libzstd.so*
+  qt5
 "
 
 for DEP in $DEPENDENCIES; do
@@ -31,6 +56,7 @@ for DEP in $DEPENDENCIES; do
 done
 
 cp --verbose --no-dereference /lib/x86_64-linux-gnu/libcom_err.so* /tmp/moonlight-qt/lib/
+cp --verbose --no-dereference /lib/x86_64-linux-gnu/libfuse.so* /tmp/moonlight-qt/lib/
 cp --verbose --no-dereference /lib/x86_64-linux-gnu/libkeyutils.so* /tmp/moonlight-qt/lib/
 
 mkdir /tmp/moonlight-qt/bin/

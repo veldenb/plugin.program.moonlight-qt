@@ -31,10 +31,14 @@ if [ "$PLATFORM_DISTRO" == "libreelec" ]; then
   echo "Loading LibreELEC profile for setting up environment..."
   source /etc/profile
   export XDG_RUNTIME_DIR=/var/run/
-  # LibreELEC ARM builds are build without OpenGL, hint OpenGLES 2 to SDL to prevent crashing when moonlight tries to
-  # use software rendering. See also https://github.com/moonlight-stream/moonlight-qt/issues/868
   if [ "$PLATFORM" == "rpi" ]; then
+    # LibreELEC ARM builds are build without OpenGL, hint OpenGLES 2 to SDL to prevent crashing when moonlight tries to
+    # use software rendering. See also https://github.com/moonlight-stream/moonlight-qt/issues/868
     export SDL_RENDER_DRIVER="opengles2"
+
+    # Hide mouse cursor because fonts disappear if the cursor is not disabled:
+    # https://github.com/moonlight-stream/moonlight-qt/issues/233
+    export QT_QPA_EGLFS_HIDECURSOR=1
   fi
 fi
 
@@ -119,10 +123,6 @@ if [ -z "$DISPLAY" ]; then
   # Use the scale factor to dynamically scale the fonts compared to the UI scaling.
   export QT_QPA_EGLFS_PHYSICAL_WIDTH=$( awk "BEGIN { print int($QT_SCALE_FACTOR*437)}" )
   export QT_QPA_EGLFS_PHYSICAL_HEIGHT=$( awk "BEGIN { print int($QT_SCALE_FACTOR*250)}" )
-
-  # Hide mouse cursor because fonts disappear if the cursor is not disabled:
-  # https://github.com/moonlight-stream/moonlight-qt/issues/233
-  export QT_QPA_EGLFS_HIDECURSOR=1
 else
   echo "Running with window manager..."
 fi

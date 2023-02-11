@@ -21,6 +21,7 @@ DEPENDENCIES="
   libXv.so*
   libatomic.so*
   libbsd.so*
+  libcrypto.so*
   libdouble-conversion.so*
   libffi.so*
   libicudata.so*
@@ -31,6 +32,7 @@ DEPENDENCIES="
   libopus.so*
   libpcre2-16.so*
   libpng16.so*
+  libssl.so*
   libwayland-client.so*
   libxcb.so*
   qt5

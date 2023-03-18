@@ -28,25 +28,32 @@ DEPENDENCIES="
   libcrypto.so*
   libdouble-conversion.so*
   libffi.so*
+  libgssapi_krb5.so*
   libgudev-1.0.so*
   libicudata.so*
   libicui18n.so*
   libicuuc.so*
   libinput.so*
   libjpeg.so*
+  libk5crypto.so*
+  libkrb5.so*
+  libkrb5support.so*
   libmd.so*
+  libmd4c.so*
   libmtdev.so*
   libpcre2-16.so*
   libpng16.so*
   libssl.so*
   libwacom.so*
   libwayland-client.so*
+  libxcb-icccm.so*
+  libxcb-image.so*
+  libxcb-keysyms.so*
+  libxcb-render-util.so*
+  libxcb-util.so*
   libxcb.so*
-  libgssapi_krb5.so*
-  libk5crypto.so*
-  libkrb5.so*
-  libkrb5support.so*
-  libmd4c.so*
+  libxkbcommon-x11.so*
+  libxkbcommon.so*
   libzstd.so*
   qt5
 "

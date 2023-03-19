@@ -7,7 +7,7 @@ RUN sudo apt-get update \
  && sudo DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y curl apt-transport-https \
  && curl -1sLf 'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-qt/setup.deb.sh' | sudo -E bash \
  && sudo apt-get update \
- && sudo DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y moonlight-qt libgl1 \
+ && sudo DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y moonlight-qt libgl1 libxv1 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 

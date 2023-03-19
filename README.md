@@ -1,4 +1,4 @@
-# Kodi 19 Moonlight launcher for the Raspberry Pi 4 and Generic x86_64 systems
+# Kodi 19+ Moonlight launcher for the Raspberry Pi 4 and Generic x86_64 systems
 A launcher and updater for running Moonlight on Raspberry Pi 4 systems with LibreELEC/Raspberry Pi OS and Generic x86_64 systems running LibreELEC or Ubuntu.
 
 ## Background:
@@ -15,8 +15,10 @@ https://github.com/moonlight-stream/moonlight-qt
 At the time of writing the only platform that support's Moonlight on a Raspberry Pi 4 without a running X-server seems to be Moonlight-qt. 
 
 ## Prerequisites:
-- [Raspberry Pi 4](https://libreelec.tv/raspberry-pi-4/), a [Generic x86_64 device](https://libreelec.tv/downloads_new/generic-pc/) with LibreELEC (Matrix) 10.0 or Ubuntu (x86_64) installed, connected to local network via ethernet (preferred) or Wi-Fi
-- Other Linux distributions may also work but are not tested. Support for Raspberry Pi OS is experimental for now. 
+- [Raspberry Pi 4](https://libreelec.tv/raspberry-pi-4/), a [Generic x86_64 device](https://libreelec.tv/downloads_new/generic-pc/) with LibreELEC (Matrix) 10+, Ubuntu (x86_64) or Raspberry Pi OS installed
+- Device is connected to a local network via ethernet (preferred) or Wi-Fi
+- On LibreELEC 11 Generic the "Legacy Generic PC" version is preferred, see known issues. 
+- Other Linux distributions may also work but are not tested. 
 - Gaming PC with Steam and Nvidia GeForce Experience installed, connected to local network via ethernet (preferred) or Wi-Fi
 - Enough temporary storage space on your LibreELEC device to install Moonlight (about 500 MB is needed)
 
@@ -90,6 +92,13 @@ This support is still experimental. The plugin installs Moonlight-qt with APT di
 Somewhat the same as the Pi 4 build but based on an AppImage Moonlight build. Extra libraries are injected into the AppImage.
 
 ## Known problems
+### Hardware acceleration on LibreELEC 11 Generic x86_64 doesn't work
+LibreELEC supplies two builds for Generic x86_64:
+- One using GBM: _"Generic PC (no NVIDIA support)"_ 
+- And a Legacy-build using X11: _"Legacy Generic PC (for older PCs and NVIDIA GPUs)"_.
+ 
+The drivers on the GBM build are still very new and not stable on all hardware. The Legacy-build should be stable on most hardware and is preferred at the moment.  
+
 ### Sound in Kodi but no sound in Moonlight-qt
 Try to select a non-default audio device in Kodi's audio configuration. Kodi's and moonlight-qt's default audio device may differ and if a specific audio device is selected in Kodi the plugin instructs Moonlight-qt to use the device chosen in Kodi.
 
@@ -104,8 +113,6 @@ You can always open an issue if Moonlight doesn't launch/update or the game menu
 All configuration and streaming problems are probably related to Moonlight self, you can report that on their own GitHub page: https://github.com/moonlight-stream/moonlight-qt/issues   
 
 ## Thanks
+Thanks to [Cameron Gutman](https://github.com/cgutman) for all the work on Moonlighti-qt.\
 Thanks to [clarkemw and peetie2k](https://github.com/clarkemw/moonlight-embedded-launcher) for inspiration.\
 Thanks to [Janne Hakonen](https://github.com/jhakonen) for the Generic x86_64 work, great job! 
-
-## TODO:
-- Maybe other platforms/distributions

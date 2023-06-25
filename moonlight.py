@@ -23,7 +23,7 @@ def launch(addon, hostname=None, game_name=None):
     moonlight_args = []
 
     # Check if systemd-run can be used in user-mode
-    if os.geteuid() != 0:
+    if os.environ.get('DBUS_SESSION_BUS_ADDRESS') is not None or os.environ.get('XDG_RUNTIME_DIR') is not None:
         systemd_args.append('--user')
 
     # Check for a forced EGL display mode

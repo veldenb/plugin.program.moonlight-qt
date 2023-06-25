@@ -41,7 +41,15 @@ def launch(addon, hostname=None, game_name=None):
 
     # Resolve audio output device
     try:
-        service, device_name = get_kodi_audio_device()
+        service = 'Default'
+        device_name = 'Default'
+        kodi_audio_device = get_kodi_audio_device()
+
+        if len(kodi_audio_device) == 1:
+            service = kodi_audio_device[0]
+        if len(kodi_audio_device) == 2:
+            service, device_name = kodi_audio_device
+
         if service == 'ALSA':
             # Disable PulseAudio output by using a Moonlight environment variable
             systemd_args.append('--setenv=PULSE_SERVER="none"')
@@ -50,7 +58,7 @@ def launch(addon, hostname=None, game_name=None):
         elif service == 'PULSE':
             # Tell pulse to use a specific device configured in Kodi
             systemd_args.append(f'--setenv=PULSE_SINK="{device_name}"')
-        else:
+        elif service != 'Default':
             # Raise a warning when ALSA and PULSE are not detected
             raise RuntimeError(f'Audio service {service} not supported')
     except Exception as err:

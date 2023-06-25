@@ -1,3 +1,4 @@
+import getpass
 import json
 from subprocess import Popen, PIPE, STDOUT
 import os
@@ -8,7 +9,7 @@ from xbmcvfs import translatePath
 
 
 def launch(addon, hostname=None, game_name=None):
-    # check if moonlight is installed and offer to install
+    # Check if moonlight is installed and offer to install
     if is_moonlight_installed() is False:
         update(addon)
 
@@ -20,11 +21,15 @@ def launch(addon, hostname=None, game_name=None):
 
     # Initialise argument vars
     systemd_args = []
+    moonlight_command = f'bash {get_resource_path("bin/launch_moonlight-qt.sh")}'
     moonlight_args = []
 
     # Check if systemd-run can be used in user-mode
     if os.environ.get('DBUS_SESSION_BUS_ADDRESS') is not None or os.environ.get('XDG_RUNTIME_DIR') is not None:
         systemd_args.append('--user')
+    elif os.geteuid() != 0:
+        # If systemd user-mode can't be used and the current kodi-user is not root, try sudo for switching (OSMC)
+        moonlight_command = f'sudo -u {getpass.getuser()} {moonlight_command}'
 
     # Check for a forced EGL display mode
     force_mode = addon.getSetting('display_egl_resolution')
@@ -53,10 +58,8 @@ def launch(addon, hostname=None, game_name=None):
             f'Failed to resolve audio output device, audio within Moonlight might not work: {err}', xbmc.LOGWARNING
         )
 
-    launch_command = 'systemd-run {} bash {}'.format(
-        ' '.join(systemd_args),
-        get_resource_path('bin/launch_moonlight-qt.sh')
-    )
+    # Create command to launch moonlight
+    launch_command = 'systemd-run {} {}'.format(' '.join(systemd_args), moonlight_command)
 
     # Check if at least a host is set
     if hostname and game_name:
@@ -66,7 +69,7 @@ def launch(addon, hostname=None, game_name=None):
     command = f'{launch_command} ' + ' '.join(moonlight_args)
 
     # Log the command so debugging problems is easier
-    xbmc.log('Launching moonlight-qt: ' + command, xbmc.LOGINFO)
+    xbmc.log(f'Launching moonlight-qt: {command}', xbmc.LOGINFO)
 
     # Show a dialog
     if not game_name:
@@ -84,7 +87,7 @@ def launch(addon, hostname=None, game_name=None):
     # Run the command
     exitcode = os.system(command)
 
-    # If the command was successful wait for moonlight to shutdown kodi
+    # If the command was successful wait for moonlight to shut down kodi
     if exitcode == 0:
         xbmc.sleep(1000)
     else:

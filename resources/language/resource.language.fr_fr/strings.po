@@ -36,7 +36,7 @@ msgstr "Mettre à jour Moonlight vers la dernière version"
 
 msgctxt "#30004"
 msgid "Settings"
-msgstr "Réglages"
+msgstr "Paramètres"
 
 msgctxt "#30005"
 msgid "Display"
@@ -48,19 +48,39 @@ msgstr "Résolution EGL"
 
 msgctxt "#30007"
 msgid "Force a resolution on EGL systems like the Raspberry Pi. In some situations lowering the resolution gives better performance."
-msgstr "Forcez une résolution sur les systèmes EGL comme le Raspberry Pi. Dans certaines situations, une résolution inférieure donne de meilleures performances."
+msgstr "Force une résolution sur les systèmes EGL comme le Raspberry Pi. Dans certaines situations, une résolution inférieure donne de meilleures performances."
 
 msgctxt "#30008"
 msgid "Default"
-msgstr "Défaut"
+msgstr "Par défaut"
+
+msgctxt "#30009"
+msgid "1280x720p"
+msgstr "1280x720p"
+
+msgctxt "#30010"
+msgid "1920x1080p"
+msgstr "1920x1080p"
+
+msgctxt "#30011"
+msgid "2560x1440p"
+msgstr "2560x1440p"
+
+msgctxt "#30012"
+msgid "3840x2160p"
+msgstr "3840x2160p"
+
+msgctxt "#30020"
+msgid "ALSA"
+msgstr "ALSA"
 
 msgctxt "#30021"
 msgid "5.1 Surround ALSA channel mapping"
-msgstr "Mappage des canaux 5.1 Surround ALSA"
+msgstr "Mappage des canaux ALSA 5.1 Surround"
 
 msgctxt "#30022"
 msgid "7.1 Surround ALSA channel mapping"
-msgstr "Mappage des canaux 7.1 Surround ALSA"
+msgstr "Mappage des canaux ALSA 7.1 Surround"
 
 msgctxt "#30023"
 msgid "Speaker test"
@@ -68,7 +88,7 @@ msgstr "Test du haut-parleur"
 
 msgctxt "#30024"
 msgid "Choose an audio channel that matches the speaker"
-msgstr "Choisissez un canal audio qui appartient au haut-parleur"
+msgstr "Choisissez le canal audio correspondant au haut-parleur"
 
 msgctxt "#30030"
 msgid "Front Left"
@@ -146,7 +166,7 @@ msgstr "Lancement de Moonlight"
 
 msgctxt "#30201"
 msgid "Moonlight not installed, aborting launch!"
-msgstr "Moonlight n'est pas installé, démarrage annulé !"
+msgstr "Moonlight n'est pas installé, lancement annulé !"
 
 msgctxt "#30202"
 msgid "Starting %(game)s..."

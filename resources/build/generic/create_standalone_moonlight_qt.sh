@@ -49,8 +49,17 @@ DEPENDENCIES="
   libxcb-icccm.so*
   libxcb-image.so*
   libxcb-keysyms.so*
+  libxcb-randr.so*
   libxcb-render-util.so*
+  libxcb-render.so*
+  libxcb-shape.so*
+  libxcb-shm.so*
+  libxcb-sync.so*
   libxcb-util.so*
+  libxcb-xfixes.so*
+  libxcb-xinerama.so*
+  libxcb-xinput.so*
+  libxcb-xkb.so*
   libxcb.so*
   libxkbcommon-x11.so*
   libxkbcommon.so*

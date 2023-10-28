@@ -128,7 +128,12 @@ def update(addon):
     line_nr = 1
     line = ''
 
-    cmd = 'ADDON_PROFILE_PATH="{}" bash {}'.format(get_addon_data_path(), get_resource_path('build/build.sh'))
+    cmd = 'ADDON_PROFILE_PATH="{}" bash {} | tee {}'.format(
+        get_addon_data_path(),
+        get_resource_path('build/build.sh'),
+        get_addon_data_path('/build.log')
+    )
+    xbmc.log(f'Launching moonlight-qt update: {cmd}', xbmc.LOGINFO)
     p = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=True)
     for line in p.stdout:
         percent = int(round(line_nr / line_max * 100))

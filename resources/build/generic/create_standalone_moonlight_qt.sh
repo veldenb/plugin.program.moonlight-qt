@@ -6,16 +6,17 @@ set -e
 
 cd "$(dirname "$0")"
 
-mkdir -p /tmp/moonlight-qt/lib/
+mkdir -p /tmp/moonlight-qt/bin/ /tmp/moonlight-qt/lib/
 
 # Include dependencies not present in LibreELEC
-DEPENDENCIES="
+USR_DEPENDENCIES="
   libGL.so*
   libGLX.so*
   libGLdispatch.so*
   libICE.so*
   libQt5*
   libSM.so*
+  libX11-xcb.so*
   libX11.so*
   libXau.so*
   libXcursor.so*
@@ -41,11 +42,12 @@ DEPENDENCIES="
   libmd.so*
   libmd4c.so*
   libmtdev.so*
+  libopus.so.*
   libpcre2-16.so*
   libpng16.so*
-  libssl.so*
-  libwacom.so*
-  libwayland-client.so*
+  libva-x11.so*
+  libvdpau.so*
+  libxcb-dri3.so*
   libxcb-icccm.so*
   libxcb-image.so*
   libxcb-keysyms.so*
@@ -64,18 +66,42 @@ DEPENDENCIES="
   libxkbcommon-x11.so*
   libxkbcommon.so*
   libzstd.so*
+  vdpau/*
   qt5
 "
 
-for DEP in $DEPENDENCIES; do
+LIB_DEPENDENCIES="
+  libcom_err.so*
+  libfuse.so*
+  libkeyutils.so*
+  libdbus-1.so*
+  liblzma.so*
+  libpcre.so*
+"
+
+APP_IMG_DEPENDENCIES="
+  bin/moonlight
+  lib/libav*
+  lib/libSDL*
+  lib/libssl.so*
+  lib/libcrypto.so*
+"
+
+# Dependencies from /usr/lib
+for DEP in $USR_DEPENDENCIES; do
   cp --verbose --no-dereference --recursive /usr/lib/x86_64-linux-gnu/$DEP /tmp/moonlight-qt/lib/
 done
 
-cp --verbose --no-dereference /lib/x86_64-linux-gnu/libcom_err.so* /tmp/moonlight-qt/lib/
-cp --verbose --no-dereference /lib/x86_64-linux-gnu/libfuse.so* /tmp/moonlight-qt/lib/
-cp --verbose --no-dereference /lib/x86_64-linux-gnu/libkeyutils.so* /tmp/moonlight-qt/lib/
+# Dependencies from /lib
+for DEP in $LIB_DEPENDENCIES; do
+  cp --verbose --no-dereference --recursive /lib/x86_64-linux-gnu/$DEP /tmp/moonlight-qt/lib/
+done
 
-mkdir /tmp/moonlight-qt/bin/
-cp -v Moonlight-downloaded.AppImage  /tmp/moonlight-qt/bin/moonlight-qt
+# Dependencies from app-image
+for DEP in $APP_IMG_DEPENDENCIES; do
+  ./Moonlight-downloaded.AppImage --appimage-extract usr/$DEP
+done
+cp --verbose --no-dereference --recursive squashfs-root/usr/bin/moonlight /tmp/moonlight-qt/bin/moonlight-qt
+cp --verbose --no-dereference --recursive squashfs-root/usr/lib/* /tmp/moonlight-qt/lib/
 
 chown -R --reference=/tmp/moonlight-qt /tmp/moonlight-qt/

@@ -1,17 +1,31 @@
-
 # Use latest compatible Debian version
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 # Install required packages and download Moonligh-qt AppImage version
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libfuse2 \
+    libgl1 \
+    libgl1-mesa-dri \
     libgudev-1.0-0 \
     libinput10 \
+    libopus0 \
+    libpcre3 \
+    libqt5core5a \
+    libqt5gui5 \
+    libqt5network5 \
+    libqt5qml5 \
+    libqt5quickcontrols2-5 \
+    libqt5svg5 \
     libsm6 \
+    libvdpau-va-gl1 \
+    libvdpau1 \
     libxcb-cursor0 \
     libxcursor1 \
     libxi6 \
+    qml-module-qtquick-controls2 \
+    qml-module-qtquick-layouts \
+    qml-module-qtquick-window2 \
     qml-module-qtquick2 \
     wget \
  && apt-get clean \

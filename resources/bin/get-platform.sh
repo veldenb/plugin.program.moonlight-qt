@@ -25,10 +25,11 @@ fi
 
 # Figure out distro (libreelec, ubuntu)
 PLATFORM_DISTRO="$ID"
+PLATFORM_DISTRO_RELEASE="$VERSION_ID"
 
 if [ -d "../build/$PLATFORM" ]; then
-  echo "Platform '$PLATFORM' running '$PLATFORM_DISTRO' detected..."
+  echo "Platform '$PLATFORM' running '$PLATFORM_DISTRO' '$PLATFORM_DISTRO_RELEASE' detected..."
 else
-  echo "Platform '$PLATFORM' running '$PLATFORM_DISTRO' detected, using platform generic..."
+  echo "Platform '$PLATFORM' running '$PLATFORM_DISTRO' '$PLATFORM_DISTRO_RELEASE' detected, using platform generic..."
   PLATFORM="generic"
 fi

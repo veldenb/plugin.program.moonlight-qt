@@ -16,6 +16,9 @@ source ../bin/get-platform.sh
 if [ "$PLATFORM" = "generic" ] && [ "$PLATFORM_DISTRO" != "libreelec" ]
 then
   ALTERNATIVE_BUILD="_local_libs"
+elif  [ "$PLATFORM_DISTRO" = "libreelec" ] && [ "$PLATFORM_DISTRO_RELEASE" = "10.0" ]
+then
+  ALTERNATIVE_BUILD="_libreelec_10"
 fi
 
 # Uncomment to build moonlight from source. This is very experimental, cross your fingers and wait for a long time...
@@ -28,6 +31,8 @@ if [ ! -d "${PLATFORM}${ALTERNATIVE_BUILD}" ]
 then
   echo "sorry, platform ${PLATFORM}${ALTERNATIVE_BUILD} currently not supported!"
   exit 1
+else
+  echo "Building ${PLATFORM}${ALTERNATIVE_BUILD}..."
 fi
 
 if [ -z "$ADDON_PROFILE_PATH" ]; then

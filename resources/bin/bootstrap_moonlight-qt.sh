@@ -31,15 +31,6 @@ if [ "$PLATFORM_DISTRO" == "libreelec" ]; then
   echo "Loading LibreELEC profile for setting up environment..."
   source /etc/profile
   export XDG_RUNTIME_DIR=/var/run/
-  if [ "$PLATFORM" == "rpi" ]; then
-    # LibreELEC ARM builds are build without OpenGL, hint OpenGLES 2 to SDL to prevent crashing when moonlight tries to
-    # use software rendering. See also https://github.com/moonlight-stream/moonlight-qt/issues/868
-    export SDL_RENDER_DRIVER="opengles2"
-
-    # Hide mouse cursor because fonts disappear if the cursor is not disabled:
-    # https://github.com/moonlight-stream/moonlight-qt/issues/233
-    export QT_QPA_EGLFS_HIDECURSOR=1
-  fi
 fi
 
 # Paths

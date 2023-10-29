@@ -18,9 +18,16 @@ done
 # Parse project var and convert to lower case
 PLATFORM="$(echo "$LIBREELEC_PROJECT" | tr '[:upper:]' '[:lower:]')"
 
+if [ "$LIBREELEC_ARCH" == "RPi4.arm" ]; then
+  # LibreELEC Pi4 runs a aarch64 kernel with arm32v7 libraries
+  PLATFORM_ARCH="armhf"
+else
+  PLATFORM_ARCH=$(uname -m)
+fi
+
 # If platform is empty try uname
 if [ "$PLATFORM" == "" ]; then
-  PLATFORM=$(uname -m)
+  PLATFORM="$PLATFORM_ARCH"
 fi
 
 # Figure out distro (libreelec, ubuntu)
@@ -28,8 +35,8 @@ PLATFORM_DISTRO="$ID"
 PLATFORM_DISTRO_RELEASE="$VERSION_ID"
 
 if [ -d "../build/$PLATFORM" ]; then
-  echo "Platform '$PLATFORM' running '$PLATFORM_DISTRO' '$PLATFORM_DISTRO_RELEASE' detected..."
+  echo "Platform $PLATFORM ($PLATFORM_ARCH) running $PLATFORM_DISTRO $PLATFORM_DISTRO_RELEASE detected..."
 else
-  echo "Platform '$PLATFORM' running '$PLATFORM_DISTRO' '$PLATFORM_DISTRO_RELEASE' detected, using platform generic..."
+  echo "Platform $PLATFORM ($PLATFORM_ARCH) running $PLATFORM_DISTRO $PLATFORM_DISTRO_RELEASE detected, using platform generic..."
   PLATFORM="generic"
 fi

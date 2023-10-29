@@ -12,13 +12,19 @@ cd "$(dirname "$0")"
 
 source ../bin/get-platform.sh
 
-# If the distro is not LibreELEC assume local libraries are available and Docker is not needed
-if [ "$PLATFORM" = "generic" ] && [ "$PLATFORM_DISTRO" != "libreelec" ]
+if [ "$PLATFORM" = "generic" ]
 then
-  ALTERNATIVE_BUILD="_local_libs"
-elif  [ "$PLATFORM_DISTRO" = "libreelec" ] && [ "$PLATFORM_DISTRO_RELEASE" = "10.0" ]
+  if [ "$PLATFORM_DISTRO" != "libreelec" ]
+  then
+    # If the distro is not LibreELEC assume local libraries are available and Docker is not needed
+    ALTERNATIVE_BUILD="_local_libs"
+  elif [ "$PLATFORM_DISTRO" = "libreelec" ] && [ "$PLATFORM_DISTRO_RELEASE" = "10.0" ]
+  then
+    ALTERNATIVE_BUILD="_libreelec_10"
+  fi
+elif [ "$PLATFORM" = "rpi" ] && [ "$PLATFORM_ARCH" = "aarch64" ]
 then
-  ALTERNATIVE_BUILD="_libreelec_10"
+  ALTERNATIVE_BUILD="_aarch64"
 fi
 
 # Uncomment to build moonlight from source. This is very experimental, cross your fingers and wait for a long time...

@@ -17,9 +17,7 @@ DEPENDENCIES="
   libX11.so*
   libXau.so*
   libXdmcp.so*
-  libatomic.so*
   libbsd.so*
-  libcrypto.so*
   libdouble-conversion.so*
   libffi.so*
   libgssapi_krb5.so*
@@ -31,17 +29,16 @@ DEPENDENCIES="
   libk5crypto.so*
   libkrb5.so*
   libkrb5support.so*
+  libpcre2-16.so*
+  libpcre2-8.so*
   libmd.so*
   libmd4c.so*
   libmtdev.so*
   libopus.so*
-  libpcre2-16.so*
-  libpcre2-8.so*
   libpng16.so*
-  libssl.so*
-  libwayland-client.so*
   libxcb.so*
   libzstd.so*
+  libwayland-client.so*
   qt5
 "
 
@@ -52,14 +49,13 @@ LIB_DEPENDENCIES="
   liblzma.so*
 "
 
-# Dependencies from /usr/lib
 for DEP in $DEPENDENCIES; do
-  cp --verbose --no-dereference --recursive /usr/lib/arm-linux-gnueabihf/$DEP /tmp/moonlight-qt/lib/
+  cp --verbose --no-dereference --recursive /usr/lib/aarch64-linux-gnu/$DEP /tmp/moonlight-qt/lib/
 done
 
 # Dependencies from /lib
 for DEP in $LIB_DEPENDENCIES; do
-  cp --verbose --no-dereference --recursive /lib/arm-linux-gnueabihf/$DEP /tmp/moonlight-qt/lib/
+  cp --verbose --no-dereference --recursive /lib/aarch64-linux-gnu/$DEP /tmp/moonlight-qt/lib/
 done
 
 mkdir /tmp/moonlight-qt/bin/

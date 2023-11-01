@@ -5,6 +5,7 @@ import os
 import pathlib
 import xbmc
 import xbmcgui
+import re
 from xbmcvfs import translatePath
 
 
@@ -244,6 +245,9 @@ def speaker_setup_write_alsa_config(addon):
 
     service, device_name = get_kodi_audio_device()
     template = pathlib.Path(asoundrc_template_path).read_text()
+
+    # Remove breaking part of the device name (LibreELEC 12)
+    device_name = re.sub('\|.*', '', device_name)
 
     # Only set default device if a non-default device is configured
     if device_name == 'default':

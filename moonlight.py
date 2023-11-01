@@ -135,6 +135,10 @@ def update(addon):
         get_addon_data_path('/build.log')
     )
     xbmc.log(f'Launching moonlight-qt update: {cmd}', xbmc.LOGINFO)
+
+    # Ensure path for logging exists
+    os.mkdir(get_addon_data_path())
+
     p = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=True)
     for line in p.stdout:
         percent = int(round(line_nr / line_max * 100))

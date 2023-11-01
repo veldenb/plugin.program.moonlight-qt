@@ -25,6 +25,7 @@ USR_DEPENDENCIES="
   libXfixes.so*
   libXi.so*
   libXrender.so*
+  libatomic.so*
   libbsd.so*
   libcrypto.so*
   libdouble-conversion.so*
@@ -45,8 +46,10 @@ USR_DEPENDENCIES="
   libopus.so.*
   libpcre2-16.so*
   libpng16.so*
+  libva-wayland.so*
   libva-x11.so*
   libvdpau.so*
+  libwayland-client.so*
   libxcb-dri3.so*
   libxcb-icccm.so*
   libxcb-image.so*

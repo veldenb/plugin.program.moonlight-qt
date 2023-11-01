@@ -4,6 +4,7 @@ FROM debian:bookworm-slim
 # Install required packages and download Moonligh-qt AppImage version
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    libatomic1 \
     libfuse2 \
     libgl1 \
     libgl1-mesa-dri \
@@ -18,6 +19,7 @@ RUN apt-get update \
     libqt5quickcontrols2-5 \
     libqt5svg5 \
     libsm6 \
+    libva-wayland2 \
     libvdpau-va-gl1 \
     libvdpau1 \
     libxcb-cursor0 \

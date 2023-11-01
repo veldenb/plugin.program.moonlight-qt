@@ -246,9 +246,6 @@ def speaker_setup_write_alsa_config(addon):
     service, device_name = get_kodi_audio_device()
     template = pathlib.Path(asoundrc_template_path).read_text()
 
-    # Remove breaking part of the device name (LibreELEC 12)
-    device_name = re.sub('\|.*', '', device_name)
-
     # Only set default device if a non-default device is configured
     if device_name == 'default':
         template = template.replace('%default_device%', '')
@@ -315,4 +312,14 @@ def set_kodi_setting(setting, value):
 
 
 def get_kodi_audio_device():
-    return get_kodi_setting('audiooutput.audiodevice').split(':', 1)
+    audio_device = get_kodi_setting('audiooutput.audiodevice').split(':', 1)
+
+    if audio_device[1]:
+        # Remove breaking part of the device name (Kodi 21)
+        audio_device[1] = re.sub('\\|.*', '', audio_device[1])
+
+    if audio_device[1][0] == '@':
+        # Replace @ with default device
+        audio_device[1] = audio_device[1].replace('@:', 'sysdefault:').replace(',DEV=0', '')
+
+    return audio_device

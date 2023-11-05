@@ -76,15 +76,16 @@ if [ -z "$DISPLAY" ]; then
   fi
 
   # Choose a scale factor based on resolution - this scales the layout
-  if [ "$RESOLUTION" = "1280,720" ]; then
+  RESOLUTION_Y=${RESOLUTION##*,}
+  if [ "$RESOLUTION_Y" = "720" ]; then
     export QT_SCALE_FACTOR=0.51
   fi
 
-  if [ "$RESOLUTION" = "2560,1440" ]; then
+  if [ "$RESOLUTION_Y" = "1440" ]; then
     export QT_SCALE_FACTOR=1.03
   fi
 
-  if [ "$RESOLUTION" = "3840,2160" ]; then
+  if [ "$RESOLUTION_Y" = "2160" ]; then
     export QT_SCALE_FACTOR=1.28
   fi
   echo "Using Qt scale factor $QT_SCALE_FACTOR..."

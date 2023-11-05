@@ -11,11 +11,6 @@
 # To disable PulseAudio:
 # export PULSE_SERVER="none"
 
-# Force a EGL mode, can also be configured from settings menu addon
-# export FORCE_EGL_MODE="1280x720"
-# export FORCE_EGL_MODE="1920x1080"
-# export FORCE_EGL_MODE="2560x1440"
-
 cd "$(dirname "$0")"
 
 # Get platform and distro
@@ -57,34 +52,18 @@ if [ -d "$MOONLIGHT_PATH/lib" ]; then
   fi
 fi
 
-# Force display mode if needed
-if [ -n "$FORCE_EGL_MODE" ]; then
-  echo "Forcing mode $FORCE_EGL_MODE..."
-  export QT_QPA_EGLFS_KMS_CONFIG="$ADDON_PROFILE_PATH/qt_qpa_eglfs_kms_config.json"
-
-  cat <<EOT > "$QT_QPA_EGLFS_KMS_CONFIG"
-{
-  "outputs": [
-    {
-      "name": "HDMI1",
-      "mode": "%mode%"
-    },
-    {
-      "name": "HDMI2",
-      "mode": "%mode%"
-    }
-  ]
-}
-EOT
-
-  # Replace the placeholder with the device mode
-  sed -i "s/%mode%/$FORCE_EGL_MODE/g" "$QT_QPA_EGLFS_KMS_CONFIG"
-
-fi
-
 # Hack to scale interface on EGLFS, QT_SCALE_FACTOR higher than 1.28 corrupts the layout.
 if [ -z "$DISPLAY" ]; then
   echo "Running without window manager..."
+
+  # Force display mode if needed
+  KMS_CONFIG_FILE="$ADDON_PROFILE_PATH/qt_qpa_eglfs_kms_config.json"
+  if [ -f "$KMS_CONFIG_FILE" ]; then
+    FORCE_EGL_MODE="$(grep '"mode":' "$KMS_CONFIG_FILE" | cut -d ':' -f 2 | xargs)"
+    echo "Forcing KMS mode:"
+    cat "$KMS_CONFIG_FILE" && echo -e "\n"
+    export QT_QPA_EGLFS_KMS_CONFIG="$KMS_CONFIG_FILE"
+  fi
 
   # Default mode based on 1080p
   export QT_SCALE_FACTOR=0.64

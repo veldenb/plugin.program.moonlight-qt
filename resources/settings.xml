@@ -17,21 +17,56 @@
         </category>
         <category id="display" label="30005">
             <group id="display_egl" label="30005">
-                <setting id="display_egl_resolution" type="list[string]" label="30006" help="30007">
+                <setting id="display_egl_output" type="list[string]"  label="30009" help="30010">
                     <level>1</level>
-                    <default>default</default>
+                    <default>-</default>
                     <constraints>
                         <options>
-                            <option label="30008">default</option>
-                            <option label="30009">1280x720</option>
-                            <option label="30010">1920x1080</option>
-                            <option label="30011">2560x1440</option>
-                            <option label="30012">3840x2160</option>
+                            <option>-</option>
+                            <!-- It would be better to populate this list from the system itself: /sys/class/drm/card0-* -->
+                            <option>HDMI1</option>
+                            <option>HDMI2</option>
+                            <option>HDMI3</option>
+                            <option>HDMI4</option>
+                            <option>HDMI5</option>
+                            <option>HDMI6</option>
+                            <option>DP1</option>
+                            <option>DP2</option>
+                            <option>DP3</option>
+                            <option>DP4</option>
+                            <option>DP5</option>
+                            <option>DP6</option>
+                            <option>eDP1</option>
+                            <option>eDP2</option>
+                            <option>LVDS1</option>
+                            <option>LVDS2</option>
+                            <option>VGA1</option>
+                            <option>VGA2</option>
                         </options>
                     </constraints>
                     <control type="list" format="string">
                         <multiselect>false</multiselect>
                     </control>
+                </setting>
+                <setting id="display_egl_resolution" type="list[string]" label="30006" help="30007" parent="display_egl_output">
+                    <level>1</level>
+                    <default>-</default>
+                    <constraints>
+                        <options>
+                            <option>-</option>
+                            <option>1280x720</option>
+                            <option>1920x1080</option>
+                            <option>2560x1440</option>
+                            <option>3440x1440</option>
+                            <option>3840x2160</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string">
+                        <multiselect>false</multiselect>
+                    </control>
+                    <dependencies>
+                        <dependency type="enable" operator="!is" setting="display_egl_output">-</dependency>
+                    </dependencies>
                 </setting>
             </group>
         </category>

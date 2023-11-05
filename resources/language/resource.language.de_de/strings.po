@@ -54,6 +54,14 @@ msgctxt "#30008"
 msgid "Default"
 msgstr "Voreinstellung"
 
+msgctxt "#30009"
+msgid "EGL output"
+msgstr "EGL-Ausgabe"
+
+msgctxt "#30010"
+msgid "Force to use a specific output on EGL systems like the Raspberry Pi."
+msgstr "Erzwingen Sie die Verwendung einer bestimmten Ausgabe auf EGL-Systemen wie dem Raspberry Pi."
+
 msgctxt "#30021"
 msgid "5.1 Surround ALSA channel mapping"
 msgstr "5.1 Surround ALSA-Kanalzuordnung"

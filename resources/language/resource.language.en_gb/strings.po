@@ -55,20 +55,12 @@ msgid "Default"
 msgstr "Default"
 
 msgctxt "#30009"
-msgid "1280x720p"
-msgstr "1280x720p"
+msgid "EGL output"
+msgstr "EGL output"
 
 msgctxt "#30010"
-msgid "1920x1080p"
-msgstr "1920x1080p"
-
-msgctxt "#30011"
-msgid "2560x1440p"
-msgstr "2560x1440p"
-
-msgctxt "#30012"
-msgid "3840x2160p"
-msgstr "3840x2160p"
+msgid "Force to use a specific output on EGL systems like the Raspberry Pi."
+msgstr "Force to use a specific output on EGL systems like the Raspberry Pi."
 
 msgctxt "#30020"
 msgid "ALSA"

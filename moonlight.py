@@ -33,9 +33,7 @@ def launch(addon, hostname=None, game_name=None):
         moonlight_command = f'sudo -u {getpass.getuser()} {moonlight_command}'
 
     # Check for a forced EGL display mode
-    force_mode = addon.getSetting('display_egl_resolution')
-    if force_mode != "default":
-        systemd_args.append(f'--setenv=FORCE_EGL_MODE="{force_mode}"')
+    display_setup_write_egl_config(addon)
 
     # Append addon path
     systemd_args.append(f'--setenv=ADDON_PROFILE_PATH="{get_addon_data_path()}"')
@@ -241,6 +239,32 @@ def speaker_test(addon, speakers):
         dialog.ok('Speaker test', 'Audio service is {}, not ALSA.\n\nTest aborted.'.format(service))
 
     addon.openSettings()
+
+
+def display_setup_write_egl_config(addon):
+    # Write new config to QT_QPA_EGLFS_KMS_CONFIG file
+    kms_config_path = get_addon_data_path('/qt_qpa_eglfs_kms_config.json')
+
+    force_output = addon.getSetting('display_egl_output') or None
+    force_mode = addon.getSetting('display_egl_resolution') or None
+    if force_output == '-':
+        force_output = None
+    if force_mode == '-':
+        force_mode = None
+
+    if force_output:
+        kms_output = { "name": force_output, "primary": True }
+        if force_mode:
+            kms_output["mode"] = force_mode
+
+        kms_config = { "outputs": [ kms_output ] }
+
+
+        with open(kms_config_path, 'w') as f:
+            json.dump(kms_config, f, ensure_ascii=False, indent=4)
+        xbmc.log('Forcing EGL-mode to {} {}'.format(force_output, force_mode), xbmc.LOGINFO)
+    elif os.path.exists(kms_config_path):
+        os.remove(kms_config_path)
 
 
 def speaker_setup_write_alsa_config(addon):

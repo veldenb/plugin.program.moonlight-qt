@@ -59,7 +59,7 @@ if [ -z "$DISPLAY" ]; then
   # Force display mode if needed
   KMS_CONFIG_FILE="$ADDON_PROFILE_PATH/qt_qpa_eglfs_kms_config.json"
   if [ -f "$KMS_CONFIG_FILE" ]; then
-    FORCE_EGL_MODE="$(grep '"mode":' "$KMS_CONFIG_FILE" | cut -d ':' -f 2 | xargs)"
+    FORCE_EGL_MODE="$(grep '"mode":' "$KMS_CONFIG_FILE" | cut -d ':' -f 2 | tr -d '[:space:]"')"
     echo "Forcing KMS mode:"
     cat "$KMS_CONFIG_FILE" && echo -e "\n"
     export QT_QPA_EGLFS_KMS_CONFIG="$KMS_CONFIG_FILE"

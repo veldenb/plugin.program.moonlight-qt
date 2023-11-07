@@ -1,6 +1,6 @@
 
 # Use latest compatible Debian version
-FROM amd64/debian:buster
+FROM amd64/debian:bookworm-slim
 
 # Checkout Moonlight-packaging
 RUN mkdir -p /opt/scripts && \
@@ -19,6 +19,7 @@ WORKDIR /moonlight-packaging
 # Copied from Dockerfile.amd64.buster and slightly changed by changing COPY to RUN mv
 ### start ###
 ENV TARGET=desktop
+ENV DISTRO=buster
 
 RUN mv scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
@@ -26,6 +27,7 @@ RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
+RUN mv dav1d /opt/dav1d
 RUN mv FFmpeg /opt/FFmpeg
 RUN mv nv-codec-headers /opt/nv-codec-headers
 RUN mv SDL2 /opt/SDL2

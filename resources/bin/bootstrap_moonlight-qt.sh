@@ -70,6 +70,7 @@ if [ -z "$DISPLAY" ]; then
 
   if [ -n "$FORCE_EGL_MODE" ]; then
     RESOLUTION="${FORCE_EGL_MODE/x/,}"
+    echo "Forcing resolution $RESOLUTION..."
   elif [ -r "/sys/class/graphics/fb0/virtual_size" ]; then
     RESOLUTION=$(cat /sys/class/graphics/fb0/virtual_size)
     echo "Detected resolution $RESOLUTION..."

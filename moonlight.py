@@ -1,11 +1,16 @@
 import getpass
 import json
-from subprocess import Popen, PIPE, STDOUT
 import os
 import pathlib
+import platform
+import re
+from subprocess import PIPE
+from subprocess import Popen
+from subprocess import STDOUT
+from subprocess import check_output
+
 import xbmc
 import xbmcgui
-import re
 from xbmcvfs import translatePath
 
 
@@ -241,6 +246,7 @@ def speaker_test(addon, speakers):
     addon.openSettings()
 
 
+# See for details: https://doc.qt.io/qt-5/embedded-linux.html
 def display_setup_write_egl_config(addon):
     # Write new config to QT_QPA_EGLFS_KMS_CONFIG file
     kms_config_path = get_addon_data_path('/qt_qpa_eglfs_kms_config.json')
@@ -249,20 +255,36 @@ def display_setup_write_egl_config(addon):
     force_mode = addon.getSetting('display_egl_resolution') or None
     if force_output == '-':
         force_output = None
-    if force_mode == '-':
+    if not force_output or force_mode == '-':
         force_mode = None
 
-    if force_output:
-        kms_output = { "name": force_output, "primary": True }
+    # Hack for Raspberry Pi 5 devices where card1 needs to be forced
+    force_device = "/dev/dri/card1" if is_raspberry_pi_5() else None
+
+    if force_device or force_output:
+        kms_config = {}
+        kms_output = {}
+
+        if force_device:
+            kms_config["device"] = force_device
+
+        if force_output:
+            kms_output["name"] = force_output
+            kms_output["primary"] = True
+
         if force_mode:
             kms_output["mode"] = force_mode
 
-        kms_config = { "outputs": [ kms_output ] }
-
+        if kms_output:
+            kms_config["outputs"] = [kms_output]
 
         with open(kms_config_path, 'w') as f:
-            json.dump(kms_config, f, ensure_ascii=False, indent=4)
-        xbmc.log('Forcing EGL-mode to {} {}'.format(force_output, force_mode), xbmc.LOGINFO)
+            json.dump(kms_config, f, ensure_ascii=False, indent=2)
+
+        xbmc.log('Forcing EGL-mode to device: {}, output: {}, mode: {}'
+                 .format(force_device or 'default', force_output or 'default', force_mode or 'default')
+                 , xbmc.LOGINFO)
+
     elif os.path.exists(kms_config_path):
         os.remove(kms_config_path)
 
@@ -352,3 +374,26 @@ def get_kodi_audio_device():
         audio_device[1] = audio_device[1].replace('@:', 'sysdefault:').replace(',DEV=0', '')
 
     return audio_device
+
+
+def get_processor_name():
+    processor_name = ""
+
+    if platform.system() == "Windows":
+        processor_name = platform.processor()
+    elif platform.system() == "Darwin":
+        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
+        command = "sysctl -n machdep.cpu.brand_string"
+        processor_name = check_output(command).strip()
+    elif platform.system() == "Linux":
+        command = "cat /proc/cpuinfo"
+        all_info = check_output(command, shell=True).decode().strip()
+        for line in all_info.split("\n"):
+            if "model name" in line:
+                processor_name = re.sub(".*model name.*:", "", line, 1)
+
+    return processor_name.strip()
+
+
+def is_raspberry_pi_5():
+    return get_processor_name().startswith('Raspberry Pi 5')

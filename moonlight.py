@@ -389,8 +389,8 @@ def get_processor_name():
         command = "cat /proc/cpuinfo"
         all_info = check_output(command, shell=True).decode().strip()
         for line in all_info.split("\n"):
-            if "model name" in line:
-                processor_name = re.sub(".*model name.*:", "", line, 1)
+            if "model name" in line or "Model" in line:
+                processor_name = re.sub(".*(model name|Model).*:", "", line, 1)
 
     return processor_name.strip()
 

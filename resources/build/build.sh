@@ -25,6 +25,9 @@ then
 elif [ "$PLATFORM" = "rpi" ] && [ "$PLATFORM_ARCH" = "aarch64" ]
 then
   ALTERNATIVE_BUILD="_aarch64"
+elif [ "$PLATFORM" = "amlogic" ] && [ "$PLATFORM_ARCH" = "aarch64" ]
+then
+  ALTERNATIVE_BUILD="_aarch64"
 fi
 
 # Uncomment to build moonlight from source. This is very experimental, cross your fingers and wait for a long time...

@@ -7,7 +7,7 @@ RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y curl apt-transport-https ca-certificates gnupg \
  && curl -1sLf 'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-qt/setup.deb.sh' | distro=raspbian bash - \
  && apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y moonlight-qt \
+ && DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends install -y moonlight-qt libgl1 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 

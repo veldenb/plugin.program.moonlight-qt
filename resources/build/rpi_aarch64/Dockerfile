@@ -1,6 +1,6 @@
 
 # Use latest compatible Debian version
-FROM debian:bookworm-slim
+FROM arm64v8/debian:bookworm-slim
 
 # See Installing Moonlight Qt on Raspberry Pi 4 (https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Raspberry-Pi-4)
 RUN apt-get update \

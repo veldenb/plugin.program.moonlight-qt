@@ -56,11 +56,11 @@ msgstr "Par défaut"
 
 msgctxt "#30009"
 msgid "EGL output"
-msgstr "EGL sortie"
+msgstr "Sortie EGL"
 
 msgctxt "#30010"
 msgid "Force to use a specific output on EGL systems like the Raspberry Pi."
-msgstr "Forcer à utiliser une sortie spécifique sur les systèmes EGL comme le Raspberry Pi."
+msgstr "Force l'utilisation d'une sortie spécifique sur les systèmes EGL comme le Raspberry Pi."
 
 msgctxt "#30020"
 msgid "ALSA"

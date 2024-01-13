@@ -15,8 +15,8 @@ for file in /etc/os-release /usr/lib/os-release; do
   fi
 done
 
-# Parse project var and convert to lower case
-PLATFORM="$(echo "$LIBREELEC_PROJECT" | tr '[:upper:]' '[:lower:]')"
+# Parse project var remove "-ce" suffix for CoreELEC and convert to lower case
+PLATFORM="$(echo "${LIBREELEC_PROJECT%-ce}" | tr '[:upper:]' '[:lower:]')"
 
 if [ "$LIBREELEC_ARCH" == "RPi4.arm" ]; then
   # LibreELEC Pi4 runs a aarch64 kernel with arm32v7 libraries

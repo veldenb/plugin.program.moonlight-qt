@@ -66,7 +66,7 @@ if [ -z "$DISPLAY" ]; then
   fi
 
   # Default mode based on 1080p
-  export QT_SCALE_FACTOR=0.64
+  export QT_SCALE_FACTOR=0.9
 
   if [ -n "$FORCE_EGL_MODE" ]; then
     RESOLUTION="${FORCE_EGL_MODE/x/,}"
@@ -79,11 +79,11 @@ if [ -z "$DISPLAY" ]; then
   # Choose a scale factor based on resolution - this scales the layout
   RESOLUTION_Y=${RESOLUTION##*,}
   if [ "$RESOLUTION_Y" = "720" ]; then
-    export QT_SCALE_FACTOR=0.51
+    export QT_SCALE_FACTOR=0.6
   fi
 
   if [ "$RESOLUTION_Y" = "1440" ]; then
-    export QT_SCALE_FACTOR=1.03
+    export QT_SCALE_FACTOR=1.17
   fi
 
   if [ "$RESOLUTION_Y" = "2160" ]; then

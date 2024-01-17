@@ -21,7 +21,7 @@ HOME_BACKUP="$HOME"
 LD_LIBRARY_PATH_BACKUP="$LD_LIBRARY_PATH"
 
 # Load profile on LibreELEC
-if [ "$PLATFORM_DISTRO" == "libreelec" ]; then
+if [ "$PLATFORM_DISTRO" == "libreelec" ] || [ "$PLATFORM_DISTRO" == "coreelec" ]; then
   # Setup environment
   echo "Loading LibreELEC profile for setting up environment..."
   source /etc/profile

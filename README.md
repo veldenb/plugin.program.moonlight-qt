@@ -108,6 +108,13 @@ Try to change the ALSA channel mapping in the plugin settings menu.
 ### Using HDR my display turns black
 This is a known issue in moonlight-qt, HDR support is still experimental and may be unstable.
 
+### It doesn't work on my Raspberry Pi 5
+Try to use the nightly LibreELEC 12 builds for the Raspberry Pi 5 and force the EGL card to card1 in the settings menu. 
+
+### It doesn't work on my Amlogic device
+Amlogic devices don't always work, forcing the EGL card to card0 or card1 in the settings menu might get your device working.
+Some devices are known to not work at all, see this page for details: https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-ARM%E2%80%90based-Single-Board-Computers 
+
 ### Help, it still doesn't work
 You can always open an issue if Moonlight doesn't launch/update or the game menu doesn't work.
 All configuration and streaming problems are probably related to Moonlight self, you can report that on their own GitHub page: https://github.com/moonlight-stream/moonlight-qt/issues   

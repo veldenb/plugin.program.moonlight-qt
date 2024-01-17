@@ -17,9 +17,7 @@ DEPENDENCIES="
   libX11.so*
   libXau.so*
   libXdmcp.so*
-  libatomic.so*
   libbsd.so*
-  libcrypto.so*
   libdouble-conversion.so*
   libffi.so*
   libgssapi_krb5.so*
@@ -31,17 +29,16 @@ DEPENDENCIES="
   libk5crypto.so*
   libkrb5.so*
   libkrb5support.so*
+  libpcre2-16.so*
+  libpcre2-8.so*
   libmd.so*
   libmd4c.so*
   libmtdev.so*
   libopus.so*
-  libpcre2-16.so*
-  libpcre2-8.so*
   libpng16.so*
-  libssl.so*
-  libwayland-client.so*
   libxcb.so*
   libzstd.so*
+  libwayland-client.so*
   qt5
 "
 

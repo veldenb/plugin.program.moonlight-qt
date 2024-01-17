@@ -62,6 +62,14 @@ msgctxt "#30010"
 msgid "Force to use a specific output on EGL systems like the Raspberry Pi."
 msgstr "Forceer een specifieke video uitvoer op EGL-systemen zoals de Raspberry Pi."
 
+msgctxt "#30011"
+msgid "EGL card"
+msgstr "EGL kaart"
+
+msgctxt "#30012"
+msgid "Force a specific card on EGL systems like the Raspberry Pi 5 (card1) and ODROID-c2 (card0)."
+msgstr "Forceer een specifieke kaart op EGL-systemen zoals de Raspberry Pi 5 (card1) en ODROID-c2 (card0)."
+
 msgctxt "#30021"
 msgid "5.1 Surround ALSA channel mapping"
 msgstr "5.1 Surround ALSA-kanaaltoewijzing"

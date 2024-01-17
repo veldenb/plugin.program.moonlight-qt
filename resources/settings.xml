@@ -17,6 +17,21 @@
         </category>
         <category id="display" label="30005">
             <group id="display_egl" label="30005">
+                <setting id="display_egl_card" type="list[string]"  label="30011" help="30012">
+                    <level>1</level>
+                    <default>-</default>
+                    <constraints>
+                        <options>
+                            <option>-</option>
+                            <!-- It would be better to populate this list from the system itself: /dev/dri/* -->
+                            <option>card0</option>
+                            <option>card1</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string">
+                        <multiselect>false</multiselect>
+                    </control>
+                </setting>
                 <setting id="display_egl_output" type="list[string]"  label="30009" help="30010">
                     <level>1</level>
                     <default>-</default>

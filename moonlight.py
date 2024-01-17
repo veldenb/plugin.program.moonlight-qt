@@ -251,15 +251,18 @@ def display_setup_write_egl_config(addon):
     # Write new config to QT_QPA_EGLFS_KMS_CONFIG file
     kms_config_path = get_addon_data_path('/qt_qpa_eglfs_kms_config.json')
 
+    force_card = addon.getSetting('display_egl_card') or None
     force_output = addon.getSetting('display_egl_output') or None
     force_mode = addon.getSetting('display_egl_resolution') or None
+    if force_card == '-':
+        force_card = None
     if force_output == '-':
         force_output = None
     if not force_output or force_mode == '-':
         force_mode = None
 
-    # Hack for Raspberry Pi 5 devices where card1 needs to be forced
-    force_device = "/dev/dri/card1" if is_raspberry_pi_5() else None
+    # Hack for Raspberry Pi 5 and some ARM-devices where card0 or card1 needs to be forced
+    force_device = '/dev/dri/{}'.format(force_card) if force_card else None
 
     if force_device or force_output:
         kms_config = {}
@@ -374,26 +377,3 @@ def get_kodi_audio_device():
         audio_device[1] = audio_device[1].replace('@:', 'sysdefault:').replace(',DEV=0', '')
 
     return audio_device
-
-
-def get_processor_name():
-    processor_name = ""
-
-    if platform.system() == "Windows":
-        processor_name = platform.processor()
-    elif platform.system() == "Darwin":
-        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
-        command = "sysctl -n machdep.cpu.brand_string"
-        processor_name = check_output(command).strip()
-    elif platform.system() == "Linux":
-        command = "cat /proc/cpuinfo"
-        all_info = check_output(command, shell=True).decode().strip()
-        for line in all_info.split("\n"):
-            if "model name" in line or "Model" in line:
-                processor_name = re.sub(".*(model name|Model).*:", "", line, 1)
-
-    return processor_name.strip()
-
-
-def is_raspberry_pi_5():
-    return get_processor_name().startswith('Raspberry Pi 5')

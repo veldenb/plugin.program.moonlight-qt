@@ -49,6 +49,7 @@ LIB_DEPENDENCIES="
   liblzma.so*
 "
 
+# Dependencies from /usr/lib
 for DEP in $DEPENDENCIES; do
   cp --verbose --no-dereference --recursive /usr/lib/aarch64-linux-gnu/$DEP /tmp/moonlight-qt/lib/
 done

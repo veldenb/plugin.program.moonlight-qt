@@ -18,8 +18,8 @@ done
 # Parse project var remove "-ce" suffix for CoreELEC and convert to lower case
 PLATFORM="$(echo "${LIBREELEC_PROJECT%-ce}" | tr '[:upper:]' '[:lower:]')"
 
-if [ "$LIBREELEC_ARCH" == "RPi4.arm" ]; then
-  # LibreELEC Pi4 runs a aarch64 kernel with arm32v7 libraries
+if [ "$LIBREELEC_ARCH" == "RPi4.arm" ] || [ "$LIBREELEC_ARCH" == "Amlogic-ng.arm" ]; then
+  # Some builds run a aarch64 kernel with arm32v7 libraries
   PLATFORM_ARCH="armhf"
 else
   PLATFORM_ARCH=$(uname -m)

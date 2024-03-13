@@ -16,6 +16,7 @@ At the time of writing the only platform that support's Moonlight on a Raspberry
 
 ## Prerequisites:
 - [Raspberry Pi 4](https://libreelec.tv/raspberry-pi-4/), a [Generic x86_64 device](https://libreelec.tv/downloads_new/generic-pc/) with LibreELEC (Matrix) 10+, Ubuntu (x86_64) or Raspberry Pi OS installed
+- On Raspberry Pi 5, use LibreELEC (Nexus) 11+
 - Device is connected to a local network via ethernet (preferred) or Wi-Fi
 - On LibreELEC 11 Generic the "Legacy Generic PC" version is preferred, see known issues. 
 - Other Linux distributions may also work but are not tested. 
@@ -109,7 +110,7 @@ Try to change the ALSA channel mapping in the plugin settings menu.
 This is a known issue in moonlight-qt, HDR support is still experimental and may be unstable.
 
 ### It doesn't work on my Raspberry Pi 5
-Try to use the nightly LibreELEC 12 builds for the Raspberry Pi 5 and force the EGL card to card1 in the settings menu. 
+For the Raspberry Pi 5, use at least the latest LibreELEC stable release with the latest version of this add-on, and force the EGL card to card1 in the settings menu. 
 
 ### It doesn't work on my Amlogic device
 Amlogic devices don't always work, forcing the EGL card to card0 or card1 in the settings menu might get your device working.

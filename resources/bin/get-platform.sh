@@ -19,6 +19,7 @@ done
 PLATFORM="$(echo "${LIBREELEC_PROJECT%-ce}" | tr '[:upper:]' '[:lower:]')"
 
 if [ "$LIBREELEC_ARCH" == "RPi4.arm" ] \
+  || ([ "$LIBREELEC_ARCH" == "RPi5.arm" ] && [ "$VERSION_ID" == "11.0" ]) \
   || [ "$LIBREELEC_ARCH" == "Amlogic-ng.arm" ] \
   || [ "$LIBREELEC_ARCH" == "AMLGX.arm" ]; then
   # Some builds run a aarch64 kernel with arm32v7 libraries

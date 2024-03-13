@@ -110,7 +110,7 @@ Try to change the ALSA channel mapping in the plugin settings menu.
 This is a known issue in moonlight-qt, HDR support is still experimental and may be unstable.
 
 ### It doesn't work on my Raspberry Pi 5
-For the Raspberry Pi 5, use at least the latest LibreELEC stable release and the latest version of this add-on.
+For the Raspberry Pi 5, use at least the latest LibreELEC stable release with the latest version of this add-on, and force the EGL card to card1 in the settings menu. 
 
 ### It doesn't work on my Amlogic device
 Amlogic devices don't always work, forcing the EGL card to card0 or card1 in the settings menu might get your device working.

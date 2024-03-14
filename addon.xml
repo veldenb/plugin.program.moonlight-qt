@@ -5,7 +5,7 @@
         <import addon="service.system.docker" optional="true" version="9.80.11.133"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>game</provides>
+        <provides>game executable</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Launcher for Moonlight game streaming on LibreELEC Raspberry Pi 4 and Generic x86_64 devices.</summary>

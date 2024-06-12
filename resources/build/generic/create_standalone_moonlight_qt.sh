@@ -84,10 +84,13 @@ LIB_DEPENDENCIES="
 
 APP_IMG_DEPENDENCIES="
   bin/moonlight
-  lib/libav*
   lib/libSDL*
-  lib/libssl.so*
+  lib/libav*
   lib/libcrypto.so*
+  lib/libplacebo.so*
+  lib/libshaderc_shared.so*
+  lib/libssl.so*
+  lib/libvulkan.so*
 "
 
 # Dependencies from /usr/lib

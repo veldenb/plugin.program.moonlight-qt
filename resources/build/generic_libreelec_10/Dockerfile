@@ -30,8 +30,7 @@ RUN apt-get update \
     wget \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
- && DOWNLOAD_URL=$(wget --quiet --header "Accept: application/vnd.github.v3+json" --output-document - https://api.github.com/repos/moonlight-stream/moonlight-qt/releases/latest | grep -o '"browser_download_url": "[^"]*' | grep -o '[^"]*$' | grep ".AppImage") \
- && wget "$DOWNLOAD_URL" -O /tmp/Moonlight-downloaded.AppImage \
+ && wget "https://github.com/moonlight-stream/moonlight-qt/releases/download/v6.0.0/Moonlight-6.0.0-x86_64.AppImage" -O /tmp/Moonlight-downloaded.AppImage \
  && chmod a+x /tmp/Moonlight-downloaded.AppImage
 
 

@@ -22,9 +22,15 @@ then
   then
     ALTERNATIVE_BUILD="_libreelec_10"
   fi
-elif [ "$PLATFORM" = "rpi" ] && [ "$PLATFORM_ARCH" = "aarch64" ]
+elif [ "$PLATFORM" = "rpi" ]
 then
-  ALTERNATIVE_BUILD="_aarch64"
+  if [ "$PLATFORM_DISTRO" = "libreelec" ] && [ "$PLATFORM_DISTRO_RELEASE" = "10.0" ]
+  then
+    ALTERNATIVE_BUILD="_libreelec_10"
+  elif [ "$PLATFORM_ARCH" = "aarch64" ]
+  then
+    ALTERNATIVE_BUILD="_aarch64"
+  fi
 elif [ "$PLATFORM" = "amlogic" ] && [ "$PLATFORM_ARCH" = "aarch64" ]
 then
   ALTERNATIVE_BUILD="_aarch64"

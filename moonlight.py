@@ -132,9 +132,15 @@ def update(addon):
     line_nr = 1
     line = ''
 
+    local_build_script = get_addon_data_path('/build.local.sh')
+    if os.path.exists(local_build_script):
+        build_script = local_build_script
+    else:
+        build_script = get_resource_path('build/build.sh')
+
     cmd = 'ADDON_PROFILE_PATH="{}" bash {} | tee {}'.format(
         get_addon_data_path(),
-        get_resource_path('build/build.sh'),
+        build_script,
         get_addon_data_path('/build.log')
     )
     xbmc.log(f'Launching moonlight-qt update: {cmd}', xbmc.LOGINFO)

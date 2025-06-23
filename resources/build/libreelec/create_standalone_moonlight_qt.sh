@@ -8,6 +8,17 @@ cd "$(dirname "$0")"
 
 mkdir -p /tmp/moonlight-qt/bin/ /tmp/moonlight-qt/lib/
 
+# When found use the app-image
+if [ -f "./Moonlight-downloaded.AppImage" ]; then
+  ./Moonlight-downloaded.AppImage --appimage-extract usr/bin/moonlight
+  ./Moonlight-downloaded.AppImage --appimage-extract usr/lib
+  cp --verbose --no-dereference --recursive squashfs-root/usr/bin/moonlight /tmp/moonlight-qt/bin/moonlight-qt
+  cp --verbose --no-dereference --recursive squashfs-root/usr/lib/* /tmp/moonlight-qt/lib/
+else
+  # Otherwise use APT installed binary
+  cp -v /usr/bin/moonlight-qt /tmp/moonlight-qt/bin/
+fi
+
 # Include dependencies not present in LibreELEC
 USR_DEPENDENCIES="
   libGL.so*
@@ -43,9 +54,11 @@ USR_DEPENDENCIES="
   libmd.so*
   libmd4c.so*
   libmtdev.so*
-  libopus.so.*
+  libopus.so*
   libpcre2-16.so*
+  libpcre2-8.so*
   libpng16.so*
+  libssl.so*
   libva-wayland.so*
   libva-x11.so*
   libvdpau.so*
@@ -82,32 +95,14 @@ LIB_DEPENDENCIES="
   libpcre.so*
 "
 
-APP_IMG_DEPENDENCIES="
-  bin/moonlight
-  lib/libSDL*
-  lib/libav*
-  lib/libcrypto.so*
-  lib/libplacebo.so*
-  lib/libshaderc_shared.so*
-  lib/libssl.so*
-  lib/libvulkan.so*
-"
-
 # Dependencies from /usr/lib
 for DEP in $USR_DEPENDENCIES; do
-  cp --verbose --no-dereference --recursive /usr/lib/x86_64-linux-gnu/$DEP /tmp/moonlight-qt/lib/
+  cp --verbose --no-dereference --recursive /usr/lib/*/$DEP /tmp/moonlight-qt/lib/ || echo "Skipping $DEP..."
 done
 
 # Dependencies from /lib
 for DEP in $LIB_DEPENDENCIES; do
-  cp --verbose --no-dereference --recursive /lib/x86_64-linux-gnu/$DEP /tmp/moonlight-qt/lib/
+  cp --verbose --no-dereference --recursive /lib/*/$DEP /tmp/moonlight-qt/lib/ || echo "Skipping $DEP..."
 done
-
-# Dependencies from app-image
-for DEP in $APP_IMG_DEPENDENCIES; do
-  ./Moonlight-downloaded.AppImage --appimage-extract usr/$DEP
-done
-cp --verbose --no-dereference --recursive squashfs-root/usr/bin/moonlight /tmp/moonlight-qt/bin/moonlight-qt
-cp --verbose --no-dereference --recursive squashfs-root/usr/lib/* /tmp/moonlight-qt/lib/
 
 chown -R --reference=/tmp/moonlight-qt /tmp/moonlight-qt/

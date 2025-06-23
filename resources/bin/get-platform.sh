@@ -8,9 +8,9 @@ set -e
 
 cd "$(dirname "$0")"
 
-for file in /etc/os-release /usr/lib/os-release; do
-  if [ -f $file ]; then
-    source $file
+for OS_RELEASE in /etc/os-release /usr/lib/os-release; do
+  if [ -f "$OS_RELEASE" ]; then
+    source $OS_RELEASE
     break
   fi
 done
@@ -18,28 +18,29 @@ done
 # Parse project var remove "-ce" suffix for CoreELEC and convert to lower case
 PLATFORM="$(echo "${LIBREELEC_PROJECT%-ce}" | tr '[:upper:]' '[:lower:]')"
 
-if [ "$LIBREELEC_ARCH" == "RPi4.arm" ] \
-  || ([ "$LIBREELEC_ARCH" == "RPi5.arm" ] && [ "$VERSION_ID" == "11.0" ]) \
-  || [ "$LIBREELEC_ARCH" == "Amlogic-ng.arm" ] \
-  || [ "$LIBREELEC_ARCH" == "AMLGX.arm" ]; then
+if [ "$LIBREELEC_ARCH" = "RPi4.arm" ] \
+  || { [ "$LIBREELEC_ARCH" = "RPi5.arm" ] && [ "$VERSION_ID" = "11.0" ] ;} \
+  || [ "$LIBREELEC_ARCH" = "Amlogic-ng.arm" ] \
+  || [ "$LIBREELEC_ARCH" = "AMLGX.arm" ]; then
   # Some builds run a aarch64 kernel with arm32v7 libraries
   PLATFORM_ARCH="armhf"
 else
   PLATFORM_ARCH=$(uname -m)
 fi
 
-# If platform is empty try uname
-if [ "$PLATFORM" == "" ]; then
-  PLATFORM="$PLATFORM_ARCH"
-fi
-
-# Figure out distro (libreelec, ubuntu)
+# Figure out distro (libreelec, ubuntu etc)
 PLATFORM_DISTRO="$ID"
 PLATFORM_DISTRO_RELEASE="$VERSION_ID"
 
-if [ -d "../build/$PLATFORM" ]; then
-  echo "Platform $PLATFORM ($PLATFORM_ARCH) running $PLATFORM_DISTRO $PLATFORM_DISTRO_RELEASE detected..."
-else
-  echo "Platform $PLATFORM ($PLATFORM_ARCH) running $PLATFORM_DISTRO $PLATFORM_DISTRO_RELEASE detected, using platform generic..."
-  PLATFORM="generic"
+# If LibreELEC platform is empty try distro
+if [ "$PLATFORM" = "" ]; then
+  PLATFORM="$PLATFORM_DISTRO"
 fi
+
+# Show some details about the current LibreELEC install
+if [ "$LIBREELEC_PROJECT" != "" ]; then
+  echo "LibreELEC project: ${LIBREELEC_PROJECT} version ${VERSION_ID}"
+  echo "LibreELEC arch: ${LIBREELEC_ARCH}"
+fi
+
+echo "Platform $PLATFORM ($PLATFORM_ARCH) running $PLATFORM_DISTRO $PLATFORM_DISTRO_RELEASE detected..."

@@ -26,6 +26,7 @@ USR_DEPENDENCIES="
   libGLdispatch.so*
   libICE.so*
   libQt5*
+  libQt6*
   libSM.so*
   libX11-xcb.so*
   libX11.so*
@@ -84,6 +85,7 @@ USR_DEPENDENCIES="
   libzstd.so*
   vdpau/*
   qt5
+  qt6
 "
 
 LIB_DEPENDENCIES="

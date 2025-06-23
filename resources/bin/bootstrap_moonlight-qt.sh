@@ -43,8 +43,14 @@ if [ -d "$MOONLIGHT_PATH/lib" ]; then
   echo "Using custom libraries from $LIB_PATH..."
   export LD_LIBRARY_PATH=/usr/lib/:$LIB_PATH:$LD_LIBRARY_PATH
 
-  # Setup Qt library locations if present
-  if [ -d "$LIB_PATH/qt5" ]; then
+  if [ -d "$LIB_PATH/qt6" ]; then
+    # Setup Qt6 library locations if present
+    echo "Using Qt library from $LIB_PATH/qt6..."
+    export QML_IMPORT_PATH=$LIB_PATH/qt6/qml/
+    export QML2_IMPORT_PATH=$LIB_PATH/qt6/qml/
+    export QT_QPA_PLATFORM_PLUGIN_PATH=$LIB_PATH/qt6/plugins/
+  elif [ -d "$LIB_PATH/qt5" ]; then
+    # Setup Qt5 library locations if present
     echo "Using Qt library from $LIB_PATH/qt5..."
     export QML_IMPORT_PATH=$LIB_PATH/qt5/qml/
     export QML2_IMPORT_PATH=$LIB_PATH/qt5/qml/

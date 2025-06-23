@@ -18,18 +18,11 @@ done
 # Parse project var remove "-ce" suffix for CoreELEC and convert to lower case
 PLATFORM="$(echo "${LIBREELEC_PROJECT%-ce}" | tr '[:upper:]' '[:lower:]')"
 
-if [ "$LIBREELEC_ARCH" = "RPi4.arm" ] \
-  || { [ "$LIBREELEC_ARCH" = "RPi5.arm" ] && [ "$VERSION_ID" = "11.0" ] ;} \
-  || [ "$LIBREELEC_ARCH" = "Amlogic-ng.arm" ] \
-  || [ "$LIBREELEC_ARCH" = "AMLGX.arm" ]; then
-  # Some builds run a aarch64 kernel with arm32v7 libraries
-  PLATFORM_ARCH="armv7l"
-else
-  PLATFORM_ARCH=$(uname -m)
-fi
+# Lookup architecture
+PLATFORM_ARCH=$(uname -m)
 
-# Older kernels report 32-bit ARM as armhf
-if [ "$PLATFORM_ARCH" = "armhf" ]; then
+# Older kernels report 32-bit ARM as armhf and LibreELEC 11 64-bit ARM -kernels are using 32-bit userspace
+if [ "$PLATFORM_ARCH" = "armhf" ] || { [ "$VERSION_ID" = "11.0" ] && [ "$PLATFORM_ARCH" = "aarch64" ] ;}; then
   PLATFORM_ARCH="armv7l"
 fi
 

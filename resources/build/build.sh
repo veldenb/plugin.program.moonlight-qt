@@ -11,7 +11,7 @@ BUILD_SYSTEM="$PLATFORM_DISTRO"
 if [ "$PLATFORM_DISTRO" = "coreelec" ]; then
   # CoreELEC works mostly the same as LibreELEC
   BUILD_SYSTEM="libreelec"
-elif { [ "$PLATFORM_DISTRO" = "debian" ] || [ "$PLATFORM_DISTRO" = "osmc" ] || [ "$PLATFORM_DISTRO" = "raspbian" ]; } && { [ "$PLATFORM_ARCH" = "armhf" ] || [ "$PLATFORM_ARCH" = "aarch64" ] ;}; then
+elif { [ "$PLATFORM_DISTRO" = "debian" ] || [ "$PLATFORM_DISTRO" = "osmc" ] || [ "$PLATFORM_DISTRO" = "raspbian" ]; } && { [ "$PLATFORM_ARCH" = "armv7l" ] || [ "$PLATFORM_ARCH" = "aarch64" ] ;}; then
   # Only ARM-builds are available through APT
   BUILD_SYSTEM="debian"
 elif [ "$PLATFORM_DISTRO" != "libreelec" ] && [ "$PLATFORM_ARCH" = "x86_64" ]; then

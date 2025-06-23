@@ -3,7 +3,7 @@
 set -e
 
 # Figure out which build is needed based on LibreELEC platform data
-if [ "$PLATFORM_ARCH" = "armhf" ]; then
+if [ "$PLATFORM_ARCH" = "armv7l" ]; then
   BUILD_FLAVOR="arm"
   BUILD_ARCH="arm"
 elif [ "$PLATFORM_ARCH" = "aarch64" ]; then

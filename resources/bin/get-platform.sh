@@ -23,9 +23,14 @@ if [ "$LIBREELEC_ARCH" = "RPi4.arm" ] \
   || [ "$LIBREELEC_ARCH" = "Amlogic-ng.arm" ] \
   || [ "$LIBREELEC_ARCH" = "AMLGX.arm" ]; then
   # Some builds run a aarch64 kernel with arm32v7 libraries
-  PLATFORM_ARCH="armhf"
+  PLATFORM_ARCH="armv7l"
 else
   PLATFORM_ARCH=$(uname -m)
+fi
+
+# Older kernels report 32-bit ARM as armhf
+if [ "$PLATFORM_ARCH" = "armhf" ]; then
+  PLATFORM_ARCH="armv7l"
 fi
 
 # Figure out distro (libreelec, ubuntu etc)

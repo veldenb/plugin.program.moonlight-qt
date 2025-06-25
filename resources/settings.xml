@@ -26,6 +26,7 @@
                             <!-- It would be better to populate this list from the system itself: /dev/dri/* -->
                             <option>card0</option>
                             <option>card1</option>
+                            <option>card2</option>
                         </options>
                     </constraints>
                     <control type="list" format="string">
@@ -57,6 +58,7 @@
                             <option>LVDS2</option>
                             <option>VGA1</option>
                             <option>VGA2</option>
+                            <option>Composite-1</option>
                         </options>
                     </constraints>
                     <control type="list" format="string">
@@ -69,6 +71,7 @@
                     <constraints>
                         <options>
                             <option>-</option>
+                            <option>720x576</option>
                             <option>1280x720</option>
                             <option>1920x1080</option>
                             <option>2560x1440</option>

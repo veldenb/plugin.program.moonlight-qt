@@ -92,6 +92,38 @@ This support is still experimental. The plugin installs Moonlight-qt with APT di
 ### Generic x86_64
 Somewhat the same as the Pi 4 build but based on an AppImage Moonlight build. Extra libraries are injected into the AppImage.
 
+## Custom hook scripts
+
+The add-on can be customized with some hook scripts.  
+`$KODI_DATA_DIR` mentioned below is the [Kodi data folder](https://kodi.wiki/view/Kodi_data_folder) which is platform-dependent.
+
+All hooks can use the following environment variables:
+
+* `ADDON_PROFILE_PATH`: `$KODI_DATA_DIR/userdata/addon_data/plugin.program.moonlight-qt`
+
+The default scripts have sane defaults and best practices implemented already (e.g. system configuration checks, directory creation, etc.),
+so it is recommended to use them as a starting point and modify them as needed.
+
+### Moonlight build script
+
+This hook script is invoked at the Moonlight build stage, instead of the platform-dependent script.
+It can be used in unsupported systems or for custom build/install methods.
+
+Location of hook script: `$KODI_DATA_DIR/userdata/addon_data/plugin.program.moonlight-qt/build.local.sh`
+
+The script needs not to be executable and will be executed using bash.
+
+### Moonlight start script
+
+This hook script is invoked when starting Moonlight, instead of the default script.
+It can be used if you need to set environment variables for Moonlight or for some other custom requirements.  
+This script must start Moonlight itself and **must block until Moonlight quits**. Command line parameters for
+Moonlight will be passed to the hook script and must be forwarded to Moonlight (e.g. using `"$@"`).
+
+Location of hook script: `$KODI_DATA_DIR/userdata/addon_data/plugin.program.moonlight-qt/bootstrap_moonlight-qt.local.sh`
+
+The script needs not to be executable and will be executed using bash.
+
 ## Known problems
 ### Hardware acceleration on LibreELEC 11 Generic x86_64 doesn't work
 LibreELEC supplies two builds for Generic x86_64:

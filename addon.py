@@ -1,5 +1,6 @@
 import configparser
 import moonlight
+import re
 import sys
 import urllib.parse
 import xbmc
@@ -126,18 +127,46 @@ def show_moonlight(handle):
     })
     xbmcplugin.addDirectoryItem(handle, url, li)
 
+def get_groups(hosts, host_id):
+    host = hosts[host_id]
+    groups = []
+    if 'apps' in host:
+        for app_id, app in host['apps'].items():
+            if 'name' in app:
+                match = re.match("^\{(.*)\}", app.get('name'))
+                if match:
+                    group = match.group(1)
+                    if group not in groups:
+                        groups.append(group)
+    return groups
 
-def show_games(handle, hosts, host_id):
+def show_groups(handle, host_id, groups):
+    # Show groups for host
+    for group in groups:
+        url = build_url({'mode': 'host', 'host_id': host_id, 'group': group})
+        li = xbmcgui.ListItem(group)
+        xbmcplugin.addDirectoryItem(handle, url, li, isFolder=True)
+
+def show_games(handle, hosts, host_id, groups, group):
     # Show games for host
     host = hosts[host_id]
 
     if 'apps' in host:
         for app_id, app in host['apps'].items():
             if 'name' in app:
-                url = build_url({'mode': 'launch', 'host_id': host_id, 'game_id': app_id})
+                if group is not None and group in groups:
+                    match = re.match("^\{(.*)\}(.*)", app.get('name'))
+                    if match is None or match.group(1) != group:
+                        continue
+                    name = match.group(2).strip()
+                else:
+                    name = app.get('name')
+
+                url_dict = {'mode': 'launch', 'host_id': host_id, 'game_id': app_id}
+                url = build_url(url_dict)
                 boxart = get_boxart_path(host, app)
                 li = xbmcgui.ListItem()
-                li.setLabel(app.get('name'))
+                li.setLabel(name)
                 li.setArt({
                     'thumb': boxart,
                     'poster': boxart
@@ -145,7 +174,7 @@ def show_games(handle, hosts, host_id):
                 xbmcplugin.addDirectoryItem(handle, url, li)
 
 
-def show_gui(handle, mode, host_id, game_id):
+def show_gui(handle, mode, host_id, group, game_id):
     # Get hosts from moonlight config
     hosts = get_moonlight_config().get('hosts')
 
@@ -155,7 +184,13 @@ def show_gui(handle, mode, host_id, game_id):
             # If there is only one host and a size-item then show the games immediately
             if len(hosts) == 2:
                 host_id = list(hosts.keys())[0]
-                show_games(handle, hosts, host_id)
+                groups = get_groups(hosts, host_id)
+                if len(groups) > 0 and group is None:
+                    # Show groups
+                    show_groups(handle, host_id, groups)
+                else:
+                    # Show games
+                    show_games(handle, hosts, host_id, groups, group)
             else:
                 show_hosts(handle, hosts)
 
@@ -166,11 +201,19 @@ def show_gui(handle, mode, host_id, game_id):
         xbmcplugin.endOfDirectory(handle)
 
     elif mode == 'host' and host_id in hosts:
-        # Show games
-        show_games(handle, hosts, host_id)
 
-        # Always show Moonlight
-        show_moonlight(handle)
+        # Retrieve groups
+        groups = get_groups(hosts, host_id)
+
+        if len(groups) > 0 and group is None:
+            # Show groups
+            show_groups(handle, host_id, groups)
+            show_moonlight(handle)
+        else:
+            # Show games
+            show_games(handle, hosts, host_id, groups, group)
+            if len(groups) == 0:
+                show_moonlight(handle)
 
         # Finish list
         xbmcplugin.endOfDirectory(handle)
@@ -202,37 +245,42 @@ def show_gui(handle, mode, host_id, game_id):
     else:
         xbmc.log('Unknown GUI mode: {}'.format(mode), xbmc.LOGDEBUG)
 
+if __name__ == '__main__':
 
-# Arguments
-base_url = sys.argv[0]
-addon_handle = int(sys.argv[1])
-args = urllib.parse.parse_qs(sys.argv[2][1:])
+    # Arguments
+    base_url = sys.argv[0]
+    addon_handle = int(sys.argv[1])
+    args = urllib.parse.parse_qs(sys.argv[2][1:])
 
-# Configure addon
-addon = xbmcaddon.Addon()
-if addon_handle != -1:
-    xbmcplugin.setContent(addon_handle, 'games')
+    # Configure addon
+    addon = xbmcaddon.Addon()
+    if addon_handle != -1:
+        xbmcplugin.setContent(addon_handle, 'games')
 
-# Debug stuff
-# See https://kodi.wiki/view/Audio-video_add-on_tutorial
-# xbmc.log(sys.argv.__str__(), xbmc.LOGDEBUG)
-# xbmc.log(args.__str__(), xbmc.LOGDEBUG)
-# xbmc.log('CONFIG: ' + moonlight_config.__str__(), level=xbmc.LOGDEBUG)
+    # Debug stuff
+    # See https://kodi.wiki/view/Audio-video_add-on_tutorial
+    # xbmc.log(sys.argv.__str__(), xbmc.LOGDEBUG)
+    # xbmc.log(args.__str__(), xbmc.LOGDEBUG)
+    # xbmc.log('CONFIG: ' + moonlight_config.__str__(), level=xbmc.LOGDEBUG)
 
-page_mode = args.get('mode', None)
-if page_mode is not None:
-    page_mode = page_mode[0]
+    page_mode = args.get('mode', None)
+    if page_mode is not None:
+        page_mode = page_mode[0]
 
-page_host_id = args.get('host_id', None)
-if page_host_id is not None:
-    page_host_id = page_host_id[0]
+    page_host_id = args.get('host_id', None)
+    if page_host_id is not None:
+        page_host_id = page_host_id[0]
 
-page_game_id = args.get('game_id', None)
-if page_game_id is not None:
-    page_game_id = page_game_id[0]
+    page_group = args.get('group', None)
+    if page_group is not None:
+        page_group = page_group[0]
 
-# Show GUI
-show_gui(addon_handle, page_mode, page_host_id, page_game_id)
+    page_game_id = args.get('game_id', None)
+    if page_game_id is not None:
+        page_game_id = page_game_id[0]
+
+    # Show GUI
+    show_gui(addon_handle, page_mode, page_host_id, page_group, page_game_id)
 
 # Parsed config example
 # example_moonlight_config = {

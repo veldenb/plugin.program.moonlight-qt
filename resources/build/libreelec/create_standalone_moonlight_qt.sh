@@ -100,6 +100,7 @@ USR_DEPENDENCIES="
   libsnappy.so*
   libsoxr.so*
   libssl.so*
+  libswresample.so*
   libswscale.so*
   libthai.so*
   libtheoradec.so*

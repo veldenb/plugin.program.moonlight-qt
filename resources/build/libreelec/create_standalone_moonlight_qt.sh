@@ -84,6 +84,7 @@ USR_DEPENDENCIES="
   libmd4c.so*
   libmp3lame.so*
   libmtdev.so*
+  libnuma.so*
   libogg.so*
   libopenjp2.so*
   libopus.so*

@@ -23,6 +23,7 @@ fi
 USR_DEPENDENCIES="
   libEGL.so*
   libGL.so*
+  libGLESv2.so*
   libGLX.so*
   libGLdispatch.so*
   libICE.so*

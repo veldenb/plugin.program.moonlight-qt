@@ -9,6 +9,7 @@ RUN apt-get update \
     libfuse2 \
     libgl1 \
     libgl1-mesa-dri \
+    libgles2 \
     libgudev-1.0-0 \
     libinput10 \
     libqt5core5a \

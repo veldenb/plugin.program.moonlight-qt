@@ -3,7 +3,10 @@
 # Re-mapping 5.1 channels for Moonlight-qt
 pcm.!surround51 {
   type route
-  slave.pcm "%device%"
+  slave {
+    pcm "%surround_device%"
+    channels 6
+  }
   ttable {
     0.%alsa_surround_51_0%= 1
     1.%alsa_surround_51_1%= 1
@@ -17,7 +20,10 @@ pcm.!surround51 {
 # Re-mapping 7.1 channels for Moonlight-qt
 pcm.!surround71 {
   type route
-  slave.pcm "%device%"
+  slave {
+    pcm "%surround_device%"
+    channels 8
+  }
   ttable {
     0.%alsa_surround_71_0%= 1
     1.%alsa_surround_71_1%= 1

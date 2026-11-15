@@ -324,8 +324,9 @@ def speaker_setup_write_alsa_config(addon):
     else:
         template = template.replace('%default_device%', 'pcm.!default "{}"'.format(device_name))
 
-    # Set the device
-    template = template.replace('%device%', device_name)
+    # sysdefault mixes down to stereo on some cards (e.g. USB), so surround uses the hardware directly
+    surround_device_name = re.sub('^sysdefault:', 'plughw:', device_name)
+    template = template.replace('%surround_device%', surround_device_name)
 
     for speakers in [6, 8]:
         for speaker in range(speakers):

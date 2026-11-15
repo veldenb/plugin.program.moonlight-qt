@@ -12,6 +12,8 @@ mkdir -p /tmp/moonlight-qt/bin/ /tmp/moonlight-qt/lib/
 if [ -f "./Moonlight-downloaded.AppImage" ]; then
   ./Moonlight-downloaded.AppImage --appimage-extract usr/bin/moonlight
   ./Moonlight-downloaded.AppImage --appimage-extract usr/lib
+  # Qt comes from Debian, drop the AppImage's own Qt libraries
+  rm -f squashfs-root/usr/lib/libQt6*
   cp --verbose --no-dereference --recursive squashfs-root/usr/bin/moonlight /tmp/moonlight-qt/bin/moonlight-qt
   cp --verbose --no-dereference --recursive squashfs-root/usr/lib/* /tmp/moonlight-qt/lib/
 else

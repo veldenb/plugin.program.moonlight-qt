@@ -12,12 +12,14 @@ RUN apt-get update \
     libgles2 \
     libgudev-1.0-0 \
     libinput10 \
-    libqt5core5a \
-    libqt5gui5 \
-    libqt5network5 \
-    libqt5qml5 \
-    libqt5quickcontrols2-5 \
-    libqt5svg5 \
+    libqt6core6 \
+    libqt6gui6 \
+    libqt6network6 \
+    libqt6opengl6 \
+    libqt6qml6 \
+    libqt6quick6 \
+    libqt6quickcontrols2-6 \
+    libqt6svg6 \
     libsm6 \
     libva-wayland2 \
     libvdpau-va-gl1 \
@@ -25,10 +27,12 @@ RUN apt-get update \
     libxcb-cursor0 \
     libxcursor1 \
     libxi6 \
-    qml-module-qtquick-controls2 \
-    qml-module-qtquick-layouts \
-    qml-module-qtquick-window2 \
-    qml-module-qtquick2 \
+    qml6-module-qtqml-workerscript \
+    qml6-module-qtquick \
+    qml6-module-qtquick-controls \
+    qml6-module-qtquick-layouts \
+    qml6-module-qtquick-templates \
+    qml6-module-qtquick-window \
     wget \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \

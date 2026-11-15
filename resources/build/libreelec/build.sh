@@ -43,11 +43,7 @@ docker build --file "./Dockerfile.${BUILD_FLAVOR}" --compress --tag moonlight-qt
 
 # Run and get files
 mkdir -p "$LOCAL_PATH"
-docker create --name moonlight-qt moonlight-qt
-docker run --volume "$LOCAL_PATH":/tmp/moonlight-qt moonlight-qt
+docker run --rm --name moonlight-qt --volume "$LOCAL_PATH":/tmp/moonlight-qt moonlight-qt
 
 # Clean up
-docker rm --force moonlight-qt &> /dev/null || true
 docker rmi --force moonlight-qt &> /dev/null || true
-docker container prune --force
-docker image prune --force

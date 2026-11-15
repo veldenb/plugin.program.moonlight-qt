@@ -54,14 +54,26 @@ def launch(addon, hostname=None, game_name=None):
         if len(kodi_audio_device) == 2:
             service, device_name = kodi_audio_device
 
+        xbmc.log(
+            f'Kodi audio device resolved to service={service}, device={device_name}',
+            xbmc.LOGINFO,
+        )
+
         if service == 'ALSA':
             # Disable PulseAudio output by using a Moonlight environment variable
             systemd_args.append('--setenv=PULSE_SERVER="none"')
             systemd_args.append('--setenv=SDL_AUDIODRIVER="alsa"')
             speaker_setup_write_alsa_config(addon)
         elif service == 'PULSE':
-            # Tell pulse to use a specific device configured in Kodi
-            systemd_args.append(f'--setenv=PULSE_SINK="{device_name}"')
+            # Only set PULSE_SINK if the device is not the default device, otherwise leave it unset to use the default device
+            normalized_device_name = device_name.strip().lower()
+            if not normalized_device_name.startswith('default') and normalized_device_name:
+                systemd_args.append(f'--setenv=PULSE_SINK="{device_name}"')
+            else:
+                xbmc.log(
+                    'PulseAudio device is Kodi Default; leaving PULSE_SINK unset',
+                    xbmc.LOGINFO,
+                )
         elif service != 'Default':
             # Raise a warning when ALSA and PULSE are not detected
             raise RuntimeError(f'Audio service {service} not supported')

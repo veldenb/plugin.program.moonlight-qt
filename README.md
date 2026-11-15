@@ -1,4 +1,4 @@
-# Kodi 19+ Moonlight launcher for the Raspberry Pi 4 and Generic x86_64 systems
+# Kodi 20+ Moonlight launcher for the Raspberry Pi 4 and Generic x86_64 systems
 A launcher and updater for running Moonlight on Raspberry Pi 4 systems with LibreELEC/Raspberry Pi OS and Generic x86_64 systems running LibreELEC or Ubuntu.
 
 ## Background:
@@ -15,7 +15,7 @@ https://github.com/moonlight-stream/moonlight-qt
 At the time of writing the only platform that support's Moonlight on a Raspberry Pi 4 without a running X-server seems to be Moonlight-qt. 
 
 ## Prerequisites:
-- [Raspberry Pi 4](https://libreelec.tv/raspberry-pi-4/), a [Generic x86_64 device](https://libreelec.tv/downloads_new/generic-pc/) with LibreELEC (Matrix) 10+, Ubuntu (x86_64) or Raspberry Pi OS installed
+- [Raspberry Pi 4](https://libreelec.tv/raspberry-pi-4/), a [Generic x86_64 device](https://libreelec.tv/downloads_new/generic-pc/) with LibreELEC (Nexus) 11+, Ubuntu 22.04+ (x86_64) or Raspberry Pi OS installed
 - On Raspberry Pi 5, use LibreELEC (Nexus) 11+
 - Device is connected to a local network via ethernet (preferred) or Wi-Fi
 - On LibreELEC 11 Generic the "Legacy Generic PC" version is preferred, see known issues. 
@@ -81,7 +81,7 @@ The plugin will update Moonlight and will notify you when it's finished.
 
 ## What magic is happening in the background when installing and updating?
 ### Raspberry 4 on LibreELEC
-Essentially the plugin uses Docker to download Debian Buster and install Moonlight by automating the command's given on this page: \
+Essentially the plugin uses Docker to download Debian Bookworm and install Moonlight by automating the command's given on this page: \
 https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Raspberry-Pi-4 \
 When that installation procedure has finished the plugin copies the needed executables and libraries from the Docker container and then destroys the container.
 The plugin can use the copied files to launch Moonlight from Kodi without the extra overhead from Docker. 

@@ -28,12 +28,6 @@ else
   echo "Building ${PLATFORM_ARCH} with ${BUILD_FLAVOR} using arch ${BUILD_ARCH}..."
 fi
 
-# Use older Debian releases for older LibreELEC versions
-if [ "${PLATFORM_DISTRO_RELEASE%%.*}" -le 10 ]; then
-  # Use Debian bullseye on LibreELEC 10 and lower
-  BUILD_ARG="--build-arg DEBIAN_RELEASE=bullseye"
-fi
-
 # Clean up
 docker rm --force moonlight-qt &> /dev/null || true
 docker rmi --force moonlight-qt &> /dev/null || true

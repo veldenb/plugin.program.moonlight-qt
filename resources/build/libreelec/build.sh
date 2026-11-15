@@ -39,7 +39,7 @@ docker rm --force moonlight-qt &> /dev/null || true
 docker rmi --force moonlight-qt &> /dev/null || true
 
 # Build
-docker build --file "./Dockerfile.${BUILD_FLAVOR}" --compress --tag moonlight-qt --platform "linux/${BUILD_ARCH}" $BUILD_ARG .
+docker build --pull --file "./Dockerfile.${BUILD_FLAVOR}" --compress --tag moonlight-qt --platform "linux/${BUILD_ARCH}" .
 
 # Run and get files
 mkdir -p "$LOCAL_PATH"

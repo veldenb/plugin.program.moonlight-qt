@@ -15,6 +15,10 @@ elif [ "$PLATFORM_ARCH" = "aarch64" ]; then
 elif [ "$PLATFORM_ARCH" = "x86_64" ]; then
   BUILD_FLAVOR="amd64"
   BUILD_ARCH="amd64"
+  # Without X11 (non-legacy Generic) VAAPI needs libva-drm, which the AppImage lacks, so Moonlight is built from source
+  if [ "$LIBREELEC_DEVICE" = "Generic" ]; then
+    BUILD_FLAVOR="amd64-gbm"
+  fi
 fi
 
 # Use specific platform for Raspberry Pi builds, override the default ARM flavor

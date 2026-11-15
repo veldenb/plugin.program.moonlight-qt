@@ -1,0 +1,96 @@
+# Use latest compatible Debian version
+ARG DEBIAN_RELEASE=bookworm
+
+# Build Moonlight-qt from source: the official AppImage lacks libva-drm, so VAAPI can't be used without X11 (GBM builds)
+FROM debian:${DEBIAN_RELEASE}-slim
+
+# Install the build dependencies and the runtime libraries, create_standalone_moonlight_qt.sh copies the latter next to
+# the binary
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    build-essential \
+    ca-certificates \
+    git \
+    libavcodec-dev \
+    libavformat-dev \
+    libavutil-dev \
+    libdrm-dev \
+    libegl1-mesa-dev \
+    libgbm-dev \
+    libgl1-mesa-dev \
+    libgles2-mesa-dev \
+    libopus-dev \
+    libqt6svg6-dev \
+    libsdl2-dev \
+    libsdl2-ttf-dev \
+    libssl-dev \
+    libswscale-dev \
+    libva-dev \
+    libvdpau-dev \
+    libwayland-dev \
+    libxkbcommon-dev \
+    pkg-config \
+    qmake6 \
+    qt6-base-dev \
+    qt6-declarative-dev \
+    wayland-protocols \
+    wget \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    libatomic1 \
+    libavcodec59 \
+    libavutil57 \
+    libdrm2 \
+    libegl1 \
+    libgl1 \
+    libgl1-mesa-dri \
+    libgles2 \
+    libgudev-1.0-0 \
+    libinput10 \
+    libopengl0 \
+    libopus0 \
+    libqt6core6 \
+    libqt6gui6 \
+    libqt6network6 \
+    libqt6opengl6 \
+    libqt6qml6 \
+    libqt6quick6 \
+    libqt6quickcontrols2-6 \
+    libqt6svg6 \
+    libsdl2-2.0-0 \
+    libsdl2-ttf-2.0-0 \
+    libsm6 \
+    libssl3 \
+    libswscale6 \
+    libva-drm2 \
+    libva-wayland2 \
+    libva-x11-2 \
+    libva2 \
+    libvdpau-va-gl1 \
+    libvdpau1 \
+    libxcb-cursor0 \
+    libxcursor1 \
+    libxi6 \
+    qml6-module-qtqml-workerscript \
+    qml6-module-qtquick \
+    qml6-module-qtquick-controls \
+    qml6-module-qtquick-layouts \
+    qml6-module-qtquick-templates \
+    qml6-module-qtquick-window \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# Build the latest release. libGLESv2 is linked before Qt's libOpenGL (glvnd): LibreELEC's EGL isn't glvnd, so GL calls
+# through libOpenGL would go nowhere and the EGL renderer fails ("Can't create shader")
+RUN TAG=$(wget --quiet --header "Accept: application/vnd.github.v3+json" --output-document - https://api.github.com/repos/moonlight-stream/moonlight-qt/releases/latest | grep -o '"tag_name": "[^"]*' | grep -o '[^"]*$') \
+ && git clone --depth 1 --branch "${TAG}" --recurse-submodules --shallow-submodules https://github.com/moonlight-stream/moonlight-qt.git /src \
+ && cd /src \
+ && qmake6 moonlight-qt.pro CONFIG+=release -after "LIBS+=-lGLESv2" \
+ && make -j"$(nproc)" \
+ && cp app/moonlight /usr/bin/moonlight-qt \
+ && rm -rf /src
+
+# Script to copy the needed libraries
+COPY create_standalone_moonlight_qt.sh /tmp/
+RUN chmod a+x /tmp/create_standalone_moonlight_qt.sh
+
+ENTRYPOINT [ "/tmp/create_standalone_moonlight_qt.sh" ]

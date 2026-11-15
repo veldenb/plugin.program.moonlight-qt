@@ -89,7 +89,9 @@ The plugin can use the copied files to launch Moonlight from Kodi without the ex
 This support is still experimental. The plugin installs Moonlight-qt with APT directly onto the system, Docker is not used in this setup. 
 
 ### Generic x86_64
-Somewhat the same as the Pi 4 build but based on an AppImage Moonlight build. Extra libraries are injected into the AppImage.
+Somewhat the same as the Pi 4 build, the build depends on the LibreELEC version:
+- _Legacy Generic PC_ (X11): based on the official AppImage Moonlight build, with the Qt libraries taken from Debian.
+- _Generic PC_ (GBM, experimental!): Moonlight is built from source on Debian, because the AppImage lacks libva-drm which is needed for VAAPI hardware decoding without X11.
 
 ## Custom hook scripts (optional)
 

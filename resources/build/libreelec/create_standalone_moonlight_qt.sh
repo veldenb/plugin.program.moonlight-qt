@@ -12,8 +12,8 @@ mkdir -p /tmp/moonlight-qt/bin/ /tmp/moonlight-qt/lib/
 if [ -f "./Moonlight-downloaded.AppImage" ]; then
   ./Moonlight-downloaded.AppImage --appimage-extract usr/bin/moonlight
   ./Moonlight-downloaded.AppImage --appimage-extract usr/lib
-  # Qt comes from Debian, drop the AppImage's own Qt libraries
-  rm -f squashfs-root/usr/lib/libQt6*
+  # Qt comes from Debian, drop the AppImage's own Qt and ICU libraries
+  rm -f squashfs-root/usr/lib/libQt6* squashfs-root/usr/lib/libicu*
   cp --verbose --no-dereference --recursive squashfs-root/usr/bin/moonlight /tmp/moonlight-qt/bin/moonlight-qt
   cp --verbose --no-dereference --recursive squashfs-root/usr/lib/* /tmp/moonlight-qt/lib/
 else
@@ -33,6 +33,8 @@ USR_DEPENDENCIES="
   libOpenGL.so*
   libQt5*
   libQt6*
+  libSDL2-2.0.so*
+  libSDL2_ttf-2.0.so*
   libSM.so*
   libSvtAv1Enc.so*
   libX11-xcb.so*
@@ -43,7 +45,9 @@ USR_DEPENDENCIES="
   libXext.so*
   libXfixes.so*
   libXi.so*
+  libXrandr.so*
   libXrender.so*
+  libXss.so*
   libaom.so*
   libatomic.so*
   libavcodec.so*
@@ -58,6 +62,7 @@ USR_DEPENDENCIES="
   libcrypto.so*
   libdatrie.so*
   libdav1d.so*
+  libdecor-0.so*
   libdouble-conversion.so*
   libffi.so*
   libfribidi.so*
@@ -85,6 +90,7 @@ USR_DEPENDENCIES="
   liblzma.so*
   libmd.so*
   libmd4c.so*
+  libmfx.so*
   libmp3lame.so*
   libmtdev.so*
   libnuma.so*
@@ -100,6 +106,7 @@ USR_DEPENDENCIES="
   libproxy.so*
   librav1e.so*
   librsvg-2.so*
+  libsamplerate.so*
   libshine.so*
   libsnappy.so*
   libsoxr.so*
@@ -120,6 +127,8 @@ USR_DEPENDENCIES="
   libvorbisenc.so*
   libvpx.so*
   libwayland-client.so*
+  libwayland-cursor.so*
+  libwayland-egl.so*
   libwebp.so*
   libwebpmux.so*
   libx264.so*

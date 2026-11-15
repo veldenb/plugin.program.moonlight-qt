@@ -22,6 +22,7 @@ RUN apt-get update \
     libqt6svg6 \
     libsm6 \
     libva-wayland2 \
+    libva-x11-2 \
     libvdpau-va-gl1 \
     libvdpau1 \
     libxcb-cursor0 \

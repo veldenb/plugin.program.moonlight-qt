@@ -2,6 +2,9 @@
 
 set -e
 
+# Kodi only picks up the PATH of the Docker add-on after a restart, add it so building works right after installing Docker
+export PATH="$PATH:/storage/.kodi/addons/service.system.docker/bin"
+
 # Figure out which build is needed based on LibreELEC platform data
 if [ "$PLATFORM_ARCH" = "armv7l" ]; then
   BUILD_FLAVOR="arm"

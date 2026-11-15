@@ -36,7 +36,6 @@ Raspberry Pi 3 works (limited support up to 720p) but needs changes to LibreELEC
 ### 1. Install this plugin.
 - Download [plugin.program.moonlight-qt.zip](https://github.com/veldenb/plugin.program.moonlight-qt/releases/latest/) and store it on your Kodi device.
 - In Kodi install Docker from the LibreELEC repository: Add-ons / Install from repository / LibreELEC Add-ons / Services / Docker _**(skip this on Ubuntu and Raspberry Pi OS)**_
-- Reboot LibreELEC to ensure Docker works _**(skip this on Ubuntu and Raspberry Pi OS)**_
 - Go to Add-ons / Install from zip file
 - Select plugin.program.moonlight-qt.zip
 
